@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>迁移工具 · localStorage → 静态文件</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Noto Serif SC', serif;
+    background: linear-gradient(135deg, #fdf6f7 0%, #f7e3df 100%);
+    color: #3a2730;
+    padding: 32px 16px;
+    margin: 0;
+    min-height: 100vh;
+  }
+  .container { max-width: 880px; margin: 0 auto; }
+  h1 { font-size: 28px; color: #c97b8e; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px dashed rgba(183, 132, 138, 0.3); }
+  .sub { color: #8b6470; font-size: 13px; margin-bottom: 24px; }
+  .panel {
+    background: white;
+    border: 1px solid rgba(229, 132, 155, 0.25);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(183, 132, 138, 0.06);
+  }
+  .row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(229, 132, 155, 0.12); gap: 12px; flex-wrap: wrap; }
+  .row:last-child { border-bottom: none; }
+  .key { font-family: 'JetBrains Mono', Consolas, monospace; font-size: 13px; color: #c97b8e; }
+  .meta { font-size: 12px; color: #8b6470; }
+  button, .btn {
+    background: #e5849f; color: white; border: none; border-radius: 999px;
+    padding: 8px 18px; font-size: 13px; cursor: pointer;
+    font-family: inherit; transition: all 200ms ease;
+  }
+  button:hover, .btn:hover { background: #c97b8e; transform: translateY(-1px); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  button.ghost { background: rgba(229, 132, 155, 0.12); color: #c97b8e; }
+  button.ghost:hover { background: rgba(229, 132, 155, 0.2); }
+  pre {
+    background: #fdf6f7; border: 1px solid rgba(229, 132, 155, 0.2);
+    border-radius: 8px; padding: 12px;
+    font-size: 11.5px; line-height: 1.6;
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    max-height: 280px; overflow: auto; white-space: pre-wrap; word-break: break-all;
+    color: #3a2730;
+  }
+  .pill { display: inline-block; padding: 2px 10px; background: rgba(229, 132, 155, 0.15); color: #c97b8e; border-radius: 999px; font-size: 11px; margin-left: 8px; }
+  .ok { color: #6f9b6e; }
+  .err { color: #c44; }
+  .empty { color: #8b6470; font-style: italic; font-size: 13px; padding: 8px 0; }
+  .thumb {
+    width: 56px; height: 56px; border-radius: 8px;
+    background-size: cover; background-position: center;
+    border: 1px solid rgba(229, 132, 155, 0.2); flex-shrink: 0;
+  }
+  .note { background: rgba(229, 132, 155, 0.08); border-left: 3px solid #e5849f; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; line-height: 1.7; color: #5a3d48; }
+  details summary { cursor: pointer; padding: 8px 0; font-weight: 500; }
+  details[open] summary { color: #c97b8e; }
+  .stat { display: inline-block; padding: 4px 12px; background: rgba(229, 132, 155, 0.1); border-radius: 6px; font-size: 12px; margin-right: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🌸 迁移工具 · localStorage → 静态文件</h1>
+  <p class="sub">在 <code>file:///C:/Users/.../index.html</code> 这个 origin 里跑一次，自动把照片下载成 JPG、把日志导出成 data.js。</p>
+
+  <div class="panel">
+    <h2>① 扫一下当前 localStorage 有什么</h2>
+    <button id="scanBtn">🔍 扫描</button>
+    <span id="scanStat" class="meta" style="margin-left:12px"></span>
+    <div id="scanResult"></div>
+  </div>
+
+  <div class="panel">
+    <h2>② 下载照片 <span class="pill">JPG 文件</span></h2>
+    <p class="sub">每张会按 `photos/index-{N}.jpg` / `photos/couple-{N}.jpg` 命名下载。把它们存到 HTML 同目录下对应的 <code>photos/</code> 文件夹。</p>
+    <div id="photoActions"></div>
+    <div id="photoList"></div>
+  </div>
+
+  <div class="panel">
+    <h2>③ 导出日志 <span class="pill">data.js</span></h2>
+    <p class="sub">把日志/文章/朋友介绍合并到一个 data.js，HTML 直接加载。</p>
+    <div id="logActions"></div>
+    <div id="logList"></div>
+  </div>
+
+  <div class="panel">
+    <h2>④ 整包打包下载（最省事）</h2>
+    <div class="note">
+      这一步会把所有照片和 data.js 一次性下载下来。你需要：
+      <li>把照片文件存到 <code>workspace/photos/index-N.jpg</code> 和 <code>workspace/photos/couple-N.jpg</code></li>
+      <li>把 <code>data.js</code> 存到 <code>workspace/data.js</code></li>
+    </div>
+    <button id="downloadAllBtn" style="margin-top:12px">📦 下载全部照片 + data.js</button>
+    <span id="downloadAllStat" class="meta" style="margin-left:12px"></span>
+  </div>
+
+  <div class="panel">
+    <h2>⑤ 清理调试</h2>
+    <details>
+      <summary>已经迁移完了，想清空 localStorage 里的照片数据（让 HTML 强制从静态文件读）</summary>
+      <p class="sub">点下面这个按钮会把当前 origin 的 <code>frina_homepage_photo_*</code> / <code>frina_couple_photo_*</code> / <code>frina_couple_logs</code> / <code>frina_life_articles</code> / <code>frina_study_logs</code> / <code>frina_friends</code> 全部删掉。</p>
+      <button id="purgeBtn" class="ghost">🗑 清空上述所有本地数据</button>
+      <span id="purgeStat" class="meta" style="margin-left:12px"></span>
+    </details>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const PHOTO_PREFIXES = ['frina_homepage_photo_', 'frina_couple_photo_'];
+const PHOTO_SINGLES = [
+  { key: 'frina_online_profile_photo', filename: 'photos/profile.jpg', desc: '转发在线头像' },
+];
+const LOG_KEYS = ['frina_couple_logs', 'frina_life_articles', 'frina_study_logs', 'frina_friends', 'frina_guestbook_messages'];
+
+function bytesFromDataUrl(dataUrl) {
+  // data:image/jpeg;base64,XXX
+  const [meta, b64] = dataUrl.split(',');
+  const mime = (meta.match(/data:([^;]+)/) || [])[1] || 'image/jpeg';
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return { blob: new Blob([arr], { type: mime }), mime, ext: mime.split('/')[1] || 'jpg', size: bin.length };
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 200);
+}
+
+function safeFilename(prefix, id) {
+  return (id || 'photo').replace(/[^a-zA-Z0-9_-]/g, '_');
+}
+
+let cache = null;
+function scan() {
+  cache = { photos: {}, photoCount: 0, singles: {} };
+  const allKeys = Object.keys(localStorage).sort();
+  let totalKeys = allKeys.length;
+  let photoBytesTotal = 0;
+  const rows = [];
+  rows.push('<div style="margin-top:12px">');
+  for (const k of allKeys) {
+    const val = localStorage.getItem(k);
+    const isPhoto = PHOTO_PREFIXES.some(p => k.startsWith(p));
+    const isSingle = PHOTO_SINGLES.some(s => s.key === k);
+    const isLog = LOG_KEYS.includes(k);
+    if (isPhoto) {
+      const info = bytesFromDataUrl(val);
+      cache.photos[k] = { id: k, raw: val, info };
+      cache.photoCount++;
+      photoBytesTotal += info.size;
+    } else if (isSingle && val && val.startsWith('data:')) {
+      const info = bytesFromDataUrl(val);
+      cache.singles[k] = { id: k, raw: val, info };
+      photoBytesTotal += info.size;
+    }
+    const isEdit = k.indexOf('frina_v2_edit_') === 0 || k.indexOf('frina_local_edit_') === 0;
+    const tag = isPhoto ? '<span class="pill">📷 photo</span>' :
+                isSingle ? '<span class="pill">🖼 single</span>' :
+                isLog ? '<span class="pill">📝 log</span>' :
+                isEdit ? '<span class="pill">✏️ edit</span>' : '';
+    rows.push(`<div class="row"><span class="key">${k}${tag}</span><span class="meta">${val ? val.length + ' chars' : ''}</span></div>`);
+  }
+  rows.push('</div>');
+  document.getElementById('scanResult').innerHTML = rows.join('');
+  const totalPhotos = cache.photoCount + Object.keys(cache.singles).length;
+  document.getElementById('scanStat').innerHTML = `<span class="ok">✓ ${totalKeys} 个 key · ${totalPhotos} 张照片 · ${(photoBytesTotal / 1024 / 1024).toFixed(2)} MB</span>`;
+  renderPhotoList();
+  renderLogList();
+}
+
+function renderPhotoList() {
+  const wrap = document.getElementById('photoList');
+  const singleWrap = document.createElement('div');
+  singleWrap.id = 'singlePhotoList';
+
+  const totalPhotos = (cache ? cache.photoCount : 0) + Object.keys(cache ? cache.singles : {}).length;
+  if (!cache || !totalPhotos) {
+    wrap.innerHTML = '<div class="empty">没扫到照片。先点上面"扫描"。</div>';
+    document.getElementById('photoActions').innerHTML = '';
+    return;
+  }
+  const groups = { 'frina_homepage_photo_': [], 'frina_couple_photo_': [] };
+  for (const k of Object.keys(cache.photos)) {
+    for (const p of Object.keys(groups)) if (k.startsWith(p)) groups[p].push(k);
+  }
+  const actions = [];
+  for (const prefix of Object.keys(groups)) {
+    const section = prefix === 'frina_homepage_photo_' ? 'index' : 'couple';
+    const keys = groups[prefix];
+    if (keys.length) {
+      actions.push(`<button data-prefix="${prefix}" data-section="${section}">📥 下载全部 ${section} (${keys.length} 张)</button> `);
+    }
+  }
+  if (Object.keys(cache.singles).length) {
+    actions.push(`<button id="downloadAllSinglesBtn" class="ghost">📥 下载所有 single</button> `);
+  }
+  actions.push(`<button id="downloadAllPhotosBtn">📥 一键下载全部</button>`);
+  document.getElementById('photoActions').innerHTML = actions.join('');
+
+  // wire up buttons
+  document.querySelectorAll('#photoActions button[data-prefix]').forEach(b => {
+    b.addEventListener('click', () => downloadPhotosByPrefix(b.dataset.prefix, b.dataset.section));
+  });
+  document.getElementById('downloadAllSinglesBtn').addEventListener('click', downloadAllSingles);
+  document.getElementById('downloadAllPhotosBtn').addEventListener('click', downloadAllPhotosOnly);
+
+  const rows = [];
+  let nIdx = 1, cIdx = 1;
+  for (const k of Object.keys(cache.photos)) {
+    const photo = cache.photos[k];
+    const isIndex = k.startsWith('frina_homepage_photo_');
+    const section = isIndex ? 'index' : 'couple';
+    const n = isIndex ? nIdx++ : cIdx++;
+    const fname = `photos/${section}-${n}.jpg`;
+    rows.push(`<div class="row">
+      <div class="thumb" style="background-image:url('${photo.raw}')"></div>
+      <div style="flex:1;min-width:0">
+        <div class="key">${k}</div>
+        <div class="meta">→ <code>${fname}</code> · ${(photo.info.size / 1024).toFixed(1)} KB · ${photo.info.mime}</div>
+      </div>
+      <button data-key="${k}" data-section="${section}" data-n="${n}">下载</button>
+    </div>`);
+  }
+  // Singles
+  for (const sk of Object.keys(cache.singles)) {
+    const photo = cache.singles[sk];
+    const meta = PHOTO_SINGLES.find(s => s.key === sk) || { filename: sk, desc: sk };
+    rows.push(`<div class="row">
+      <div class="thumb" style="background-image:url('${photo.raw}')"></div>
+      <div style="flex:1;min-width:0">
+        <div class="key">${sk} <span class="pill">single</span></div>
+        <div class="meta">→ <code>${meta.filename}</code> · ${(photo.info.size / 1024).toFixed(1)} KB · ${meta.desc}</div>
+      </div>
+      <button data-single-key="${sk}">下载</button>
+    </div>`);
+  }
+  wrap.innerHTML = rows.join('');
+  document.querySelectorAll('#photoList button[data-key]').forEach(b => {
+    b.addEventListener('click', () => {
+      const photo = cache.photos[b.dataset.key];
+      const ext = photo.info.ext === 'jpeg' ? 'jpg' : photo.info.ext;
+      downloadBlob(photo.info.blob, `photos/${b.dataset.section}-${b.dataset.n}.${ext}`);
+    });
+  });
+  document.querySelectorAll('#photoList button[data-single-key]').forEach(b => {
+    b.addEventListener('click', () => {
+      const photo = cache.singles[b.dataset.singleKey];
+      const meta = PHOTO_SINGLES.find(s => s.key === b.dataset.singleKey) || { filename: b.dataset.singleKey };
+      const ext = photo.info.ext === 'jpeg' ? 'jpg' : photo.info.ext;
+      const name = meta.filename.replace(/\.\w+$/, '') + '.' + ext;
+      downloadBlob(photo.info.blob, name);
+    });
+  });
+}
+
+function downloadAllSingles() {
+  for (const sk of Object.keys(cache.singles)) {
+    const photo = cache.singles[sk];
+    const meta = PHOTO_SINGLES.find(s => s.key === sk) || { filename: sk };
+    const ext = photo.info.ext === 'jpeg' ? 'jpg' : photo.info.ext;
+    const name = meta.filename.replace(/\.\w+$/, '') + '.' + ext;
+    downloadBlob(photo.info.blob, name);
+  }
+}
+
+function downloadAllPhotosOnly() {
+  downloadPhotosByPrefix('frina_homepage_photo_', 'index');
+  downloadPhotosByPrefix('frina_couple_photo_', 'couple');
+  setTimeout(downloadAllSingles, 500);
+}
+
+function downloadPhotosByPrefix(prefix, section) {
+  let i = 1;
+  for (const k of Object.keys(cache.photos)) {
+    if (!k.startsWith(prefix)) continue;
+    const photo = cache.photos[k];
+    const ext = photo.info.ext === 'jpeg' ? 'jpg' : photo.info.ext;
+    downloadBlob(photo.info.blob, `photos/${section}-${i}.${ext}`);
+    i++;
+  }
+}
+
+function renderLogList() {
+  const wrap = document.getElementById('logList');
+  const actions = [];
+  const items = [];
+  for (const key of LOG_KEYS) {
+    if (key === 'frina_guestbook_messages') continue; // 留言不要内嵌，访客自己留
+    const raw = localStorage.getItem(key);
+    let parsed = null;
+    try { parsed = raw ? JSON.parse(raw) : null; } catch (e) {}
+    if (!parsed) {
+        items.push(`<div class="row"><div style="flex:1"><span class="key">${key}</span><span class="meta">  无数据</span></div></div>`);
+        continue;
+    }
+    const isArray = Array.isArray(parsed);
+    const len = isArray ? parsed.length : Object.keys(parsed).length;
+    items.push(`<div class="row">
+      <div style="flex:1">
+        <span class="key">${key}</span>
+        <span class="pill">${isArray ? len + ' 项' : 'object'}</span>
+      </div>
+      <button class="ghost" data-key="${key}">查看 JS</button>
+    </div>`);
+  }
+  actions.push(`<button id="buildDataJsBtn">⚙️ 生成 data.js</button> <button id="downloadDataJsBtn">💾 下载 data.js</button> <button id="copyDataJsBtn" class="ghost">📋 复制到剪贴板</button>`);
+  document.getElementById('logActions').innerHTML = actions.join('');
+  wrap.innerHTML = items.join('');
+  document.querySelectorAll('#logList button[data-key]').forEach(b => {
+    b.addEventListener('click', () => showLog(b.dataset.key));
+  });
+  document.getElementById('buildDataJsBtn').addEventListener('click', buildDataJs);
+  document.getElementById('downloadDataJsBtn').addEventListener('click', downloadDataJs);
+  document.getElementById('copyDataJsBtn').addEventListener('click', copyDataJs);
+}
+
+function showLog(key) {
+  const raw = localStorage.getItem(key);
+  let parsed = null;
+  try { parsed = raw ? JSON.parse(raw) : null; } catch (e) {}
+  const out = `window.FB_DATA = window.FB_DATA || {};\nwindow.FB_DATA['${key}'] = ${JSON.stringify(parsed, null, 2)};\n`;
+  alert(out);
+}
+
+let lastDataJs = '';
+function buildDataJs() {
+  const chunks = [
+    '// Auto-generated by migrate.html · 把这个文件存为 data.js',
+    '// 用法：在 HTML 里 <script src="data.js"></script>，然后 window.FB_DATA / window.FB_PHOTOS 可用',
+    '(function () {',
+    '  window.FB_DATA = window.FB_DATA || {};',
+  ];
+  for (const key of LOG_KEYS) {
+    if (key === 'frina_guestbook_messages') continue;
+    const raw = localStorage.getItem(key);
+    if (!raw) continue;
+    let parsed;
+    try { parsed = JSON.parse(raw); } catch (e) { console.error(key, e); continue; }
+    chunks.push(`  window.FB_DATA[${JSON.stringify(key)}] = ${JSON.stringify(parsed)};`);
+  }
+  chunks.push('');
+  chunks.push('  // ============ 照片清单 ============');
+  chunks.push('  // photos/ 目录里的 JPG 文件，按以下顺序展示');
+  chunks.push('  // 新增照片：丢到 photos/ 文件夹 → 在数组里加一行');
+  chunks.push('  window.FB_PHOTOS = window.FB_PHOTOS || {};');
+  // index photos
+  const indexKeys = Object.keys(cache.photos).filter(k => k.startsWith('frina_homepage_photo_'));
+  if (indexKeys.length) {
+    chunks.push(`  window.FB_PHOTOS['index'] = [`);
+    let n = 1;
+    for (const k of indexKeys) {
+      chunks.push(`    { src: 'photos/index-${n++}.jpg', added: ${JSON.stringify(cache.photos[k].id)} },`);
+    }
+    chunks.push('  ];');
+  }
+  // couple photos
+  const coupleKeys = Object.keys(cache.photos).filter(k => k.startsWith('frina_couple_photo_'));
+  if (coupleKeys.length) {
+    chunks.push(`  window.FB_PHOTOS['couple'] = [`);
+    let n = 1;
+    for (const k of coupleKeys) {
+      chunks.push(`    { src: 'photos/couple-${n++}.jpg', added: ${JSON.stringify(cache.photos[k].id)} },`);
+    }
+    chunks.push('  ];');
+  }
+  // singles
+  for (const sk of Object.keys(cache.singles)) {
+    const meta = PHOTO_SINGLES.find(s => s.key === sk) || { filename: sk };
+    chunks.push(`  window.FB_PHOTOS[${JSON.stringify(sk)}] = ${JSON.stringify(meta.filename)};`);
+  }
+  chunks.push('})();');
+  lastDataJs = chunks.join('\n');
+  console.log('Generated data.js:', lastDataJs);
+  document.getElementById('logList').insertAdjacentHTML('beforeend',
+    `<div class="row"><div style="flex:1"><span class="ok">✓ data.js 已生成，长度 ${(lastDataJs.length / 1024).toFixed(1)} KB。控制台也输出了。</span></div></div>`);
+}
+
+function downloadDataJs() {
+  if (!lastDataJs) buildDataJs();
+  downloadBlob(new Blob([lastDataJs], { type: 'application/javascript' }), 'data.js');
+  document.getElementById('downloadAllStat').innerHTML = '<span class="ok">✓ data.js 已下载</span>';
+}
+
+function copyDataJs() {
+  if (!lastDataJs) buildDataJs();
+  navigator.clipboard.writeText(lastDataJs).then(() => {
+    document.getElementById('downloadAllStat').innerHTML = '<span class="ok">✓ data.js 已复制到剪贴板</span>';
+  });
+}
+
+document.getElementById('scanBtn').addEventListener('click', scan);
+
+document.getElementById('downloadAllBtn').addEventListener('click', () => {
+  if (!cache) scan();
+  downloadAllPhotosThenDataJs();
+});
+
+function downloadAllPhotosThenDataJs() {
+  // Photos
+  let idx = 1, cp = 1;
+  for (const k of Object.keys(cache.photos)) {
+    const photo = cache.photos[k];
+    const ext = photo.info.ext === 'jpeg' ? 'jpg' : photo.info.ext;
+    if (k.startsWith('frina_homepage_photo_')) {
+      downloadBlob(photo.info.blob, `photos/index-${idx++}.${ext}`);
+    } else {
+      downloadBlob(photo.info.blob, `photos/couple-${cp++}.${ext}`);
+    }
+  }
+  // Singles
+  setTimeout(() => {
+    for (const sk of Object.keys(cache.singles)) {
+      const photo = cache.singles[sk];
+      const meta = PHOTO_SINGLES.find(s => s.key === sk) || { filename: sk };
+      const ext = photo.info.ext === 'jpeg' ? 'jpg' : photo.info.ext;
+      const name = meta.filename.replace(/\.\w+$/, '') + '.' + ext;
+      downloadBlob(photo.info.blob, name);
+    }
+  }, 400);
+  // Data.js
+  setTimeout(() => downloadDataJs(), 1200);
+}
+
+document.getElementById('purgeBtn').addEventListener('click', () => {
+  if (!confirm('清空 localStorage 里所有照片/日志？此操作不可逆')) return;
+  let count2 = 0;
+  Object.keys(localStorage).forEach(k => {
+    if (PHOTO_PREFIXES.some(p => k.startsWith(p)) ||
+        LOG_KEYS.includes(k) ||
+        PHOTO_SINGLES.some(s => s.key === k)) {
+      localStorage.removeItem(k);
+      count2++;
+    }
+  });
+  document.getElementById('purgeStat').innerHTML = `<span class="ok">✓ 已清空 ${count2} 个 key</span>`;
+});
+
+// Auto-scan on load (best effort)
+try { scan(); } catch (e) { console.error(e); }
+</script>
+</body>
+</html>

@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>生活 · Frina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fbdde5; --card: #ffffff; --line: #ecbfca;
+      --text: #3a1d28; --text-2: #6b4955; --muted: #a88491;
+      --primary: #d96b8a; --primary-deep: #8e3a5d; --primary-soft: #fdd8e2;
+      --accent: #e85c7d; --yellow: #f4d7a4; --blue-tape: #b9d8e6; --green-tape: #c8dec6;
+      --max: 1180px; --radius: 16px;
+      --shadow-sm: 0 2px 8px rgba(142, 73, 99, 0.06);
+      --shadow-md: 0 8px 24px -10px rgba(142, 73, 99, 0.12);
+      --transition: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    body {
+      font-family: 'Outfit', 'Noto Sans SC', -apple-system, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><g><g transform='translate(40 40) rotate(15)' opacity='0.13'><g fill='%23c97b8e'><ellipse cx='0' cy='-7' rx='3' ry='5'/><ellipse cx='6.66' cy='-2.16' rx='3' ry='5' transform='rotate(72)'/><ellipse cx='4.11' cy='5.66' rx='3' ry='5' transform='rotate(144)'/><ellipse cx='-4.11' cy='5.66' rx='3' ry='5' transform='rotate(216)'/><ellipse cx='-6.66' cy='-2.16' rx='3' ry='5' transform='rotate(288)'/></g><circle r='2' fill='%23f4d7a4'/></g><g transform='translate(150 110) rotate(-30)' opacity='0.1'><g fill='%23c97b8e'><ellipse cx='0' cy='-7' rx='3' ry='5'/><ellipse cx='6.66' cy='-2.16' rx='3' ry='5' transform='rotate(72)'/><ellipse cx='4.11' cy='5.66' rx='3' ry='5' transform='rotate(144)'/><ellipse cx='-4.11' cy='5.66' rx='3' ry='5' transform='rotate(216)'/><ellipse cx='-6.66' cy='-2.16' rx='3' ry='5' transform='rotate(288)'/></g><circle r='2' fill='%23f4d7a4'/></g><g transform='translate(95 65) rotate(-25)' opacity='0.11'><path d='M0 0 Q-3 -5 0 -10 Q3 -5 0 0' fill='%238e4963'/></g><g transform='translate(65 145) rotate(35)' opacity='0.11'><path d='M0 0 Q-3 -5 0 -10 Q3 -5 0 0' fill='%238e4963'/></g><circle cx='165' cy='35' r='1.4' fill='%23b85d8a' opacity='0.25'/><circle cx='40' cy='130' r='1.4' fill='%23b85d8a' opacity='0.25'/></g></svg>"),
+        radial-gradient(ellipse at 15% 0%, rgba(201, 123, 142, 0.08) 0%, transparent 45%);
+      background-attachment: fixed, fixed;
+      color: var(--text); line-height: 1.65; font-size: 15px;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; transition: color var(--transition); }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input { font-family: inherit; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 640px) { .container { padding: 0 20px; } }
+    section { padding: 72px 0; }
+
+    .header { padding: 22px 0; position: sticky; top: 0; z-index: 100; background: rgba(253, 242, 245, 0.78); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 22px; font-weight: 600; font-style: italic; color: var(--text); }
+    .logo-mark { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); display: inline-flex; align-items: center; justify-content: center; color: white; font-family: 'Caveat', cursive; font-size: 19px; font-weight: 600; box-shadow: var(--shadow-sm); }
+    .nav { display: flex; align-items: center; gap: 24px; }
+    .nav a { font-size: 13.5px; color: var(--text-2); font-weight: 400; position: relative; padding: 6px 0; }
+    .nav a:hover { color: var(--primary-deep); }
+    .nav a.active { color: var(--primary-deep); font-weight: 500; }
+    .nav a.active::after { content: ''; position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
+    @media (max-width: 1080px) { .nav { gap: 16px; } }
+    @media (max-width: 880px) { .nav a:not(.nav-cta) { display: none; } }
+
+    .page-hero { padding: 72px 0 32px; text-align: center; }
+    .page-hero .script { font-family: 'Caveat', 'Ma Shan Zheng', cursive; font-size: clamp(28px, 4vw, 42px); color: var(--primary-deep); }
+    .page-hero h1 { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: clamp(48px, 8vw, 84px); font-weight: 600; font-style: italic; letter-spacing: -0.02em; line-height: 1; margin: 6px 0 14px; }
+    .page-hero p { font-size: 14px; color: var(--text-2); max-width: 480px; margin: 0 auto; }
+
+    /* SUB-BLOCK */
+    .sub-block {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      margin-top: 32px;
+      transition: box-shadow var(--transition);
+    }
+    .sub-block:hover { box-shadow: var(--shadow-md); }
+
+    .sub-head {
+      display: grid;
+      grid-template-columns: 60px 1fr auto;
+      gap: 24px;
+      align-items: start;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .sub-icon {
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sub-title {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 28px; font-weight: 600; font-style: italic;
+      margin-bottom: 6px;
+    }
+    .sub-desc {
+      font-size: 14px; color: var(--text-2); line-height: 1.75;
+      max-width: 540px;
+    }
+    .sub-meta {
+      display: flex; flex-direction: column; gap: 4px;
+      font-size: 12px; color: var(--muted);
+      padding: 8px 14px;
+      background: var(--bg-soft);
+      border-radius: 10px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .sub-meta-num { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; color: var(--primary-deep); line-height: 1; }
+    @media (max-width: 720px) {
+      .sub-head { grid-template-columns: 48px 1fr; gap: 16px; }
+      .sub-icon { width: 48px; height: 48px; }
+      .sub-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-around; }
+    }
+
+    /* LATEST MEDIA (single featured) */
+    .latest-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .latest-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+    .latest-media {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--card);
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm);
+    }
+    .latest-media-frame {
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary-soft) 0%, var(--bg-deep) 100%);
+    }
+    .latest-media-frame img,
+    .latest-media-frame video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .latest-media-frame .placeholder-icon {
+      position: absolute;
+      inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary-deep);
+      opacity: 0.6;
+    }
+    .latest-media-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 18px 22px;
+      background: linear-gradient(180deg, transparent 0%, rgba(58, 39, 48, 0.78) 100%);
+      color: white;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 12px;
+      pointer-events: none;
+    }
+    .latest-media-info { flex: 1; min-width: 0; }
+    .latest-media-info h4 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 17px; font-weight: 600; font-style: italic;
+      line-height: 1.3;
+      margin-bottom: 3px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .latest-media-info time { font-size: 11.5px; opacity: 0.85; letter-spacing: 0.05em; }
+    .latest-media-type {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 5px 10px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .latest-media-type.video { background: rgba(184, 93, 138, 0.85); }
+
+    .latest-media-remove {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; line-height: 1;
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      transition: all var(--transition);
+      z-index: 5;
+    }
+    .latest-media-remove { opacity: 1; }
+    .latest-media-remove:hover { background: var(--accent); color: white; transform: scale(1.05); }
+
+    /* Empty state */
+    .latest-media.empty .latest-media-frame {
+      background: linear-gradient(135deg, var(--primary-soft) 0%, rgba(244, 215, 164, 0.1) 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .latest-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+    }
+    .latest-empty-icon {
+      width: 56px; height: 56px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: white;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary-deep);
+      box-shadow: var(--shadow-sm);
+    }
+    .latest-empty p {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .latest-empty .script {
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+      color: var(--primary-deep);
+      font-size: 15px;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* UPLOAD ZONE */
+    .upload-zone {
+      display: block;
+      margin-top: 8px;
+      padding: 28px 24px;
+      border: 2px dashed var(--line);
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary-soft) 0%, rgba(244, 215, 164, 0.12) 100%);
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .upload-zone:hover {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary-soft) 0%, rgba(252, 231, 237, 0.6) 100%);
+    }
+    .upload-zone.dragover {
+      border-color: var(--accent);
+      border-style: solid;
+      background: rgba(252, 231, 237, 0.8);
+      transform: scale(1.005);
+    }
+    .upload-zone input[type="file"] { display: none; }
+    .upload-icons { display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; }
+    .upload-icon-circle {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: white;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary-deep);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition);
+    }
+    .upload-icon-circle.video { background: var(--primary); color: white; }
+    .upload-zone:hover .upload-icon-circle { transform: translateY(-2px); }
+    .upload-title {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 16px; font-weight: 600; font-style: italic;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .upload-desc { font-size: 12.5px; color: var(--text-2); line-height: 1.6; margin-bottom: 12px; }
+    .upload-formats { display: inline-flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+    .upload-format {
+      padding: 2px 9px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 10.5px; color: var(--muted);
+    }
+
+    .article-list { margin-top: 80px; }
+    .article-list h3 { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 26px; font-weight: 600; font-style: italic; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    .article-list h3::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .article-row { display: grid; grid-template-columns: 110px 1fr auto; gap: 24px; align-items: start; padding: 18px 0; border-bottom: 1px dashed var(--line); transition: padding-left var(--transition); cursor: pointer; }
+    .article-row:hover { padding-left: 8px; }
+    .article-row:hover .article-title { color: var(--primary-deep); }
+    .article-date { font-family: 'Caveat', cursive; font-size: 22px; color: var(--primary); }
+    .article-title { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 18px; font-weight: 600; font-style: italic; line-height: 1.4; }
+    .article-excerpt { font-size: 13px; color: var(--text-2); line-height: 1.7; margin-top: 6px; }
+    .article-meta { font-size: 11px; color: var(--muted); white-space: nowrap; padding-top: 4px; }
+    @media (max-width: 720px) { .article-row { grid-template-columns: 80px 1fr; gap: 14px; } .article-meta { grid-column: 2; padding-top: 0; } }
+
+    .footer { padding: 56px 0 28px; border-top: 1px solid var(--line); background: rgba(253, 242, 245, 0.6); margin-top: 48px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-tagline { font-family: 'Caveat', cursive; font-size: 18px; color: var(--primary-deep); margin-bottom: 10px; }
+    .footer-desc { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; color: var(--text); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col a { font-size: 13px; color: var(--text-2); display: inline-flex; align-items: center; gap: 6px; }
+    .footer-col a:hover { color: var(--primary-deep); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px dashed var(--line); flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-socials { display: flex; gap: 8px; }
+    .footer-social { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-2); transition: all var(--transition); }
+    .footer-social:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1); }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============ LOCAL PAGE EDITOR ============ */
+    .page-editor {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+    .editor-fab {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px -8px rgba(217, 107, 138, 0.55);
+      transition: all var(--transition);
+    }
+    .editor-fab:hover { transform: scale(1.06) rotate(-5deg); }
+    .editor-fab.active {
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, var(--primary-deep), var(--accent));
+    }
+    .editor-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: all var(--transition);
+    }
+    body.edit-mode .editor-actions {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .editor-action-btn {
+      padding: 8px 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+      font-family: inherit;
+    }
+    .editor-action-btn:hover {
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+    }
+    .editor-action-btn.danger:hover {
+      background: rgba(184, 93, 138, 0.12);
+      color: var(--accent);
+    }
+    .editor-toast {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      padding: 10px 18px;
+      background: var(--text);
+      color: white;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      z-index: 9998;
+    }
+    .editor-toast.show { opacity: 1; transform: translateY(0); }
+    body.edit-mode .editable-text {
+      outline: 1px dashed transparent;
+      outline-offset: 4px;
+      transition: outline-color 120ms, background-color 120ms;
+      cursor: text;
+    }
+    body.edit-mode .editable-text:hover { outline-color: var(--primary); }
+    body.edit-mode .editable-text.editing-now {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      background: rgba(252, 231, 237, 0.45);
+      border-radius: 4px;
+    }
+    .editor-banner {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      padding: 8px 20px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      z-index: 9997;
+    }
+    body.edit-mode .editor-banner { display: block; }
+    body.edit-mode .header { top: 36px; }
+
+    /* ============ ARTICLE MANAGEMENT ============ */
+    .article-list-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .article-list-head h3 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 26px;
+      font-weight: 600;
+      font-style: italic;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+    .article-list-head h3::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    .btn-add-article {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      font-family: inherit;
+      box-shadow: 0 2px 8px rgba(217, 107, 138, 0.25);
+      white-space: nowrap;
+    }
+    .btn-add-article:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(217, 107, 138, 0.35);
+    }
+    .article-empty {
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+      font-size: 18px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+      border: 1px dashed var(--line);
+    }
+    .article-row .article-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      grid-column: 3;
+    }
+    .article-delete-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      opacity: 0;
+      transition: all var(--transition);
+    }
+    .article-row:hover .article-delete-btn { opacity: 1; }
+    .article-delete-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(232, 92, 125, 0.08);
+    }
+
+    /* ============ MODAL (shared) ============ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(58, 29, 40, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 240ms ease;
+    }
+    .modal-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal {
+      background: var(--card);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 560px;
+      max-height: calc(100vh - 40px);
+      overflow: hidden;
+      box-shadow: 0 24px 60px -12px rgba(58, 29, 40, 0.25);
+      transform: translateY(8px) scale(0.98);
+      transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-backdrop.show .modal { transform: translateY(0) scale(1); }
+    .modal-wide { max-width: 720px; }
+    .modal-head {
+      padding: 20px 24px 14px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .modal-title {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 22px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--text);
+      margin: 0;
+    }
+    .modal-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all var(--transition);
+    }
+    .modal-close:hover { background: var(--primary-soft); color: var(--primary-deep); }
+    .modal-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-foot {
+      padding: 14px 24px 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      border-top: 1px solid var(--line-soft);
+    }
+    .modal-btn {
+      padding: 9px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all var(--transition);
+    }
+    .modal-btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(217, 107, 138, 0.25);
+    }
+    .modal-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(217, 107, 138, 0.35); }
+    .modal-btn-ghost {
+      background: transparent;
+      color: var(--text-2);
+      border: 1px solid var(--line);
+    }
+    .modal-btn-ghost:hover { background: var(--primary-soft); border-color: var(--primary); color: var(--primary-deep); }
+    .modal-btn-danger {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid transparent;
+    }
+    .modal-btn-danger:hover { background: rgba(232, 92, 125, 0.1); border-color: var(--accent); }
+
+    /* Form fields */
+    .field { margin-bottom: 16px; }
+    .field-label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-2);
+      margin-bottom: 6px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .field-input,
+    .field-select,
+    .field-textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: white;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(217, 107, 138, 0.12);
+    }
+    .field-textarea {
+      min-height: 180px;
+      line-height: 1.7;
+      resize: vertical;
+      font-family: 'Outfit', 'Noto Sans SC', -apple-system, sans-serif;
+    }
+    .field-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .field-row { display: grid; grid-template-columns: 1fr 160px; gap: 12px; }
+
+    /* Reader */
+    .reader-meta {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .reader-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--line); }
+    .reader-content {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    @media (max-width: 540px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    // 防御性：每次进入页面（包括 bfcache 恢复）都强制重置编辑模式，
+    // 避免从其他页面"带入" body.edit-mode 状态。
+    (function resetEditModeOnLoad() {
+      function forceReset() {
+        document.body.classList.remove('edit-mode');
+        document.querySelectorAll('[contenteditable]').forEach(function (el) {
+          el.setAttribute('contenteditable', 'false');
+        });
+        document.querySelectorAll('.editable-text').forEach(function (el) {
+          el.classList.remove('editable-text', 'editing-now');
+        });
+        document.querySelectorAll('.editing-now').forEach(function (el) {
+          el.classList.remove('editing-now');
+        });
+        var fab = document.getElementById('editorFab');
+        if (fab) fab.classList.remove('active');
+        var toast = document.getElementById('editorToast');
+        if (toast) toast.classList.remove('show');
+      }
+      forceReset();
+      window.addEventListener('pageshow', forceReset);
+    })();
+  </script>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-mark">F</span>Frina</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="online.html">地球Online</a>
+        <a href="life.html" class="active">生活</a>
+        <a href="work.html">工作</a>
+        <a href="study.html">学习</a>
+        <a href="social.html">社交</a>
+        <a href="hobbies.html">兴趣爱好</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="script fade-in">chapter 02</div>
+        <h1 class="fade-in">生活</h1>
+        <p class="fade-in">把日子过成自己喜欢的样子，是一门慢慢练的功课。</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 16px;">
+      <div class="container">
+
+        <!-- ============ 餐饮 ============ -->
+        <div class="sub-block fade-in">
+          <div class="sub-head">
+            <div class="sub-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11V8a7 7 0 0 1 14 0v3M6 11v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8"/><path d="M9 7v4M15 7v4"/></svg>
+            </div>
+            <div>
+              <h2 class="sub-title">餐饮</h2>
+              <p class="sub-desc">周末的早午餐、深夜的一锅汤、自己做的小蛋糕——食物是日子里最具体的浪漫。</p>
+            </div>
+            <div class="sub-meta">
+              <span class="sub-meta-num">23</span>
+              <span>篇 · 1.4k 喜欢</span>
+            </div>
+          </div>
+
+          <div class="latest-label">Latest · 最新上传</div>
+          <div class="latest-media" data-section="food">
+            <div class="latest-media-frame">
+              <svg class="placeholder-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              <div class="latest-media-overlay">
+                <span class="latest-media-type">📷 图片</span>
+                <div class="latest-media-info">
+                  <h4>周末的提拉米苏</h4>
+                  <time>2026 · 09 · 27</time>
+                </div>
+              </div>
+              <button class="latest-media-remove" title="删除" onclick="removeLatest(this)">×</button>
+            </div>
+          </div>
+
+          <div class="upload-zone" data-target="food">
+            <input type="file" accept="image/*,video/*" />
+            <div class="upload-icons">
+              <div class="upload-icon-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="upload-icon-circle video">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+            <div class="upload-title">替换最新内容</div>
+            <div class="upload-desc">拖拽或点击 · 上传后会自动替换上方展示</div>
+            <div class="upload-formats">
+              <span class="upload-format">JPG</span><span class="upload-format">PNG</span><span class="upload-format">HEIC</span><span class="upload-format">MP4</span><span class="upload-format">MOV</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ 宅家日常 ============ -->
+        <div class="sub-block fade-in">
+          <div class="sub-head">
+            <div class="sub-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <h2 class="sub-title">宅家日常</h2>
+              <p class="sub-desc">周六十点的阳光、沙发上的毯子、和硕宁的电影夜——家是无限游戏的小宇宙。</p>
+            </div>
+            <div class="sub-meta">
+              <span class="sub-meta-num">18</span>
+              <span>篇 · 980 喜欢</span>
+            </div>
+          </div>
+
+          <div class="latest-label">Latest · 最新上传</div>
+          <div class="latest-media empty" data-section="home">
+            <div class="latest-media-frame">
+              <div class="latest-empty">
+                <div class="latest-empty-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M5 7v13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7M9 7V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"/></svg>
+                </div>
+                <p>还没有上传内容</p>
+                <span class="script">点击或拖拽上传 ♡</span>
+              </div>
+              <button class="latest-media-remove" title="删除" onclick="removeLatest(this)" style="display:none">×</button>
+            </div>
+          </div>
+
+          <div class="upload-zone" data-target="home">
+            <input type="file" accept="image/*,video/*" />
+            <div class="upload-icons">
+              <div class="upload-icon-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="upload-icon-circle video">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+            <div class="upload-title">上传第一张</div>
+            <div class="upload-desc">点击或拖拽 · 上传后会成为这个分区的"最新"</div>
+            <div class="upload-formats">
+              <span class="upload-format">JPG</span><span class="upload-format">PNG</span><span class="upload-format">HEIC</span><span class="upload-format">MP4</span><span class="upload-format">MOV</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ 收纳与清洁 ============ -->
+        <div class="sub-block fade-in">
+          <div class="sub-head">
+            <div class="sub-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            </div>
+            <div>
+              <h2 class="sub-title">收纳与清洁</h2>
+              <p class="sub-desc">让物品各得其所、把动线交给习惯——家越整齐，心里越清楚。</p>
+            </div>
+            <div class="sub-meta">
+              <span class="sub-meta-num">11</span>
+              <span>篇 · 540 喜欢</span>
+            </div>
+          </div>
+
+          <div class="latest-label">Latest · 最新上传</div>
+          <div class="latest-media empty" data-section="organize">
+            <div class="latest-media-frame">
+              <div class="latest-empty">
+                <div class="latest-empty-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <p>还没有上传内容</p>
+                <span class="script">点击或拖拽上传 ♡</span>
+              </div>
+              <button class="latest-media-remove" title="删除" onclick="removeLatest(this)" style="display:none">×</button>
+            </div>
+          </div>
+
+          <div class="upload-zone" data-target="organize">
+            <input type="file" accept="image/*,video/*" />
+            <div class="upload-icons">
+              <div class="upload-icon-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="upload-icon-circle video">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+            <div class="upload-title">上传第一张</div>
+            <div class="upload-desc">点击或拖拽 · 上传后会成为这个分区的"最新"</div>
+            <div class="upload-formats">
+              <span class="upload-format">JPG</span><span class="upload-format">PNG</span><span class="upload-format">HEIC</span><span class="upload-format">MP4</span><span class="upload-format">MOV</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent posts -->
+        <div class="article-list fade-in">
+          <div class="article-list-head">
+            <h3>Recent posts <span style="font-family: 'Caveat', cursive; color: var(--primary-deep); font-size: 20px; flex: 0 0 auto;">· 最近的文章</span></h3>
+            <button type="button" class="btn-add-article" id="btnAddArticle">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新建文章
+            </button>
+          </div>
+          <div id="articleList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark">F</span>Frina</a><div class="footer-tagline">keep it slow, keep it real.</div><p class="footer-desc">记录我的日常、阅读与生活。<br />慢一点，写下来。</p></div>
+        <div class="footer-col"><h4>首页</h4><ul><li><a href="index.html">今日之语</a></li><li><a href="index.html#photos">照片墙</a></li><li><a href="index.html#guestbook">留言区</a></li></ul></div>
+        <div class="footer-col"><h4>分区</h4><ul><li><a href="online.html">地球Online</a></li><li><a href="life.html">生活</a></li><li><a href="work.html">工作</a></li><li><a href="study.html">学习</a></li></ul></div>
+        <div class="footer-col"><h4>更多</h4><ul><li><a href="social.html">社交</a></li><li><a href="hobbies.html">兴趣爱好</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Frina · 用心生活，缓慢更新 ✿</span>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <div class="footer-socials">
+            <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+            <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="9" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/></svg></a>
+            <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h4v16H3zM9 4h2v16H9zM13 4h2v16h-2zM17 4h4v16h-4z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Article New Modal -->
+  <div class="modal-backdrop" id="articleNewModal" role="dialog" aria-modal="true" aria-labelledby="articleNewTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="articleNewTitle">写一篇新的</h3>
+          <div class="modal-sub">文章会保存在本地，随时可以修改或删除。</div>
+        </div>
+        <button type="button" class="modal-close" data-close-article-new aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <label class="field-label" for="articleTitleInput">标题</label>
+          <input type="text" id="articleTitleInput" class="field-input" placeholder="今天想记录什么？" maxlength="80" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="articleCategoryInput">分类</label>
+            <select id="articleCategoryInput" class="field-select">
+              <option value="餐饮">餐饮</option>
+              <option value="宅家日常">宅家日常</option>
+              <option value="收纳">收纳</option>
+              <option value="随笔">随笔</option>
+              <option value="其他">其他</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="articleDateInput">日期</label>
+            <input type="date" id="articleDateInput" class="field-input" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="articleContentInput">正文</label>
+          <textarea id="articleContentInput" class="field-textarea" placeholder="慢慢写，不用着急。"></textarea>
+          <div class="field-hint" id="articleContentHint">支持换行；空行分段。系统会自动从开头截取一小段作为列表预览。</div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="modal-btn modal-btn-ghost" data-close-article-new>取消</button>
+        <button type="button" class="modal-btn modal-btn-primary" id="articleSubmitBtn">发布</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article Reader Modal -->
+  <div class="modal-backdrop" id="articleReaderModal" role="dialog" aria-modal="true" aria-labelledby="articleReaderTitle">
+    <div class="modal modal-wide">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="articleReaderTitle">—</h3>
+          <div class="modal-sub" id="articleReaderMeta">—</div>
+        </div>
+        <button type="button" class="modal-close" data-close-article-reader aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="reader-meta" id="articleReaderTags">—</div>
+        <div class="reader-content" id="articleReaderContent">—</div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="modal-btn modal-btn-danger" id="articleDeleteBtn">删除</button>
+        <button type="button" class="modal-btn modal-btn-ghost" data-close-article-reader>关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    // ============ FADE-IN ============
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach((el) => io.observe(el));
+    document.querySelectorAll('.page-hero .fade-in').forEach((el) => setTimeout(() => el.classList.add('visible'), 80));
+
+    // ============ UPLOAD ZONES ============
+    document.querySelectorAll('.upload-zone').forEach((zone) => {
+      const input = zone.querySelector('input[type="file"]');
+      const targetSection = zone.dataset.target;
+      const latestEl = document.querySelector(`[data-section="${targetSection}"]`);
+
+      zone.addEventListener('click', () => input.click());
+
+      ['dragenter', 'dragover'].forEach(ev =>
+        zone.addEventListener(ev, (e) => { e.preventDefault(); zone.classList.add('dragover'); })
+      );
+      ['dragleave', 'drop'].forEach(ev =>
+        zone.addEventListener(ev, (e) => { e.preventDefault(); zone.classList.remove('dragover'); })
+      );
+
+      const handle = (file) => {
+        if (!file) return;
+        const isVideo = file.type.startsWith('video/');
+        const url = URL.createObjectURL(file);
+
+        // Replace latest-media content
+        latestEl.classList.remove('empty');
+        const frame = latestEl.querySelector('.latest-media-frame');
+        frame.innerHTML = '';
+
+        if (isVideo) {
+          const v = document.createElement('video');
+          v.src = url;
+          v.muted = true; v.playsInline = true;
+          frame.appendChild(v);
+        } else {
+          const img = document.createElement('img');
+          img.src = url;
+          frame.appendChild(img);
+        }
+
+        const overlay = document.createElement('div');
+        overlay.className = 'latest-media-overlay';
+        const today = new Date();
+        const dateStr = `${today.getFullYear()} · ${String(today.getMonth() + 1).padStart(2, '0')} · ${String(today.getDate()).padStart(2, '0')}`;
+        const title = file.name.replace(/\.[^.]+$/, '') || (isVideo ? '新视频' : '新图片');
+        overlay.innerHTML = `
+          <span class="latest-media-type ${isVideo ? 'video' : ''}">${isVideo ? '🎬 视频' : '📷 图片'}</span>
+          <div class="latest-media-info">
+            <h4>${escapeHtml(title)}</h4>
+            <time>${dateStr}</time>
+          </div>
+        `;
+        frame.appendChild(overlay);
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'latest-media-remove';
+        removeBtn.title = '删除';
+        removeBtn.textContent = '×';
+        removeBtn.onclick = function() { removeLatest(this); };
+        frame.appendChild(removeBtn);
+
+        // Revoke old URLs
+        const old = latestEl.dataset.objectUrl;
+        if (old) URL.revokeObjectURL(old);
+        latestEl.dataset.objectUrl = url;
+      };
+
+      input.addEventListener('change', (e) => {
+        handle(e.target.files[0]);
+        input.value = '';
+      });
+      zone.addEventListener('drop', (e) => {
+        handle(e.dataTransfer.files[0]);
+      });
+    });
+
+    // ============ REMOVE LATEST ============
+    function removeLatest(btn) {
+      if (!confirm('确定要删除这条最新的上传吗？')) return;
+      const latestEl = btn.closest('.latest-media');
+      const section = latestEl.dataset.section;
+      const url = latestEl.dataset.objectUrl;
+      if (url) URL.revokeObjectURL(url);
+      delete latestEl.dataset.objectUrl;
+
+      // Reset to empty state
+      latestEl.classList.add('empty');
+      latestEl.innerHTML = `
+        <div class="latest-media-frame">
+          <div class="latest-empty">
+            <div class="latest-empty-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M5 7v13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7M9 7V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"/></svg>
+            </div>
+            <p>还没有上传内容</p>
+            <span class="script">点击或拖拽上传 ♡</span>
+          </div>
+          <button class="latest-media-remove" title="删除" onclick="removeLatest(this)" style="display:none">×</button>
+        </div>
+      `;
+    }
+    window.removeLatest = removeLatest;
+
+    function escapeHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    // ============ ARTICLE CRUD ============
+    (function setupArticles() {
+      const STORAGE_KEY = 'frina_life_articles';
+      const articleList = document.getElementById('articleList');
+      const btnAdd = document.getElementById('btnAddArticle');
+      const newModal = document.getElementById('articleNewModal');
+      const readerModal = document.getElementById('articleReaderModal');
+      const titleInput = document.getElementById('articleTitleInput');
+      const categoryInput = document.getElementById('articleCategoryInput');
+      const dateInput = document.getElementById('articleDateInput');
+      const contentInput = document.getElementById('articleContentInput');
+      const submitBtn = document.getElementById('articleSubmitBtn');
+      const readerTitle = document.getElementById('articleReaderTitle');
+      const readerMeta = document.getElementById('articleReaderMeta');
+      const readerTags = document.getElementById('articleReaderTags');
+      const readerContent = document.getElementById('articleReaderContent');
+      const deleteBtn = document.getElementById('articleDeleteBtn');
+      if (!articleList || !btnAdd || !newModal || !readerModal) return;
+
+      let currentReaderId = null;
+
+      // ---- Storage helpers ----
+      function getArticles() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return [];
+          const arr = JSON.parse(raw);
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) { return []; }
+      }
+      function saveArticles(list) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+        catch (e) { alert('保存失败 · localStorage 可能已满。请先删除一些旧文章。'); }
+      }
+
+      // ---- Helpers ----
+      function formatDateForInput(d) {
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+      }
+      function formatDateForDisplay(dateStr) {
+        // dateStr is "YYYY-MM-DD"; render as "MM · DD"
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr || '');
+        if (!m) return '';
+        return `${parseInt(m[2], 10)} · ${parseInt(m[3], 10)}`;
+      }
+      function calcReadingTime(content) {
+        // ~300 Chinese chars per minute
+        const len = (content || '').replace(/\s+/g, '').length;
+        const minutes = Math.max(1, Math.round(len / 300));
+        return `${minutes} 分钟`;
+      }
+      function makeExcerpt(content, max = 60) {
+        const firstLine = (content || '').split(/\r?\n/).find(l => l.trim().length > 0) || '';
+        const clean = firstLine.replace(/\s+/g, ' ').trim();
+        if (clean.length <= max) return clean;
+        return clean.slice(0, max) + '…';
+      }
+
+      // ---- Rendering ----
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      function renderList() {
+        const articles = getArticles().sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        if (articles.length === 0) {
+          articleList.innerHTML = '<div class="article-empty">还没有文章 · 点击右上角"新建文章"开始记录 ♡</div>';
+          return;
+        }
+        articleList.innerHTML = articles.map(a => {
+          const date = formatDateForDisplay(a.date);
+          const meta = `${escapeHtml(a.category || '随笔')} · ${escapeHtml(a.readingTime || '1 分钟')}`;
+          return `
+            <div class="article-row" data-article-id="${escapeHtml(a.id)}">
+              <div class="article-date">${escapeHtml(date)}</div>
+              <div>
+                <div class="article-title">${escapeHtml(a.title)}</div>
+                <p class="article-excerpt">${escapeHtml(makeExcerpt(a.content))}</p>
+              </div>
+              <div class="article-actions">
+                <div class="article-meta">${meta}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Wire click → open reader
+        articleList.querySelectorAll('.article-row').forEach(row => {
+          row.addEventListener('click', (e) => {
+            if (e.target.closest('.article-delete-btn')) return;
+            openReader(row.dataset.articleId);
+          });
+        });
+      }
+
+      // ---- New article modal ----
+      function openNew() {
+        titleInput.value = '';
+        categoryInput.value = '随笔';
+        dateInput.value = formatDateForInput(new Date());
+        contentInput.value = '';
+        newModal.classList.add('show');
+        setTimeout(() => titleInput.focus(), 80);
+      }
+      function closeNew() {
+        newModal.classList.remove('show');
+      }
+
+      function submitNew() {
+        const title = titleInput.value.trim();
+        const content = contentInput.value.trim();
+        if (!title) { alert('请输入标题 ♡'); titleInput.focus(); return; }
+        if (!content) { alert('正文不能为空 ♡'); contentInput.focus(); return; }
+        const article = {
+          id: Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7),
+          title,
+          content,
+          category: categoryInput.value || '随笔',
+          date: dateInput.value || formatDateForInput(new Date()),
+          readingTime: calcReadingTime(content),
+          createdAt: Date.now()
+        };
+        const list = getArticles();
+        list.push(article);
+        saveArticles(list);
+        closeNew();
+        renderList();
+      }
+
+      // ---- Reader modal ----
+      function openReader(id) {
+        const article = getArticles().find(a => a.id === id);
+        if (!article) return;
+        currentReaderId = id;
+        readerTitle.textContent = article.title;
+        readerMeta.textContent = `${formatDateForDisplay(article.date)} · ${article.category || '随笔'}`;
+        readerTags.innerHTML = `
+          <span>📖 约 ${escapeHtml(article.readingTime || '1 分钟')}</span>
+          <span class="dot"></span>
+          <span>发布于 ${escapeHtml(article.date)}</span>
+        `;
+        readerContent.textContent = article.content;
+        readerModal.classList.add('show');
+      }
+      function closeReader() {
+        readerModal.classList.remove('show');
+        currentReaderId = null;
+      }
+
+      function deleteCurrent() {
+        if (!currentReaderId) return;
+        if (!confirm('确定要删除这篇文章吗？此操作不可撤销。')) return;
+        const list = getArticles().filter(a => a.id !== currentReaderId);
+        saveArticles(list);
+        closeReader();
+        renderList();
+      }
+
+      // ---- Wire up ----
+      btnAdd.addEventListener('click', openNew);
+      submitBtn.addEventListener('click', submitNew);
+      deleteBtn.addEventListener('click', deleteCurrent);
+
+      // Close handlers (× button, ghost buttons, backdrop click, Esc key)
+      newModal.querySelectorAll('[data-close-article-new]').forEach(el => el.addEventListener('click', closeNew));
+      readerModal.querySelectorAll('[data-close-article-reader]').forEach(el => el.addEventListener('click', closeReader));
+      newModal.addEventListener('click', (e) => { if (e.target === newModal) closeNew(); });
+      readerModal.addEventListener('click', (e) => { if (e.target === readerModal) closeReader(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (readerModal.classList.contains('show')) closeReader();
+          else if (newModal.classList.contains('show')) closeNew();
+        }
+        // Cmd/Ctrl + Enter in new modal = submit
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter' && newModal.classList.contains('show')) {
+          e.preventDefault();
+          submitNew();
+        }
+      });
+
+      // Initial render
+      renderList();
+    })();
+  </script>
+
+  <!-- Local Page Editor -->
+  <div class="editor-banner">
+    ✎ 编辑模式 · 改动会自动保存到本地
+    <span style="margin-left: 12px; padding: 2px 10px; background: rgba(255,255,255,0.2); border-radius: 999px; font-size: 11px; cursor: pointer;" onclick="toggleEditMode()">退出</span>
+  </div>
+
+  <div class="page-editor">
+    <div class="editor-actions">
+      <button class="editor-action-btn" onclick="toggleEditMode()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        退出编辑
+      </button>
+      <button class="editor-action-btn danger" onclick="resetAllEdits()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        重置全部
+      </button>
+    </div>
+    <button class="editor-fab" id="editorFab" onclick="toggleEditMode()" title="本地编辑 · 改任意文字">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+  </div>
+
+  <div class="editor-toast" id="editorToast"></div>
+
+  <script>
+    // ============ LOCAL PAGE EDITOR ============
+    const EDIT_PREFIX = 'frina_v2_edit_';
+
+    function getPageId() {
+      const meta = document.querySelector('meta[name="page-id"]');
+      if (meta) return meta.getAttribute('content');
+      return document.title || 'unknown';
+    }
+
+    function getElementSelector(el) {
+      const path = [];
+      let current = el;
+      while (current && current !== document.body && current !== document.documentElement) {
+        let selector = current.tagName.toLowerCase();
+        if (current.id) { selector += '#' + current.id; path.unshift(selector); break; }
+        // Include class names (filtered) for better uniqueness
+        if (current.className && typeof current.className === 'string') {
+          const classes = current.className.split(/\s+/).filter(c => c && !c.startsWith('editable-')).slice(0, 2);
+          if (classes.length) selector += '.' + classes.join('.');
+        }
+        const parent = current.parentElement;
+        if (parent) {
+          const siblings = Array.from(parent.children).filter(c => c.tagName === current.tagName);
+          if (siblings.length > 1) selector += `:nth-of-type(${siblings.indexOf(current) + 1})`;
+        }
+        path.unshift(selector);
+        current = parent;
+      }
+      return path.join(' > ');
+    }
+
+    function getElementKey(el) {
+      return EDIT_PREFIX + getPageId() + '::' + getElementSelector(el);
+    }
+
+    function isTextEditable(el) {
+      if (!el) return false;
+      if (el.closest('.page-editor, .editor-toast, .editor-banner, header, nav, footer')) return false;
+      if (el.closest('script, style, input, textarea, select, button')) return false;
+      const tag = el.tagName.toLowerCase();
+      if (!['h1','h2','h3','h4','h5','h6','p','blockquote','span','li','a','time','div'].includes(tag)) return false;
+      if (el.textContent.trim().length < 1) return false;
+      if (el.children.length > 3) return false;
+      return true;
+    }
+
+    function enableEditMode() {
+      document.body.classList.add('edit-mode');
+      const fab = document.getElementById('editorFab'); if (fab) fab.classList.add('active');
+      showToast('编辑模式已开启 · 点任意文字修改');
+      document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,blockquote,span,li,a,time,div').forEach(el => {
+        if (!isTextEditable(el)) return;
+        el.contentEditable = 'true';
+        el.classList.add('editable-text');
+        el.addEventListener('focus', onEditFocus);
+        el.addEventListener('blur', onEditBlur);
+      });
+    }
+
+    function disableEditMode() {
+      document.body.classList.remove('edit-mode');
+      const fab = document.getElementById('editorFab'); if (fab) fab.classList.remove('active');
+      document.querySelectorAll('.editable-text').forEach(el => {
+        el.contentEditable = 'false';
+        el.classList.remove('editable-text', 'editing-now');
+        el.removeEventListener('focus', onEditFocus);
+        el.removeEventListener('blur', onEditBlur);
+      });
+      showToast('已退出编辑');
+    }
+
+    function toggleEditMode() {
+      if (document.body.classList.contains('edit-mode')) disableEditMode();
+      else enableEditMode();
+    }
+    window.toggleEditMode = toggleEditMode;
+
+    function onEditFocus(e) { e.target.classList.add('editing-now'); }
+    function onEditBlur(e) {
+      const el = e.target;
+      el.classList.remove('editing-now');
+      localStorage.setItem(getElementKey(el), el.innerHTML);
+      showToast('已保存 ✓');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('editorToast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => toast.classList.remove('show'), 1600);
+    }
+
+    function loadAllEdits() {
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(EDIT_PREFIX)) {
+          const rest = key.slice(EDIT_PREFIX.length);
+          // Skip if it doesn't belong to this page (defensive check)
+          if (rest.indexOf(getPageId() + '::') !== 0) return;
+          const sel = rest.slice(getPageId().length + 2);
+          try { const el = document.querySelector(sel); if (el) el.innerHTML = localStorage.getItem(key); }
+          catch (e) {}
+        }
+      });
+    }
+
+    function resetAllEdits() {
+      if (!confirm('确定要清除所有本地修改吗？此操作不可撤销。')) return;
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(EDIT_PREFIX)) localStorage.removeItem(key);
+      });
+      location.reload();
+    }
+    window.resetAllEdits = resetAllEdits;
+
+    loadAllEdits();
+  </script></body>
+</html>

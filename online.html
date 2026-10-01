@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+    <meta name="page-id" content="online" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Frina 的地球 Online 个人档案。" />
+  <title>地球Online · Frina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #fbdde5; --bg-soft: #f6cfd9; --bg-deep: #f0bcc8;
+      --card: #ffffff; --line: #ecbfca; --line-soft: #f6d8e0;
+      --text: #3a1d28; --text-2: #6b4955; --muted: #a88491;
+      --primary: #d96b8a; --primary-deep: #8e3a5d; --primary-soft: #fdd8e2;
+      --accent: #e85c7d; --yellow: #f4d7a4; --blue-tape: #b9d8e6; --green-tape: #c8dec6;
+      --max: 1180px; --radius: 16px;
+      --shadow-sm: 0 2px 8px rgba(142, 73, 99, 0.06);
+      --shadow-md: 0 8px 24px -10px rgba(142, 73, 99, 0.12);
+      --transition: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    body {
+      font-family: 'Outfit', 'Noto Sans SC', -apple-system, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><g><g transform='translate(40 40) rotate(15)' opacity='0.13'><g fill='%23c97b8e'><ellipse cx='0' cy='-7' rx='3' ry='5'/><ellipse cx='6.66' cy='-2.16' rx='3' ry='5' transform='rotate(72)'/><ellipse cx='4.11' cy='5.66' rx='3' ry='5' transform='rotate(144)'/><ellipse cx='-4.11' cy='5.66' rx='3' ry='5' transform='rotate(216)'/><ellipse cx='-6.66' cy='-2.16' rx='3' ry='5' transform='rotate(288)'/></g><circle r='2' fill='%23f4d7a4'/></g><g transform='translate(150 110) rotate(-30)' opacity='0.1'><g fill='%23c97b8e'><ellipse cx='0' cy='-7' rx='3' ry='5'/><ellipse cx='6.66' cy='-2.16' rx='3' ry='5' transform='rotate(72)'/><ellipse cx='4.11' cy='5.66' rx='3' ry='5' transform='rotate(144)'/><ellipse cx='-4.11' cy='5.66' rx='3' ry='5' transform='rotate(216)'/><ellipse cx='-6.66' cy='-2.16' rx='3' ry='5' transform='rotate(288)'/></g><circle r='2' fill='%23f4d7a4'/></g><g transform='translate(95 65) rotate(-25)' opacity='0.11'><path d='M0 0 Q-3 -5 0 -10 Q3 -5 0 0' fill='%238e4963'/></g><g transform='translate(65 145) rotate(35)' opacity='0.11'><path d='M0 0 Q-3 -5 0 -10 Q3 -5 0 0' fill='%238e4963'/></g><g transform='translate(170 50) rotate(-50)' opacity='0.1'><path d='M0 0 Q-2 -4 0 -8 Q2 -4 0 0' fill='%238e4963'/></g><circle cx='165' cy='35' r='1.4' fill='%23b85d8a' opacity='0.25'/><circle cx='40' cy='130' r='1.4' fill='%23b85d8a' opacity='0.25'/><circle cx='110' cy='180' r='1.4' fill='%23b85d8a' opacity='0.25'/></g></svg>"),
+        radial-gradient(ellipse at 15% 0%, rgba(201, 123, 142, 0.08) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 50%, rgba(244, 215, 164, 0.08) 0%, transparent 45%);
+      background-attachment: fixed, fixed, fixed;
+      color: var(--text); line-height: 1.65; font-size: 15px;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; transition: color var(--transition); }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; position: relative; }
+    @media (max-width: 640px) { .container { padding: 0 20px; } }
+    section { padding: 72px 0; position: relative; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary-deep); font-weight: 500; }
+    .eyebrow::before, .eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--primary); display: inline-block; }
+    .section-title { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: clamp(32px, 4.5vw, 48px); font-weight: 600; font-style: italic; letter-spacing: -0.01em; color: var(--text); margin: 12px 0; }
+
+    /* HEADER */
+    .header { padding: 22px 0; position: sticky; top: 0; z-index: 100; background: rgba(253, 242, 245, 0.78); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 22px; font-weight: 600; font-style: italic; color: var(--text); }
+    .logo-mark { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); display: inline-flex; align-items: center; justify-content: center; color: white; font-family: 'Caveat', cursive; font-size: 19px; font-weight: 600; box-shadow: var(--shadow-sm); }
+    .nav { display: flex; align-items: center; gap: 24px; }
+    .nav a { font-size: 13.5px; color: var(--text-2); font-weight: 400; position: relative; padding: 6px 0; }
+    .nav a:hover { color: var(--primary-deep); }
+    .nav a.active { color: var(--primary-deep); font-weight: 500; }
+    .nav a.active::after { content: ''; position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
+    @media (max-width: 1080px) { .nav { gap: 16px; } }
+    @media (max-width: 880px) { .nav a:not(.nav-cta) { display: none; } }
+
+    /* PAGE HERO */
+    .page-hero { padding: 72px 0 32px; text-align: center; position: relative; }
+    .page-hero .script { font-family: 'Caveat', 'Ma Shan Zheng', cursive; font-size: clamp(28px, 4vw, 42px); color: var(--primary-deep); }
+    .page-hero h1 { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: clamp(48px, 8vw, 84px); font-weight: 600; font-style: italic; letter-spacing: -0.02em; line-height: 1; margin: 6px 0 14px; }
+    .page-hero p { font-size: 14px; color: var(--text-2); max-width: 480px; margin: 0 auto; }
+
+    /* PROFILE CARD */
+    .profile-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 48px; box-shadow: var(--shadow-md);
+      display: grid; grid-template-columns: 320px 1fr; gap: 56px;
+      position: relative;
+    }
+    .profile-card::before {
+      content: ''; position: absolute; top: -8px; left: 40px; right: 40px; height: 8px;
+      background:
+        linear-gradient(90deg,
+          var(--yellow) 0%, var(--yellow) 33%,
+          var(--blue-tape) 33%, var(--blue-tape) 66%,
+          var(--green-tape) 66%, var(--green-tape) 100%);
+      border-radius: 4px 4px 0 0; opacity: 0.6;
+    }
+    .polaroid { background: white; padding: 14px 14px 56px; box-shadow: 0 4px 16px rgba(58, 39, 48, 0.1); position: relative; transition: transform var(--transition); transform: rotate(-3deg); }
+    .polaroid:hover { transform: rotate(0deg) scale(1.03); }
+    .polaroid-tape { position: absolute; top: -8px; left: 50%; margin-left: -32px; width: 64px; height: 22px; background: rgba(244, 215, 164, 0.7); transform: rotate(-3deg); box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+    .polaroid-photo { aspect-ratio: 3 / 4; background: linear-gradient(135deg, var(--primary-soft) 0%, var(--bg-deep) 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: var(--primary-deep); position: relative; overflow: hidden; }
+    .polaroid-photo::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 30%), radial-gradient(circle at 70% 60%, rgba(244,215,164,0.3) 0%, transparent 30%); }
+    .polaroid-photo svg { position: relative; z-index: 1; }
+    .polaroid-photo .photo-hint { position: relative; z-index: 1; font-family: 'Caveat', cursive; font-size: 18px; color: var(--primary-deep); }
+    .polaroid-caption { position: absolute; bottom: 14px; left: 14px; right: 14px; text-align: center; font-family: 'Caveat', 'Ma Shan Zheng', cursive; font-size: 20px; color: var(--text); }
+
+    .profile-id { display: flex; flex-direction: column; justify-content: center; }
+    .profile-id-head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; flex-wrap: wrap; }
+    .profile-name { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: clamp(32px, 4vw, 44px); font-weight: 600; color: var(--text); font-style: italic; letter-spacing: -0.01em; }
+    .profile-badge { padding: 4px 12px; background: var(--primary-soft); color: var(--primary-deep); border-radius: 999px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+    .profile-sub { font-family: 'Caveat', 'Ma Shan Zheng', cursive; font-size: 22px; color: var(--primary-deep); margin-bottom: 28px; }
+    .id-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 28px; padding: 24px 0; border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); }
+    .id-item { display: flex; flex-direction: column; gap: 2px; }
+    .id-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    .id-value { font-size: 15px; color: var(--text); font-weight: 500; }
+    .id-value .highlight { color: var(--primary-deep); font-weight: 600; }
+    .profile-quote { margin-top: 24px; padding: 18px 22px; background: var(--primary-soft); border-left: 3px solid var(--primary); border-radius: 0 10px 10px 0; font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 15px; font-style: italic; color: var(--text-2); line-height: 1.7; }
+    @media (max-width: 880px) {
+      .profile-card { grid-template-columns: 1fr; padding: 36px 28px; gap: 36px; }
+      .polaroid { max-width: 280px; margin: 0 auto; }
+    }
+
+    /* STATUS GRID */
+    .status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+    .status-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; position: relative; overflow: hidden; }
+    .status-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+    .status-card.body::before { background: linear-gradient(90deg, var(--primary), var(--accent)); }
+    .status-card.mind::before { background: linear-gradient(90deg, var(--blue-tape), var(--green-tape)); }
+    .status-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .status-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .status-card.body .status-icon { background: var(--primary-soft); color: var(--primary-deep); }
+    .status-card.mind .status-icon { background: rgba(185, 216, 230, 0.3); color: #5b8895; }
+    .status-title { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 22px; font-weight: 600; color: var(--text); font-style: italic; }
+    .status-text { font-size: 14px; color: var(--text-2); line-height: 1.8; }
+
+    /* ============ LOCAL PAGE EDITOR ============ */
+    .page-editor {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+    .editor-fab {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px -8px rgba(217, 107, 138, 0.55);
+      transition: all var(--transition);
+    }
+    .editor-fab:hover { transform: scale(1.06) rotate(-5deg); }
+    .editor-fab.active {
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, var(--primary-deep), var(--accent));
+    }
+    .editor-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: all var(--transition);
+    }
+    body.edit-mode .editor-actions {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .editor-action-btn {
+      padding: 8px 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+      font-family: inherit;
+    }
+    .editor-action-btn:hover {
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+    }
+    .editor-action-btn.danger:hover {
+      background: rgba(184, 93, 138, 0.12);
+      color: var(--accent);
+    }
+
+    /* Toast */
+    .editor-toast {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      padding: 10px 18px;
+      background: var(--text);
+      color: white;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      z-index: 9998;
+    }
+    .editor-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Edit mode visual cues */
+    body.edit-mode .editable-text {
+      outline: 1px dashed transparent;
+      outline-offset: 4px;
+      transition: outline-color 120ms, background-color 120ms;
+      cursor: text;
+    }
+    body.edit-mode .editable-text:hover {
+      outline-color: var(--primary);
+    }
+    body.edit-mode .editable-text.editing-now {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      background: rgba(252, 231, 237, 0.45);
+      border-radius: 4px;
+    }
+
+    /* Edit-mode banner */
+    .editor-banner {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      padding: 8px 20px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      z-index: 9997;
+    }
+    body.edit-mode .editor-banner { display: block; }
+    body.edit-mode .header { top: 36px; }
+    .status-tag { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+    .status-card.body .status-tag { background: var(--primary-soft); color: var(--primary-deep); }
+    .status-card.mind .status-tag { background: rgba(185, 216, 230, 0.3); color: #5b8895; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    @media (max-width: 720px) { .status-grid { grid-template-columns: 1fr; } }
+
+    /* PROFILE PHOTO UPLOAD */
+    .profile-polaroid .polaroid-photo { cursor: pointer; position: relative; }
+    .profile-polaroid .polaroid-photo .upload-hint {
+      position: absolute;
+      bottom: 8px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+      font-size: 13px;
+      color: var(--primary-deep);
+      background: rgba(255, 255, 255, 0.85);
+      padding: 2px 10px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: opacity var(--transition);
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 2;
+    }
+    .profile-polaroid:hover .polaroid-photo .upload-hint { opacity: 1; }
+    .profile-polaroid.has-photo .polaroid-photo { background-image: var(--uploaded-bg); background-size: cover; background-position: center; }
+    .profile-polaroid.has-photo .polaroid-photo svg,
+    .profile-polaroid.has-photo .polaroid-photo .photo-hint { display: none; }
+    .profile-polaroid.has-photo .polaroid-photo .upload-hint { content: '点击替换'; }
+    .profile-polaroid .polaroid-remove {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.55;
+      transition: opacity var(--transition), background var(--transition), color var(--transition);
+      z-index: 3;
+      box-shadow: 0 2px 6px rgba(58, 39, 48, 0.15);
+    }
+    .profile-polaroid:hover .polaroid-remove { opacity: 1; }
+    .profile-polaroid .polaroid-remove:hover { background: var(--accent); color: white; }
+
+    /* FOOTER (shared) */
+    .footer { padding: 56px 0 28px; border-top: 1px solid var(--line); background: rgba(253, 242, 245, 0.6); margin-top: 48px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-tagline { font-family: 'Caveat', cursive; font-size: 18px; color: var(--primary-deep); margin-bottom: 10px; }
+    .footer-desc { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; color: var(--text); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col a { font-size: 13px; color: var(--text-2); }
+    .footer-col a:hover { color: var(--primary-deep); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px dashed var(--line); flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-socials { display: flex; gap: 8px; }
+    .footer-social { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-2); transition: all var(--transition); }
+    .footer-social:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    /* ANIM */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1); }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <script>
+    // 防御性：每次进入页面（包括 bfcache 恢复）都强制重置编辑模式，
+    // 避免从其他页面"带入" body.edit-mode 状态。
+    (function resetEditModeOnLoad() {
+      function forceReset() {
+        document.body.classList.remove('edit-mode');
+        document.querySelectorAll('[contenteditable]').forEach(function (el) {
+          el.setAttribute('contenteditable', 'false');
+        });
+        document.querySelectorAll('.editable-text').forEach(function (el) {
+          el.classList.remove('editable-text', 'editing-now');
+        });
+        document.querySelectorAll('.editing-now').forEach(function (el) {
+          el.classList.remove('editing-now');
+        });
+        var fab = document.getElementById('editorFab');
+        if (fab) fab.classList.remove('active');
+        var toast = document.getElementById('editorToast');
+        if (toast) toast.classList.remove('show');
+      }
+      forceReset();
+      window.addEventListener('pageshow', forceReset);
+    })();
+  </script>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-mark">F</span>Frina</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="online.html" class="active">地球Online</a>
+        <a href="life.html">生活</a>
+        <a href="work.html">工作</a>
+        <a href="study.html">学习</a>
+        <a href="social.html">社交</a>
+        <a href="hobbies.html">兴趣爱好</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="script fade-in">chapter 01</div>
+        <h1 class="fade-in">地球 Online</h1>
+        <p class="fade-in">一个地球online玩家的个人档案。</p>
+      </div>
+    </section>
+
+    <!-- Profile -->
+    <section style="padding-top: 32px;">
+      <div class="container">
+        <div class="profile-card fade-in">
+          <div class="polaroid profile-polaroid" id="profilePolaroid" style="transform: rotate(-3deg);">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-photo" id="profilePhoto">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="18" cy="6" r="1.5" fill="currentColor"/>
+              </svg>
+              <span class="photo-hint">Frina · 27</span>
+              <span class="upload-hint">点击上传 ♡</span>
+            </div>
+            <input type="file" accept="image/*" id="profilePhotoInput" hidden />
+            <button type="button" class="polaroid-remove" id="profilePhotoRemove" title="删除并恢复默认" style="display:none">×</button>
+            <div class="polaroid-caption">hello, it's me ♡</div>
+          </div>
+          <div class="profile-id">
+            <div class="profile-id-head">
+              <h2 class="profile-name">Frina</h2>
+              <span class="profile-badge">Lv.27 · 在场</span>
+            </div>
+            <div class="profile-sub">a philosophy girl ✿ in Shenzhen</div>
+            <div class="id-grid">
+              <div class="id-item"><span class="id-label">Name</span><span class="id-value">Frina</span></div>
+              <div class="id-item"><span class="id-label">Birthday</span><span class="id-value">1999.02.20 ♓</span></div>
+              <div class="id-item"><span class="id-label">Location</span><span class="id-value">中国 · 深圳</span></div>
+              <div class="id-item"><span class="id-label">Education</span><span class="id-value">谢菲尔德大学 <span class="highlight">哲学硕士</span></span></div>
+              <div class="id-item"><span class="id-label">Job</span><span class="id-value">国际英语老师</span></div>
+              <div class="id-item"><span class="id-label">Status</span><span class="id-value">和 <span class="highlight">@徐硕宁</span> 在一起</span></div>
+            </div>
+            <div class="profile-quote">"LOL的神有且仅有Faker"</div>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="status-grid">
+          <div class="status-card body fade-in">
+            <div class="status-card-head">
+              <div class="status-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <h3 class="status-title">身体状况</h3>
+            </div>
+            <p class="status-text">最近睡眠改善了不少，开始规律地做一些轻运动。每周两次瑜伽，偶尔晨跑 3 公里，配速不快但坚持下来了。夏天爱喝冰的，肠胃偶尔闹小脾气，需要提醒自己少贪凉。</p>
+            <span class="status-tag"><span class="status-dot"></span>整体良好 · 注意肠胃</span>
+          </div>
+          <div class="status-card mind fade-in">
+            <div class="status-card-head">
+              <div class="status-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 3-2 5-3 7-1 1-1 2-1 3v1H9v-1c0-1 0-2-1-3-1-2-3-4-3-7a7 7 0 0 1 7-7z"/><path d="M9 22h6"/></svg>
+              </div>
+              <h3 class="status-title">精神状况</h3>
+            </div>
+            <p class="status-text">在学着放慢节奏。读哲学书的时候最安定，偶尔焦虑，但总体是一个会给自己做小蛋糕的人。每月给自己放一天假，不回消息，不列清单，去公园散步两小时。</p>
+            <span class="status-tag"><span class="status-dot"></span>稳定向好 · 偶尔波动</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span class="logo-mark">F</span>Frina</a>
+          <div class="footer-tagline">keep it slow, keep it real.</div>
+          <p class="footer-desc">记录我的日常、阅读与生活。</p>
+        </div>
+        <div class="footer-col"><h4>首页</h4><ul><li><a href="index.html">今日之语</a></li><li><a href="index.html#photos">照片墙</a></li><li><a href="index.html#guestbook">留言区</a></li></ul></div>
+        <div class="footer-col"><h4>分区</h4><ul><li><a href="online.html">地球Online</a></li><li><a href="life.html">生活</a></li><li><a href="work.html">工作</a></li><li><a href="study.html">学习</a></li></ul></div>
+        <div class="footer-col"><h4>更多</h4><ul><li><a href="social.html">社交</a></li><li><a href="hobbies.html">兴趣爱好</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Frina · 用心生活，缓慢更新 ✿</span>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <div class="footer-socials">
+          <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="9" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/></svg></a>
+          <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h4v16H3zM9 4h2v16H9zM13 4h2v16h-2zM17 4h4v16h-4z"/></svg></a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach((el) => io.observe(el));
+    document.querySelectorAll('.page-hero .fade-in').forEach((el) => setTimeout(() => el.classList.add('visible'), 80));
+
+    // ============ LOCAL PAGE EDITOR (no login) ============
+    const EDIT_PREFIX = 'frina_v2_edit_';
+
+    function getPageId() {
+      const meta = document.querySelector('meta[name="page-id"]');
+      if (meta) return meta.getAttribute('content');
+      return document.title || 'unknown';
+    }
+
+    function getElementSelector(el) {
+      const path = [];
+      let current = el;
+      while (current && current !== document.body && current !== document.documentElement) {
+        let selector = current.tagName.toLowerCase();
+        if (current.id) {
+          selector += '#' + current.id;
+          path.unshift(selector);
+          break;
+        }
+        if (current.className && typeof current.className === 'string') {
+          const classes = current.className.split(/\s+/).filter(c => c && !c.startsWith('editable-')).slice(0, 2);
+          if (classes.length) selector += '.' + classes.join('.');
+        }
+        const parent = current.parentElement;
+        if (parent) {
+          const siblings = Array.from(parent.children).filter(c => c.tagName === current.tagName);
+          if (siblings.length > 1) {
+            selector += `:nth-of-type(${siblings.indexOf(current) + 1})`;
+          }
+        }
+        path.unshift(selector);
+        current = parent;
+      }
+      return path.join(' > ');
+    }
+
+    function getElementKey(el) {
+      return EDIT_PREFIX + getPageId() + '::' + getElementSelector(el);
+    }
+
+    function isTextEditable(el) {
+      if (!el) return false;
+      if (el.closest('.page-editor, .editor-toast, .editor-banner, .profile-polaroid, header, nav, footer')) return false;
+      if (el.closest('script, style, input, textarea, select, button')) return false;
+      const tag = el.tagName.toLowerCase();
+      if (!['h1','h2','h3','h4','h5','h6','p','blockquote','span','li','a','time','div'].includes(tag)) return false;
+      if (el.textContent.trim().length < 1) return false;
+      if (el.children.length > 3) return false;
+      return true;
+    }
+
+    function enableEditMode() {
+      document.body.classList.add('edit-mode');
+      document.getElementById('editorFab').classList.add('active');
+      showToast('编辑模式已开启 · 点任意文字修改');
+      document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,blockquote,span,li,a,time,div').forEach(el => {
+        if (!isTextEditable(el)) return;
+        el.contentEditable = 'true';
+        el.classList.add('editable-text');
+        el.addEventListener('focus', onEditFocus);
+        el.addEventListener('blur', onEditBlur);
+      });
+    }
+
+    function disableEditMode() {
+      document.body.classList.remove('edit-mode');
+      const fab = document.getElementById('editorFab');
+      if (fab) fab.classList.remove('active');
+      document.querySelectorAll('.editable-text').forEach(el => {
+        el.contentEditable = 'false';
+        el.classList.remove('editable-text', 'editing-now');
+        el.removeEventListener('focus', onEditFocus);
+        el.removeEventListener('blur', onEditBlur);
+      });
+      showToast('已退出编辑');
+    }
+
+    function toggleEditMode() {
+      if (document.body.classList.contains('edit-mode')) disableEditMode();
+      else enableEditMode();
+    }
+    window.toggleEditMode = toggleEditMode;
+
+    function onEditFocus(e) {
+      e.target.classList.add('editing-now');
+    }
+    function onEditBlur(e) {
+      const el = e.target;
+      el.classList.remove('editing-now');
+      localStorage.setItem(getElementKey(el), el.innerHTML);
+      showToast('已保存 ✓');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('editorToast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => toast.classList.remove('show'), 1600);
+    }
+
+    function loadAllEdits() {
+      const pageId = getPageId();
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(EDIT_PREFIX)) {
+          const rest = key.slice(EDIT_PREFIX.length);
+          if (rest.indexOf(pageId + '::') !== 0) return;
+          const sel = rest.slice(pageId.length + 2);
+          try {
+            const el = document.querySelector(sel);
+            if (el) el.innerHTML = localStorage.getItem(key);
+          } catch (e) { /* skip invalid selectors */ }
+        }
+      });
+    }
+
+    function resetAllEdits() {
+      if (!confirm('确定要清除所有本地修改吗？此操作不可撤销。')) return;
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(EDIT_PREFIX)) localStorage.removeItem(key);
+      });
+      location.reload();
+    }
+    window.resetAllEdits = resetAllEdits;
+
+    // ============ Drop stale saved edits in profile-polaroid ============
+    // 老版本可能把 profilePolaroid/.polaroid-photo 的 innerHTML 写进 frina_v2_edit_*，
+    // loadAllEdits 还原后会破坏掉现有结构 + 隐藏 × 删除按钮。必须先扫一遍删掉。
+    (function purgeProfilePolaroidEdits() {
+      let removed = 0;
+      try {
+        Object.keys(localStorage).forEach(k => {
+          if (!k.startsWith(EDIT_PREFIX)) return;
+          const rest = k.slice(EDIT_PREFIX.length);
+          if (rest.indexOf(getPageId() + '::') !== 0) return;
+          const sel = rest.slice(getPageId().length + 2);
+          try {
+            const el = document.querySelector(sel);
+            if (!el) return;
+            if (el.closest('.profile-polaroid') || el.closest('.polaroid-photo')) {
+              localStorage.removeItem(k);
+              removed++;
+            }
+          } catch (e) {}
+        });
+      } catch (e) {}
+      if (removed) console.log('[online] cleared', removed, 'legacy profile-polaroid edits');
+    })();
+
+    loadAllEdits();
+
+    // ============ PROFILE PHOTO UPLOAD ============
+    (function setupProfilePhotoUpload() {
+      const STORAGE_KEY = 'frina_online_profile_photo';
+      // One-time migration from the old key (frina_onlion_profile_photo) — preserves
+      // any photo the user uploaded before the file rename.
+      try {
+        if (!localStorage.getItem(STORAGE_KEY)) {
+          const oldData = localStorage.getItem('frina_onlion_profile_photo');
+          if (oldData) {
+            localStorage.setItem(STORAGE_KEY, oldData);
+            localStorage.removeItem('frina_onlion_profile_photo');
+          }
+        }
+      } catch (e) { /* ignore */ }
+      const polaroid = document.getElementById('profilePolaroid');
+      const photoBox = document.getElementById('profilePhoto');
+      const fileInput = document.getElementById('profilePhotoInput');
+      const removeBtn = document.getElementById('profilePhotoRemove');
+      if (!polaroid || !photoBox || !fileInput || !removeBtn) return;
+
+      function applyPhoto(dataUrl) {
+        photoBox.style.setProperty('--uploaded-bg', `url("${dataUrl.replace(/"/g, '\\"')}")`);
+        polaroid.classList.add('has-photo');
+        removeBtn.style.display = '';
+      }
+
+      function clearPhoto() {
+        localStorage.removeItem(STORAGE_KEY);
+        photoBox.style.removeProperty('--uploaded-bg');
+        polaroid.classList.remove('has-photo');
+        removeBtn.style.display = 'none';
+      }
+
+      // Restore saved photo
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) applyPhoto(saved);
+      } catch (e) { /* corrupted — ignore */ }
+
+      // Click polaroid → open file picker
+      polaroid.addEventListener('click', (e) => {
+        if (e.target.closest('.polaroid-remove')) return;
+        fileInput.click();
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) {
+          if (!confirm(`${file.name} 超过 5MB，可能无法保存。仍要继续吗？`)) {
+            fileInput.value = '';
+            return;
+          }
+        }
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            localStorage.setItem(STORAGE_KEY, ev.target.result);
+            applyPhoto(ev.target.result);
+          } catch (err) {
+            alert('保存失败 · localStorage 可能已满。');
+          }
+        };
+        reader.readAsDataURL(file);
+        fileInput.value = '';
+      });
+
+      removeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (confirm('删除并恢复默认头像？')) clearPhoto();
+      });
+    })();
+  </script>
+
+  <!-- Page Editor UI -->
+  <div class="editor-banner">
+    ✎ 编辑模式 · 改动会自动保存到本地
+    <span style="margin-left: 12px; padding: 2px 10px; background: rgba(255,255,255,0.2); border-radius: 999px; font-size: 11px; cursor: pointer;" onclick="toggleEditMode()">退出</span>
+  </div>
+
+  <div class="page-editor">
+    <div class="editor-actions">
+      <button class="editor-action-btn" onclick="toggleEditMode()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        退出编辑
+      </button>
+      <button class="editor-action-btn danger" onclick="resetAllEdits()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        重置全部
+      </button>
+    </div>
+    <button class="editor-fab" id="editorFab" onclick="toggleEditMode()" title="本地编辑 · 改任意文字">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+  </div>
+
+  <div class="editor-toast" id="editorToast"></div>
+</body>
+</html>

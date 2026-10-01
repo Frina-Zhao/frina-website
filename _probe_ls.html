@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>ls probe</title></head>
+<body style="font: 13px monospace; padding: 20px;">
+<h2>localStorage probe</h2>
+<pre id="o">loading...</pre>
+<script>
+  var keys = Object.keys(localStorage).sort();
+  var lines = ['keys: ' + keys.length];
+  keys.forEach(function(k){
+    var v = localStorage.getItem(k);
+    var preview = v.length > 200 ? v.slice(0,200)+'...['+v.length+'b]' : v;
+    lines.push('-- ' + k + ' (' + v.length + ' bytes) --');
+    lines.push(preview);
+  });
+  document.getElementById('o').textContent = lines.join('\n');
+</script>
+</body></html>

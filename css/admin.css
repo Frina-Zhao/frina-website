@@ -1,0 +1,234 @@
+/* ============================================================
+   Frina 后台通用样式 — 管理员模式下的工具栏 / 弹窗 / 编辑按钮
+   ============================================================ */
+
+/* 管理员模式下默认显示的工具栏按钮 */
+.fb-admin-only {
+  display: none !important;
+}
+body.is-admin .fb-admin-only {
+  display: inline-flex !important;
+}
+
+/* ============= 管理员顶部工具栏 ============= */
+.fb-admin-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  background: rgba(20, 20, 20, 0.92);
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100000;
+  font-size: 13px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+body.is-admin .fb-admin-bar {
+  display: flex;
+}
+.fb-admin-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fb-admin-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fb-admin-bar-title {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.fb-admin-bar-pill {
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 11px;
+  color: #ffd1a8;
+}
+.fb-admin-bar-btn {
+  border: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+.fb-admin-bar-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* 内容整体下移以避开顶部工具栏 */
+body.is-admin {
+  padding-top: 44px !important;
+}
+
+/* ============= 通用 Modal ============= */
+.fb-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200000;
+  animation: fbFadeIn 0.2s ease;
+}
+.fb-modal-backdrop.fb-modal-leave {
+  animation: fbFadeOut 0.18s ease forwards;
+}
+.fb-modal {
+  background: #fff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: fbSlideUp 0.25s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.fb-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+.fb-modal-title {
+  font-weight: 600;
+  font-size: 15px;
+}
+.fb-modal-close {
+  border: 0;
+  background: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+}
+.fb-modal-close:hover {
+  color: #333;
+}
+.fb-modal-body {
+  padding: 18px 20px;
+}
+.fb-modal-hint {
+  margin: 0 0 12px;
+  color: #666;
+  font-size: 13px;
+}
+.fb-modal-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.fb-modal-input:focus {
+  outline: none;
+  border-color: #d8a07a;
+  box-shadow: 0 0 0 3px rgba(216, 160, 122, 0.15);
+}
+.fb-modal-msg {
+  margin-top: 10px;
+  font-size: 12px;
+  min-height: 18px;
+}
+.fb-modal-msg-err {
+  color: #c0392b;
+}
+.fb-modal-msg-ok {
+  color: #27ae60;
+}
+.fb-modal-foot {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 12px 20px 16px;
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+.fb-modal-btn {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.fb-modal-btn-primary {
+  background: linear-gradient(135deg, #e2b58a, #d8a07a);
+  color: #fff;
+}
+.fb-modal-btn-primary:hover {
+  filter: brightness(1.06);
+}
+.fb-modal-btn-ghost {
+  background: transparent;
+  color: #666;
+}
+.fb-modal-btn-ghost:hover {
+  background: #eee;
+}
+
+@keyframes fbFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fbFadeOut {
+  to { opacity: 0; }
+}
+@keyframes fbSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============= 内容可编辑态 ============= */
+body.is-admin [data-fb-edit] {
+  outline: 2px dashed rgba(216, 160, 122, 0.45);
+  outline-offset: 4px;
+  cursor: text;
+  transition: outline-color 0.2s;
+}
+body.is-admin [data-fb-edit]:hover {
+  outline-color: rgba(216, 160, 122, 0.85);
+}
+body.is-admin [data-fb-edit]:focus {
+  outline: 2px solid #d8a07a;
+  background: rgba(255, 248, 240, 0.4);
+}
+
+/* 上传/删除按钮通用 */
+.fb-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: background 0.2s, transform 0.2s;
+}
+.fb-icon-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.08);
+}
+.fb-icon-btn.fb-del-btn {
+  background: rgba(217, 80, 80, 0.7);
+}
+.fb-icon-btn.fb-del-btn:hover {
+  background: rgba(217, 80, 80, 0.95);
+}

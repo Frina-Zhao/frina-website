@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>英语学习 · Frina</title>
+  <meta name="page-id" content="study-english" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fbdde5; --card: #ffffff; --line: #ecbfca; --line-soft: #f6d8e0;
+      --text: #3a1d28; --text-2: #6b4955; --muted: #a88491;
+      --primary: #d96b8a; --primary-deep: #8e3a5d; --primary-soft: #fdd8e2;
+      --accent: #e85c7d; --max: 1180px; --radius: 16px;
+      --shadow-sm: 0 2px 8px rgba(142, 73, 99, 0.06);
+      --shadow-md: 0 8px 24px -10px rgba(142, 73, 99, 0.12);
+      --transition: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    body {
+      font-family: 'Outfit', 'Noto Sans SC', -apple-system, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><g><g transform='translate(40 40) rotate(15)' opacity='0.13'><g fill='%23c97b8e'><ellipse cx='0' cy='-7' rx='3' ry='5'/><ellipse cx='6.66' cy='-2.16' rx='3' ry='5' transform='rotate(72)'/><ellipse cx='4.11' cy='5.66' rx='3' ry='5' transform='rotate(144)'/><ellipse cx='-4.11' cy='5.66' rx='3' ry='5' transform='rotate(216)'/><ellipse cx='-6.66' cy='-2.16' rx='3' ry='5' transform='rotate(288)'/></g><circle r='2' fill='%23f4d7a4'/></g><g transform='translate(150 110) rotate(-30)' opacity='0.1'><g fill='%23c97b8e'><ellipse cx='0' cy='-7' rx='3' ry='5'/><ellipse cx='6.66' cy='-2.16' rx='3' ry='5' transform='rotate(72)'/><ellipse cx='4.11' cy='5.66' rx='3' ry='5' transform='rotate(144)'/><ellipse cx='-4.11' cy='5.66' rx='3' ry='5' transform='rotate(216)'/><ellipse cx='-6.66' cy='-2.16' rx='3' ry='5' transform='rotate(288)'/></g><circle r='2' fill='%23f4d7a4'/></g><g transform='translate(95 65) rotate(-25)' opacity='0.11'><path d='M0 0 Q-3 -5 0 -10 Q3 -5 0 0' fill='%238e4963'/></g><g transform='translate(65 145) rotate(35)' opacity='0.11'><path d='M0 0 Q-3 -5 0 -10 Q3 -5 0 0' fill='%238e4963'/></g><circle cx='165' cy='35' r='1.4' fill='%23b85d8a' opacity='0.25'/><circle cx='40' cy='130' r='1.4' fill='%23b85d8a' opacity='0.25'/></g></svg>"),
+        radial-gradient(ellipse at 15% 0%, rgba(201, 123, 142, 0.08) 0%, transparent 45%);
+      background-attachment: fixed, fixed;
+      color: var(--text); line-height: 1.65; font-size: 15px;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; transition: color var(--transition); }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 640px) { .container { padding: 0 20px; } }
+    section { padding: 72px 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary-deep); font-weight: 500; }
+    .eyebrow::before, .eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--primary); display: inline-block; }
+
+    .header { padding: 22px 0; position: sticky; top: 0; z-index: 100; background: rgba(253, 242, 245, 0.78); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 22px; font-weight: 600; font-style: italic; color: var(--text); }
+    .logo-mark { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); display: inline-flex; align-items: center; justify-content: center; color: white; font-family: 'Caveat', cursive; font-size: 19px; font-weight: 600; box-shadow: var(--shadow-sm); }
+    .nav { display: flex; align-items: center; gap: 24px; }
+    .nav a { font-size: 13.5px; color: var(--text-2); font-weight: 400; position: relative; padding: 6px 0; }
+    .nav a:hover { color: var(--primary-deep); }
+    .nav a.active { color: var(--primary-deep); font-weight: 500; }
+    .nav a.active::after { content: ''; position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
+    @media (max-width: 1080px) { .nav { gap: 16px; } }
+    @media (max-width: 880px) { .nav a:not(.nav-cta) { display: none; } }
+
+    .page-hero { padding: 72px 0 32px; text-align: center; }
+    .page-hero .script { font-family: 'Caveat', 'Ma Shan Zheng', cursive; font-size: clamp(28px, 4vw, 42px); color: var(--primary-deep); }
+    .page-hero h1 { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: clamp(48px, 8vw, 84px); font-weight: 600; font-style: italic; letter-spacing: -0.02em; line-height: 1; margin: 6px 0 14px; }
+    .page-hero p { font-size: 14px; color: var(--text-2); max-width: 540px; margin: 0 auto; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      color: var(--primary-deep);
+      padding: 6px 14px 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--line);
+      transition: all var(--transition);
+      margin-bottom: 24px;
+    }
+    .back-link:hover { background: var(--primary-soft); transform: translateX(-2px); }
+
+    .article-list { margin-top: 0; }
+    .article-list-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .article-list-head h3 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 26px; font-weight: 600; font-style: italic; margin: 0;
+      display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;
+    }
+    .article-list-head h3::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .btn-add-article {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white; border: none; border-radius: 999px;
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      font-family: inherit;
+      box-shadow: 0 2px 8px rgba(217, 107, 138, 0.25);
+      white-space: nowrap;
+    }
+    .btn-add-article:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(217, 107, 138, 0.35); }
+    .article-empty {
+      padding: 32px 20px; text-align: center; color: var(--muted);
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive; font-size: 18px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 12px; border: 1px dashed var(--line);
+    }
+
+    /* log row (with optional thumb column) */
+    .article-row {
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 24px;
+      align-items: start;
+      padding: 18px 0;
+      border-bottom: 1px dashed var(--line);
+      transition: padding-left var(--transition);
+      cursor: pointer;
+    }
+    .article-row.has-thumb { grid-template-columns: 110px 88px 1fr auto; }
+    .article-row:hover { padding-left: 8px; }
+    .article-row:hover .article-title { color: var(--primary-deep); }
+    .article-date { font-family: 'Caveat', cursive; font-size: 22px; color: var(--primary); }
+    .article-title { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 18px; font-weight: 600; font-style: italic; line-height: 1.4; }
+    .article-excerpt { font-size: 13px; color: var(--text-2); line-height: 1.7; margin-top: 6px; }
+    .article-meta { font-size: 11px; color: var(--muted); white-space: nowrap; padding-top: 4px; }
+    .article-thumb {
+      width: 88px; height: 88px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      background: var(--primary-soft);
+      position: relative;
+      display: block;
+    }
+    .article-thumb-count {
+      position: absolute;
+      bottom: 4px; right: 4px;
+      padding: 1px 7px;
+      background: rgba(58, 29, 40, 0.7);
+      color: white;
+      font-size: 10px;
+      font-weight: 500;
+      border-radius: 999px;
+      backdrop-filter: blur(2px);
+    }
+    .article-thumb-wrap {
+      position: relative;
+      width: 88px; height: 88px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 720px) {
+      .article-row { grid-template-columns: 80px 1fr; gap: 14px; }
+      .article-row.has-thumb { grid-template-columns: 80px 80px 1fr; }
+      .article-meta { grid-column: 2; padding-top: 0; }
+      .article-thumb, .article-thumb-wrap { width: 80px; height: 80px; }
+    }
+
+    .footer { padding: 56px 0 28px; border-top: 1px solid var(--line); background: rgba(253, 242, 245, 0.6); margin-top: 48px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-tagline { font-family: 'Caveat', cursive; font-size: 18px; color: var(--primary-deep); margin-bottom: 10px; }
+    .footer-desc { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; color: var(--text); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col a { font-size: 13px; color: var(--text-2); }
+    .footer-col a:hover { color: var(--primary-deep); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px dashed var(--line); flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-socials { display: flex; gap: 8px; }
+    .footer-social { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-2); transition: all var(--transition); }
+    .footer-social:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1); }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============ LOCAL PAGE EDITOR ============ */
+    .page-editor {
+      position: fixed; bottom: 24px; right: 24px;
+      z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+    }
+    .editor-fab {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white; display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px -8px rgba(217, 107, 138, 0.55);
+      transition: all var(--transition);
+    }
+    .editor-fab:hover { transform: scale(1.06) rotate(-5deg); }
+    .editor-fab.active { transform: rotate(45deg); background: linear-gradient(135deg, var(--primary-deep), var(--accent)); }
+    .editor-actions {
+      display: flex; flex-direction: column; gap: 8px;
+      opacity: 0; transform: translateY(8px); pointer-events: none;
+      transition: all var(--transition);
+    }
+    body.edit-mode .editor-actions { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .editor-action-btn {
+      padding: 8px 16px; background: var(--card);
+      border: 1px solid var(--line); border-radius: 999px;
+      font-size: 12px; color: var(--text-2);
+      display: flex; align-items: center; gap: 6px;
+      box-shadow: var(--shadow-sm); cursor: pointer;
+      transition: all var(--transition); white-space: nowrap;
+      font-family: inherit;
+    }
+    .editor-action-btn:hover { background: var(--primary-soft); color: var(--primary-deep); }
+    .editor-action-btn.danger:hover { background: rgba(184, 93, 138, 0.12); color: var(--accent); }
+    .editor-toast {
+      position: fixed; bottom: 96px; right: 24px;
+      padding: 10px 18px; background: var(--text); color: white;
+      border-radius: 999px; font-size: 13px; font-weight: 500;
+      box-shadow: var(--shadow-md);
+      opacity: 0; transform: translateY(8px);
+      transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 9998;
+    }
+    .editor-toast.show { opacity: 1; transform: translateY(0); }
+    body.edit-mode .editable-text {
+      outline: 1px dashed transparent; outline-offset: 4px;
+      transition: outline-color 120ms, background-color 120ms;
+      cursor: text;
+    }
+    body.edit-mode .editable-text:hover { outline-color: var(--primary); }
+    body.edit-mode .editable-text.editing-now {
+      outline: 2px solid var(--primary); outline-offset: 2px;
+      background: rgba(252, 231, 237, 0.45); border-radius: 4px;
+    }
+    .editor-banner {
+      display: none; position: fixed; top: 0; left: 0; right: 0;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      color: white; padding: 8px 20px; text-align: center;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+      z-index: 9997;
+    }
+    body.edit-mode .editor-banner { display: block; }
+    body.edit-mode .header { top: 36px; }
+
+    /* ============ ARTICLE MANAGEMENT ============ */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(58, 29, 40, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 240ms ease;
+    }
+    .modal-backdrop.show { opacity: 1; pointer-events: auto; }
+    .modal {
+      background: var(--card); border-radius: 18px;
+      width: 100%; max-width: 560px;
+      max-height: calc(100vh - 40px);
+      overflow: hidden;
+      box-shadow: 0 24px 60px -12px rgba(58, 29, 40, 0.25);
+      transform: translateY(8px) scale(0.98);
+      transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; flex-direction: column;
+    }
+    .modal-backdrop.show .modal { transform: translateY(0) scale(1); }
+    .modal-wide { max-width: 720px; }
+    .modal-head {
+      padding: 20px 24px 14px;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px; border-bottom: 1px solid var(--line-soft);
+    }
+    .modal-title {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 22px; font-weight: 600; font-style: italic;
+      color: var(--text); margin: 0;
+    }
+    .modal-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .modal-close {
+      background: transparent; border: none; color: var(--muted);
+      font-size: 22px; line-height: 1; cursor: pointer;
+      padding: 4px 8px; border-radius: 6px;
+      transition: all var(--transition);
+    }
+    .modal-close:hover { background: var(--primary-soft); color: var(--primary-deep); }
+    .modal-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+    .modal-foot {
+      padding: 14px 24px 20px;
+      display: flex; gap: 10px; justify-content: flex-end;
+      border-top: 1px solid var(--line-soft);
+    }
+    .modal-btn {
+      padding: 9px 20px; border-radius: 999px;
+      font-size: 13px; font-weight: 500; border: none;
+      cursor: pointer; font-family: inherit;
+      transition: all var(--transition);
+    }
+    .modal-btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(217, 107, 138, 0.25);
+    }
+    .modal-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(217, 107, 138, 0.35); }
+    .modal-btn-ghost {
+      background: transparent; color: var(--text-2);
+      border: 1px solid var(--line);
+    }
+    .modal-btn-ghost:hover { background: var(--primary-soft); border-color: var(--primary); color: var(--primary-deep); }
+    .modal-btn-danger {
+      background: transparent; color: var(--accent);
+      border: 1px solid transparent;
+    }
+    .modal-btn-danger:hover { background: rgba(232, 92, 125, 0.1); border-color: var(--accent); }
+
+    .field { margin-bottom: 16px; }
+    .field-label {
+      display: block; font-size: 12px; color: var(--text-2);
+      margin-bottom: 6px; font-weight: 500; letter-spacing: 0.02em;
+    }
+    .field-input, .field-select, .field-textarea {
+      width: 100%; padding: 10px 14px;
+      border: 1px solid var(--line); border-radius: 10px;
+      background: white; font-family: inherit;
+      font-size: 14px; color: var(--text);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      outline: none; border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(217, 107, 138, 0.12);
+    }
+    .field-textarea {
+      min-height: 180px; line-height: 1.7; resize: vertical;
+      font-family: 'Outfit', 'Noto Sans SC', -apple-system, sans-serif;
+    }
+    .field-hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .field-hint-inline {
+      font-family: 'Outfit', sans-serif; font-weight: 500;
+      color: var(--primary-deep); margin-left: 6px; font-size: 11px;
+    }
+    .field-static {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      font-size: 13px; font-weight: 500;
+    }
+    .field-row { display: grid; grid-template-columns: 1fr 160px; gap: 12px; }
+
+    .reader-meta {
+      display: flex; gap: 14px; align-items: center;
+      font-size: 12px; color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .reader-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--line); }
+    .reader-content {
+      font-size: 15px; line-height: 1.85; color: var(--text);
+      white-space: pre-wrap; word-wrap: break-word;
+    }
+
+    /* ============ IMAGE UPLOAD ============ */
+    .upload-zone {
+      border: 2px dashed var(--line);
+      border-radius: 12px;
+      padding: 22px 16px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.4);
+      transition: all 200ms ease;
+    }
+    .upload-zone:hover { border-color: var(--primary); background: var(--primary-soft); }
+    .upload-zone.dragover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      transform: scale(1.01);
+    }
+    .upload-icon {
+      width: 40px; height: 40px;
+      margin: 0 auto 8px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .upload-text {
+      font-size: 13px; color: var(--text);
+      font-weight: 500;
+    }
+    .upload-hint {
+      font-size: 11px; color: var(--muted);
+      margin-top: 4px;
+    }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .thumb-grid:empty { display: none; }
+    .thumb-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--primary-soft);
+    }
+    .thumb-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb-remove {
+      position: absolute;
+      top: 4px; right: 4px;
+      width: 22px; height: 22px;
+      background: rgba(58, 29, 40, 0.7);
+      color: white; border: none;
+      border-radius: 50%;
+      font-size: 14px; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 200ms;
+    }
+    .thumb-remove:hover { background: var(--accent); }
+
+    /* ============ READER IMAGE GALLERY ============ */
+    .reader-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .reader-images:empty { display: none; }
+    .reader-images img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      cursor: zoom-in;
+      transition: transform 200ms;
+      display: block;
+    }
+    .reader-images img:hover { transform: scale(1.02); }
+
+    /* ============ IMAGE LIGHTBOX ============ */
+    .lightbox-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(20, 10, 16, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 300;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 240ms ease;
+      cursor: zoom-out;
+    }
+    .lightbox-backdrop.show { opacity: 1; pointer-events: auto; }
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 12px;
+      box-shadow: 0 24px 60px -12px rgba(0,0,0,0.5);
+      transform: scale(0.96);
+      transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .lightbox-backdrop.show .lightbox-img { transform: scale(1); }
+    .lightbox-close {
+      position: fixed;
+      top: 24px; right: 24px;
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      font-size: 22px; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: background 200ms;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+    @media (max-width: 540px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    // 防御性：每次进入页面（包括 bfcache 恢复）都强制重置编辑模式，
+    // 避免从其他页面"带入" body.edit-mode 状态。
+    (function resetEditModeOnLoad() {
+      function forceReset() {
+        document.body.classList.remove('edit-mode');
+        document.querySelectorAll('[contenteditable]').forEach(function (el) {
+          el.setAttribute('contenteditable', 'false');
+        });
+        document.querySelectorAll('.editable-text').forEach(function (el) {
+          el.classList.remove('editable-text', 'editing-now');
+        });
+        document.querySelectorAll('.editing-now').forEach(function (el) {
+          el.classList.remove('editing-now');
+        });
+        var fab = document.getElementById('editorFab');
+        if (fab) fab.classList.remove('active');
+        var toast = document.getElementById('editorToast');
+        if (toast) toast.classList.remove('show');
+      }
+      forceReset();
+      window.addEventListener('pageshow', forceReset);
+    })();
+  </script>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-mark">F</span>Frina</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="online.html">地球Online</a>
+        <a href="life.html">生活</a>
+        <a href="work.html">工作</a>
+        <a href="study.html" class="active">学习</a>
+        <a href="social.html">社交</a>
+        <a href="hobbies.html">兴趣爱好</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="script fade-in">chapter 04 · english track</div>
+        <h1 class="fade-in">英语学习</h1>
+        <p class="fade-in">TKT 备考笔记、自然拼读教学法、口语练习的复盘——作为英语老师的持续精进。</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 16px;">
+      <div class="container">
+        <a href="study.html" class="back-link fade-in">← 回到学习</a>
+
+        <div class="article-list fade-in">
+          <div class="article-list-head">
+            <h3>Recent logs <span style="font-family: 'Caveat', cursive; color: var(--primary-deep); font-size: 20px; flex: 0 0 auto;">· 最近的英语学习日志</span></h3>
+            <button type="button" class="btn-add-article" id="btnAddLog">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              新建日志
+            </button>
+          </div>
+          <div id="logList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark">F</span>Frina</a><div class="footer-tagline">keep it slow, keep it real.</div><p class="footer-desc">记录我的日常、阅读与生活。<br />慢一点，写下来。</p></div>
+        <div class="footer-col"><h4>首页</h4><ul><li><a href="index.html">今日之语</a></li><li><a href="index.html#photos">照片墙</a></li><li><a href="index.html#guestbook">留言区</a></li></ul></div>
+        <div class="footer-col"><h4>分区</h4><ul><li><a href="online.html">地球Online</a></li><li><a href="life.html">生活</a></li><li><a href="work.html">工作</a></li><li><a href="study.html">学习</a></li></ul></div>
+        <div class="footer-col"><h4>更多</h4><ul><li><a href="social.html">社交</a></li><li><a href="hobbies.html">兴趣爱好</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Frina · 用心生活，缓慢更新 ✿</span>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <div class="footer-socials">
+            <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+            <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="9" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/></svg></a>
+            <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h4v16H3zM9 4h2v16H9zM13 4h2v16h-2zM17 4h4v16h-4z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Log New Modal -->
+  <div class="modal-backdrop" id="logNewModal" role="dialog" aria-modal="true" aria-labelledby="logNewTitle">
+    <div class="modal modal-wide">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="logNewTitle">记一条新的英语学习日志</h3>
+          <div class="modal-sub">日志会保存在本地，可以上传图片，随时可以删除。</div>
+        </div>
+        <button type="button" class="modal-close" data-close-log-new aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <label class="field-label" for="logTitleInput">标题</label>
+          <input type="text" id="logTitleInput" class="field-input" placeholder="今天学了什么？" maxlength="80" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="logDateInput">日期</label>
+            <input type="date" id="logDateInput" class="field-input" />
+          </div>
+          <div class="field">
+            <label class="field-label">分类</label>
+            <div class="field-static">英语学习</div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="logContentInput">正文</label>
+          <textarea id="logContentInput" class="field-textarea" placeholder="记下今天的进度、问题和小小的高光。"></textarea>
+          <div class="field-hint">支持换行；空行分段。系统会自动从开头截取一小段作为列表预览。</div>
+        </div>
+        <div class="field">
+          <label class="field-label">图片 <span class="field-hint-inline" id="logImageCount">0 / 6</span></label>
+          <div class="upload-zone" id="logUploadZone">
+            <input type="file" id="logFileInput" accept="image/*" multiple hidden />
+            <div class="upload-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <div class="upload-text">点击或拖入图片上传</div>
+            <div class="upload-hint">最多 6 张，每张不超过 3 MB · jpg / png / gif / webp</div>
+          </div>
+          <div class="thumb-grid" id="logThumbGrid"></div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="modal-btn modal-btn-ghost" data-close-log-new>取消</button>
+        <button type="button" class="modal-btn modal-btn-primary" id="logSubmitBtn">发布</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Log Reader Modal -->
+  <div class="modal-backdrop" id="logReaderModal" role="dialog" aria-modal="true" aria-labelledby="logReaderTitle">
+    <div class="modal modal-wide">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="logReaderTitle">—</h3>
+          <div class="modal-sub" id="logReaderMeta">—</div>
+        </div>
+        <button type="button" class="modal-close" data-close-log-reader aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="reader-meta" id="logReaderTags">—</div>
+        <div class="reader-images" id="logReaderImages"></div>
+        <div class="reader-content" id="logReaderContent">—</div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="modal-btn modal-btn-danger" id="logDeleteBtn">删除</button>
+        <button type="button" class="modal-btn modal-btn-ghost" data-close-log-reader>关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox -->
+  <div class="lightbox-backdrop" id="logLightbox" role="dialog" aria-modal="true" aria-label="图片预览">
+    <button type="button" class="lightbox-close" id="logLightboxClose" aria-label="关闭">×</button>
+    <img class="lightbox-img" id="logLightboxImg" alt="" />
+  </div>
+
+  <script>
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach((el) => io.observe(el));
+    document.querySelectorAll('.page-hero .fade-in').forEach((el) => setTimeout(() => el.classList.add('visible'), 80));
+
+    // ============ LOG CRUD ============
+    (function setupLogs() {
+      const STORAGE_KEY = 'frina_study_logs';
+      const CATEGORY = '英语学习';
+      const MAX_IMAGES = 6;
+      const MAX_BYTES_PER_IMAGE = 3 * 1024 * 1024;
+
+      const logList = document.getElementById('logList');
+      const btnAdd = document.getElementById('btnAddLog');
+      const newModal = document.getElementById('logNewModal');
+      const readerModal = document.getElementById('logReaderModal');
+      const lightbox = document.getElementById('logLightbox');
+      const lightboxImg = document.getElementById('logLightboxImg');
+      const lightboxClose = document.getElementById('logLightboxClose');
+      const titleInput = document.getElementById('logTitleInput');
+      const dateInput = document.getElementById('logDateInput');
+      const contentInput = document.getElementById('logContentInput');
+      const submitBtn = document.getElementById('logSubmitBtn');
+      const uploadZone = document.getElementById('logUploadZone');
+      const fileInput = document.getElementById('logFileInput');
+      const thumbGrid = document.getElementById('logThumbGrid');
+      const imageCount = document.getElementById('logImageCount');
+      const readerTitle = document.getElementById('logReaderTitle');
+      const readerMeta = document.getElementById('logReaderMeta');
+      const readerTags = document.getElementById('logReaderTags');
+      const readerImages = document.getElementById('logReaderImages');
+      const readerContent = document.getElementById('logReaderContent');
+      const deleteBtn = document.getElementById('logDeleteBtn');
+      if (!logList || !btnAdd || !newModal || !readerModal) return;
+
+      let currentReaderId = null;
+      let stagedImages = []; // [{ dataUrl, name }]
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
+      }
+
+      function getLogs() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return [];
+          const arr = JSON.parse(raw);
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) { return []; }
+      }
+      function saveLogs(list) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+        catch (e) { alert('保存失败 · localStorage 可能已满（图片占空间较大）。请先删除一些旧日志。'); }
+      }
+      function getLogsForCategory() {
+        return getLogs().filter(l => l.category === CATEGORY);
+      }
+
+      function formatDateForInput(d) {
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+      }
+      function formatDateForDisplay(dateStr) {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr || '');
+        if (!m) return '';
+        return `${parseInt(m[2], 10)} · ${parseInt(m[3], 10)}`;
+      }
+      function calcReadingTime(content) {
+        const len = (content || '').replace(/\s+/g, '').length;
+        const minutes = Math.max(1, Math.round(len / 300));
+        return `${minutes} 分钟`;
+      }
+      function makeExcerpt(content, max = 60) {
+        const firstLine = (content || '').split(/\r?\n/).find(l => l.trim().length > 0) || '';
+        const clean = firstLine.replace(/\s+/g, ' ').trim();
+        if (clean.length <= max) return clean;
+        return clean.slice(0, max) + '…';
+      }
+
+      function renderList() {
+        const logs = getLogsForCategory().sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        if (logs.length === 0) {
+          logList.innerHTML = '<div class="article-empty">还没有日志 · 点击右上角"新建日志"开始记录 ♡</div>';
+          return;
+        }
+        logList.innerHTML = logs.map(n => {
+          const date = formatDateForDisplay(n.date);
+          const meta = `${escapeHtml(n.readingTime || '1 分钟')}`;
+          const hasImages = Array.isArray(n.images) && n.images.length > 0;
+          const imagesHtml = hasImages ? `
+            <div class="article-thumb-wrap">
+              <img class="article-thumb" src="${escapeHtml(n.images[0])}" alt="" loading="lazy" />
+              ${n.images.length > 1 ? `<span class="article-thumb-count">+${n.images.length - 1}</span>` : ''}
+            </div>` : '';
+          return `
+            <div class="article-row${hasImages ? ' has-thumb' : ''}" data-log-id="${escapeHtml(n.id)}">
+              <div class="article-date">${escapeHtml(date)}</div>
+              ${imagesHtml}
+              <div>
+                <div class="article-title">${escapeHtml(n.title)}</div>
+                <p class="article-excerpt">${escapeHtml(makeExcerpt(n.content))}</p>
+              </div>
+              <div class="article-actions">
+                <div class="article-meta">${meta}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        logList.querySelectorAll('.article-row').forEach(row => {
+          row.addEventListener('click', () => openReader(row.dataset.logId));
+        });
+      }
+
+      // ---- Image upload handlers ----
+      function updateThumbGrid() {
+        imageCount.textContent = `${stagedImages.length} / ${MAX_IMAGES}`;
+        thumbGrid.innerHTML = stagedImages.map((img, idx) => `
+          <div class="thumb-item" data-idx="${idx}">
+            <img src="${escapeHtml(img.dataUrl)}" alt="" />
+            <button type="button" class="thumb-remove" data-remove="${idx}" aria-label="删除">×</button>
+          </div>
+        `).join('');
+        thumbGrid.querySelectorAll('[data-remove]').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const i = parseInt(btn.getAttribute('data-remove'), 10);
+            stagedImages.splice(i, 1);
+            updateThumbGrid();
+          });
+        });
+      }
+
+      function handleFiles(files) {
+        const remaining = MAX_IMAGES - stagedImages.length;
+        if (remaining <= 0) {
+          alert(`最多上传 ${MAX_IMAGES} 张图片 ♡`);
+          return;
+        }
+        const queue = Array.from(files).slice(0, remaining);
+        let rejected = 0;
+        let processed = 0;
+        queue.forEach(file => {
+          if (!file.type.startsWith('image/')) { rejected++; processed++; return; }
+          if (file.size > MAX_BYTES_PER_IMAGE) { rejected++; processed++; return; }
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            stagedImages.push({ dataUrl: e.target.result, name: file.name });
+            processed++;
+            if (processed === queue.length) {
+              if (rejected > 0) {
+                alert(rejected === queue.length
+                  ? '所选文件都不是有效图片（或超过 3 MB）♡'
+                  : `有 ${rejected} 张图片被跳过（不是图片或超过 3 MB）♡`);
+              }
+              updateThumbGrid();
+            }
+          };
+          reader.onerror = () => {
+            rejected++;
+            processed++;
+            if (processed === queue.length) updateThumbGrid();
+          };
+          reader.readAsDataURL(file);
+        });
+        if (queue.length === 0 && files.length > 0) {
+          alert('请选择图片文件 ♡');
+        }
+      }
+
+      uploadZone.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files.length) {
+          handleFiles(e.target.files);
+          fileInput.value = '';
+        }
+      });
+      uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('dragover');
+      });
+      uploadZone.addEventListener('dragleave', (e) => {
+        if (e.target === uploadZone) uploadZone.classList.remove('dragover');
+      });
+      uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+        if (e.dataTransfer && e.dataTransfer.files) handleFiles(e.dataTransfer.files);
+      });
+
+      function openNew() {
+        titleInput.value = '';
+        dateInput.value = formatDateForInput(new Date());
+        contentInput.value = '';
+        stagedImages = [];
+        updateThumbGrid();
+        newModal.classList.add('show');
+        setTimeout(() => titleInput.focus(), 80);
+      }
+      function closeNew() { newModal.classList.remove('show'); }
+
+      function submitNew() {
+        const title = titleInput.value.trim();
+        const content = contentInput.value.trim();
+        if (!title) { alert('请输入标题 ♡'); titleInput.focus(); return; }
+        if (!content) { alert('正文不能为空 ♡'); contentInput.focus(); return; }
+        const log = {
+          id: Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7),
+          title,
+          content,
+          category: CATEGORY,
+          date: dateInput.value || formatDateForInput(new Date()),
+          readingTime: calcReadingTime(content),
+          createdAt: Date.now(),
+          images: stagedImages.map(i => i.dataUrl)
+        };
+        const list = getLogs();
+        list.push(log);
+        saveLogs(list);
+        closeNew();
+        renderList();
+      }
+
+      function openReader(id) {
+        const log = getLogs().find(n => n.id === id);
+        if (!log) return;
+        currentReaderId = id;
+        readerTitle.textContent = log.title;
+        readerMeta.textContent = `${formatDateForDisplay(log.date)} · ${log.category || CATEGORY}`;
+        const imgCount = (log.images || []).length;
+        readerTags.innerHTML = `
+          <span>📖 约 ${escapeHtml(log.readingTime || '1 分钟')}</span>
+          <span class="dot"></span>
+          <span>发布于 ${escapeHtml(log.date)}</span>
+          ${imgCount > 0 ? `<span class="dot"></span><span>📷 ${imgCount} 张图</span>` : ''}
+        `;
+        readerImages.innerHTML = (log.images || []).map((src, idx) =>
+          `<img src="${escapeHtml(src)}" alt="" data-lightbox-idx="${idx}" />`
+        ).join('');
+        readerImages.querySelectorAll('img[data-lightbox-idx]').forEach(img => {
+          img.addEventListener('click', () => openLightbox(img.src));
+        });
+        readerContent.textContent = log.content;
+        readerModal.classList.add('show');
+      }
+      function closeReader() {
+        readerModal.classList.remove('show');
+        currentReaderId = null;
+      }
+
+      function deleteCurrent() {
+        if (!currentReaderId) return;
+        if (!confirm('确定要删除这条日志吗？此操作不可撤销。')) return;
+        const list = getLogs().filter(n => n.id !== currentReaderId);
+        saveLogs(list);
+        closeReader();
+        renderList();
+      }
+
+      function openLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.classList.add('show');
+      }
+      function closeLightbox() { lightbox.classList.remove('show'); lightboxImg.src = ''; }
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox || e.target === lightboxImg) closeLightbox(); });
+
+      btnAdd.addEventListener('click', openNew);
+      submitBtn.addEventListener('click', submitNew);
+      deleteBtn.addEventListener('click', deleteCurrent);
+      newModal.querySelectorAll('[data-close-log-new]').forEach(el => el.addEventListener('click', closeNew));
+      readerModal.querySelectorAll('[data-close-log-reader]').forEach(el => el.addEventListener('click', closeReader));
+      newModal.addEventListener('click', (e) => { if (e.target === newModal) closeNew(); });
+      readerModal.addEventListener('click', (e) => { if (e.target === readerModal) closeReader(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (lightbox.classList.contains('show')) closeLightbox();
+          else if (readerModal.classList.contains('show')) closeReader();
+          else if (newModal.classList.contains('show')) closeNew();
+        }
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter' && newModal.classList.contains('show')) {
+          e.preventDefault();
+          submitNew();
+        }
+      });
+
+      renderList();
+    })();
+  </script>
+
+  <!-- Local Page Editor -->
+  <div class="editor-banner">
+    ✎ 编辑模式 · 改动会自动保存到本地
+    <span style="margin-left: 12px; padding: 2px 10px; background: rgba(255,255,255,0.2); border-radius: 999px; font-size: 11px; cursor: pointer;" onclick="toggleEditMode()">退出</span>
+  </div>
+
+  <div class="page-editor">
+    <div class="editor-actions">
+      <button class="editor-action-btn" onclick="toggleEditMode()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        退出编辑
+      </button>
+      <button class="editor-action-btn danger" onclick="resetAllEdits()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        重置全部
+      </button>
+    </div>
+    <button class="editor-fab" id="editorFab" onclick="toggleEditMode()" title="本地编辑 · 改任意文字">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+  </div>
+
+  <div class="editor-toast" id="editorToast"></div>
+
+  <script>
+    // ============ LOCAL PAGE EDITOR ============
+    const EDIT_PREFIX = 'frina_v2_edit_';
+
+    function getPageId() {
+      const meta = document.querySelector('meta[name="page-id"]');
+      if (meta) return meta.getAttribute('content');
+      return document.title || 'unknown';
+    }
+
+    function getElementSelector(el) {
+      const path = [];
+      let current = el;
+      while (current && current !== document.body && current !== document.documentElement) {
+        let selector = current.tagName.toLowerCase();
+        if (current.id) { selector += '#' + current.id; path.unshift(selector); break; }
+        if (current.className && typeof current.className === 'string') {
+          const classes = current.className.split(/\s+/).filter(c => c && !c.startsWith('editable-')).slice(0, 2);
+          if (classes.length) selector += '.' + classes.join('.');
+        }
+        const parent = current.parentElement;
+        if (parent) {
+          const siblings = Array.from(parent.children).filter(c => c.tagName === current.tagName);
+          if (siblings.length > 1) selector += `:nth-of-type(${siblings.indexOf(current) + 1})`;
+        }
+        path.unshift(selector);
+        current = parent;
+      }
+      return path.join(' > ');
+    }
+
+    function makeEditable(el) {
+      const tag = el.tagName.toLowerCase();
+      if (['input', 'textarea', 'select'].includes(tag)) return;
+      if (el.classList && el.classList.contains('editable-text')) return;
+      el.classList.add('editable-text');
+    }
+
+    function collectEditable(root) {
+      const targets = [];
+      const sel = 'h1, h2, h3, h4, p, .script, .cat-sub, .modal-sub, .footer-tagline, .footer-desc, .footer-copy';
+      root.querySelectorAll(sel).forEach(el => {
+        if (el.closest('.modal, .editor-fab, .editor-banner, .editor-toast, .page-editor')) return;
+        if (el.closest('script, style')) return;
+        const text = el.textContent.trim();
+        if (!text || text.length < 2) return;
+        if (/^[\d\s\W_]+$/.test(text) && text.length < 4) return;
+        targets.push(el);
+      });
+      return targets;
+    }
+
+    function editKey(sel) { return EDIT_PREFIX + getPageId() + '::' + sel; }
+
+    function loadEdits() {
+      const all = collectEditable(document);
+      all.forEach(el => makeEditable(el));
+      all.forEach(el => {
+        const sel = getElementSelector(el);
+        const v = localStorage.getItem(editKey(sel));
+        if (v != null && v !== el.textContent) el.textContent = v;
+      });
+    }
+
+    function saveEdit(el) {
+      const sel = getElementSelector(el);
+      localStorage.setItem(editKey(sel), el.textContent);
+    }
+
+    function clearEditArtifacts() {
+      document.querySelectorAll('.editable-text').forEach(el => {
+        el.classList.remove('editable-text', 'editing-now');
+        el.removeAttribute('contenteditable');
+      });
+    }
+
+    function bindEditEvents() {
+      document.addEventListener('click', (e) => {
+        if (!document.body.classList.contains('edit-mode')) return;
+        if (e.target.closest('.page-editor, .modal, .editor-banner')) return;
+        const target = e.target.closest('.editable-text');
+        if (!target) return;
+        e.preventDefault();
+        e.stopPropagation();
+        target.setAttribute('contenteditable', 'plaintext-only');
+        target.classList.add('editing-now');
+        target.focus();
+        const range = document.createRange();
+        range.selectNodeContents(target);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+      document.addEventListener('blur', (e) => {
+        const t = e.target.closest && e.target.closest('.editable-text');
+        if (!t) return;
+        t.removeAttribute('contenteditable');
+        t.classList.remove('editing-now');
+        saveEdit(t);
+      }, true);
+      document.addEventListener('keydown', (e) => {
+        if (!document.body.classList.contains('edit-mode')) return;
+        const t = e.target.closest && e.target.closest('.editable-text');
+        if (!t) return;
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          t.blur();
+        }
+      });
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('editorToast');
+      if (!t) return;
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => t.classList.remove('show'), 1800);
+    }
+
+    window.toggleEditMode = function () {
+      const on = document.body.classList.toggle('edit-mode');
+      if (on) {
+        loadEdits();
+        showToast('进入编辑模式 · 改任意文字');
+      } else {
+        clearEditArtifacts();
+        showToast('已退出编辑模式');
+      }
+    };
+
+    window.resetAllEdits = function () {
+      if (!confirm('确定要清空本页所有本地编辑吗？此操作不可撤销。')) return;
+      const pid = getPageId();
+      const keys = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(EDIT_PREFIX + pid + '::')) keys.push(k);
+      }
+      keys.forEach(k => localStorage.removeItem(k));
+      location.reload();
+    };
+
+    bindEditEvents();
+    loadEdits();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1810 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Frina 的个人档案 — 一个国际英语老师的日常、阅读与生活记录。" />
+  <title>Frina · 地球Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ============ TOKENS ============ */
+    :root {
+      --bg: #fdf2f5;
+      --bg-soft: #fae5eb;
+      --bg-deep: #f6d8e0;
+      --card: #ffffff;
+      --line: #f0d4dc;
+      --line-soft: #f9e8ed;
+      --text: #3a2730;
+      --text-2: #6b5560;
+      --muted: #a89399;
+      --primary: #c97b8e;
+      --primary-deep: #8e4963;
+      --primary-soft: #fce7ed;
+      --accent: #b85d8a;
+      --yellow: #f4d7a4;
+      --blue-tape: #b9d8e6;
+      --green-tape: #c8dec6;
+      --max: 1200px;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 2px 8px rgba(142, 73, 99, 0.06);
+      --shadow-md: 0 8px 24px -10px rgba(142, 73, 99, 0.12);
+      --transition: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============ RESET ============ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Outfit', 'Noto Sans SC', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 8%, rgba(201, 123, 142, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 85% 30%, rgba(244, 215, 164, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 10% 90%, rgba(184, 93, 138, 0.06) 0%, transparent 35%);
+      background-attachment: fixed;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ============ LAYOUT ============ */
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+    }
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 20px;
+      }
+    }
+    section {
+      padding: 80px 0;
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      section {
+        padding: 56px 0;
+      }
+    }
+
+    /* ============ DECORATIVE FLORAL ============ */
+    .floral-corner {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.55;
+      color: var(--primary);
+    }
+    .floral-corner.tl { top: 24px; left: 24px; transform: rotate(-15deg); }
+    .floral-corner.tr { top: 24px; right: 24px; transform: rotate(20deg); }
+    .floral-corner.bl { bottom: 24px; left: 24px; transform: rotate(-30deg); }
+    .floral-corner.br { bottom: 24px; right: 24px; transform: rotate(40deg); }
+
+    /* ============ TYPOGRAPHY ============ */
+    .script {
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+      color: var(--primary-deep);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--primary-deep);
+      font-weight: 500;
+    }
+    .eyebrow::before,
+    .eyebrow::after {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--primary);
+      display: inline-block;
+    }
+    .eyebrow::after {
+      background: var(--primary);
+    }
+    .section-title {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: var(--text);
+      margin: 16px 0 14px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-2);
+      max-width: 520px;
+      line-height: 1.75;
+    }
+
+    /* ============ HEADER ============ */
+    .header {
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253, 242, 245, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+      font-style: italic;
+    }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav a {
+      font-size: 14px;
+      color: var(--text-2);
+      font-weight: 400;
+      position: relative;
+    }
+    .nav a:hover {
+      color: var(--primary-deep);
+    }
+    .nav a::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .nav a:hover::after {
+      opacity: 1;
+    }
+    .nav-cta {
+      padding: 9px 20px;
+      border: 1.5px solid var(--primary);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--primary-deep);
+      transition: all var(--transition);
+    }
+    .nav-cta:hover {
+      background: var(--primary);
+      color: white;
+    }
+    @media (max-width: 880px) {
+      .nav a:not(.nav-cta) {
+        display: none;
+      }
+    }
+
+    /* ============ HERO / ONLION PROFILE ============ */
+    .hero {
+      padding: 72px 0 64px;
+      position: relative;
+    }
+    .hero-banner {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .hero-banner .eyebrow {
+      margin-bottom: 8px;
+    }
+    .hero-banner h1 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--text);
+      font-style: italic;
+    }
+    .hero-banner .hero-sub {
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--primary-deep);
+      margin-top: 8px;
+    }
+    .hero-banner .hero-tagline {
+      font-size: 14px;
+      color: var(--text-2);
+      margin-top: 18px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Profile Card */
+    .profile-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 48px;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 56px;
+      position: relative;
+      border: 1px solid var(--line);
+    }
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 40px;
+      right: 40px;
+      height: 8px;
+      background:
+        linear-gradient(90deg,
+          var(--yellow) 0%, var(--yellow) 33%,
+          var(--blue-tape) 33%, var(--blue-tape) 66%,
+          var(--green-tape) 66%, var(--green-tape) 100%);
+      border-radius: 4px 4px 0 0;
+      opacity: 0.6;
+    }
+
+    /* Polaroid */
+    .polaroid {
+      background: white;
+      padding: 14px 14px 56px;
+      box-shadow: 0 4px 16px rgba(58, 39, 48, 0.1);
+      position: relative;
+      transition: transform var(--transition);
+    }
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.03) !important;
+    }
+    .polaroid-tape {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      margin-left: -32px;
+      width: 64px;
+      height: 22px;
+      background: rgba(244, 215, 164, 0.7);
+      transform: rotate(-3deg);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .polaroid-tape.blue { background: rgba(185, 216, 230, 0.7); }
+    .polaroid-tape.green { background: rgba(200, 222, 198, 0.7); }
+    .polaroid-tape.pink { background: rgba(252, 231, 237, 0.9); }
+    .polaroid-photo {
+      aspect-ratio: 3 / 4;
+      background:
+        linear-gradient(135deg, var(--primary-soft) 0%, var(--bg-deep) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--primary-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    .polaroid-photo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 30%),
+        radial-gradient(circle at 70% 60%, rgba(244,215,164,0.3) 0%, transparent 30%);
+    }
+    .polaroid-photo svg {
+      position: relative;
+      z-index: 1;
+    }
+    .polaroid-photo .photo-hint {
+      position: relative;
+      z-index: 1;
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      color: var(--primary-deep);
+    }
+    .polaroid-caption {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      right: 14px;
+      text-align: center;
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+      font-size: 20px;
+      color: var(--text);
+    }
+
+    .profile-id {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .profile-id-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .profile-name {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 600;
+      color: var(--text);
+      font-style: italic;
+      letter-spacing: -0.01em;
+    }
+    .profile-badge {
+      padding: 4px 12px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .profile-sub {
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+      font-size: 22px;
+      color: var(--primary-deep);
+      margin-bottom: 28px;
+    }
+    .id-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px 28px;
+      padding: 24px 0;
+      border-top: 1px dashed var(--line);
+      border-bottom: 1px dashed var(--line);
+    }
+    .id-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .id-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .id-value {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .id-value .highlight {
+      color: var(--primary-deep);
+      font-weight: 600;
+    }
+    .profile-quote {
+      margin-top: 24px;
+      padding: 18px 22px;
+      background: var(--primary-soft);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    @media (max-width: 880px) {
+      .profile-card {
+        grid-template-columns: 1fr;
+        padding: 36px 28px;
+        gap: 36px;
+      }
+      .polaroid {
+        max-width: 280px;
+        margin: 0 auto;
+        transform: rotate(-2deg) !important;
+      }
+    }
+
+    /* ============ STATUS CARDS ============ */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .status-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .status-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+    .status-card.body::before { background: linear-gradient(90deg, var(--primary), var(--accent)); }
+    .status-card.mind::before { background: linear-gradient(90deg, var(--blue-tape), var(--green-tape)); }
+    .status-card-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .status-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .status-card.body .status-icon {
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+    }
+    .status-card.mind .status-icon {
+      background: rgba(185, 216, 230, 0.3);
+      color: #5b8895;
+    }
+    .status-title {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      font-style: italic;
+    }
+    .status-text {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.8;
+    }
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status-card.body .status-tag {
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+    }
+    .status-card.mind .status-tag {
+      background: rgba(185, 216, 230, 0.3);
+      color: #5b8895;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    @media (max-width: 720px) {
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ============ PHOTO STRIP ============ */
+    .photo-strip {
+      margin-top: 64px;
+    }
+    .photo-strip-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .photo-strip-head h3 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 28px;
+      font-weight: 600;
+      font-style: italic;
+    }
+    .photo-strip-head .script-note {
+      font-family: 'Caveat', cursive;
+      color: var(--primary-deep);
+      font-size: 18px;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+    .photo-grid .polaroid:nth-child(1) { transform: rotate(-4deg); }
+    .photo-grid .polaroid:nth-child(2) { transform: rotate(3deg); margin-top: 18px; }
+    .photo-grid .polaroid:nth-child(3) { transform: rotate(-2deg); }
+    .photo-grid .polaroid:nth-child(4) { transform: rotate(5deg); margin-top: 10px; }
+    .photo-grid .polaroid:nth-child(5) { transform: rotate(-3deg); }
+    .photo-grid .polaroid:nth-child(2) .polaroid-tape { background: rgba(200, 222, 198, 0.7); }
+    .photo-grid .polaroid:nth-child(3) .polaroid-tape { background: rgba(185, 216, 230, 0.7); }
+    .photo-grid .polaroid:nth-child(4) .polaroid-tape { background: rgba(244, 215, 164, 0.7); }
+    .photo-grid .polaroid:nth-child(5) .polaroid-tape { background: rgba(252, 231, 237, 0.9); }
+    @media (max-width: 960px) {
+      .photo-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .photo-grid .polaroid:nth-child(4),
+      .photo-grid .polaroid:nth-child(5) {
+        display: none;
+      }
+    }
+    @media (max-width: 540px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .photo-grid .polaroid:nth-child(3) {
+        display: none;
+      }
+    }
+
+    /* ============ SECTION HEADER (common) ============ */
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-num {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: clamp(32px, 4.5vw, 48px);
+      font-weight: 600;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      font-size: 14px;
+      color: var(--text-2);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ============ JOURNAL / DIARY ============ */
+    .journal {
+      background: linear-gradient(180deg, transparent 0%, rgba(252, 231, 237, 0.4) 100%);
+    }
+    .journal-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 36px;
+      padding: 6px;
+      background: var(--card);
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-tab {
+      flex: 1;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      color: var(--text-2);
+      transition: all var(--transition);
+      font-weight: 500;
+    }
+    .journal-tab.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .journal-entry {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      position: relative;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .journal-entry:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+    .journal-entry-date {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .date-badge {
+      padding: 4px 10px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .date-dow {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .journal-entry h4 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .journal-entry p {
+      font-size: 13.5px;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .journal-entry .entry-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .journal-entry .entry-meta .heart {
+      color: var(--primary);
+    }
+    .journal-panel {
+      display: none;
+    }
+    .journal-panel.active {
+      display: grid;
+    }
+    @media (max-width: 720px) {
+      .journal-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ============ CATEGORY SECTION (生活/工作/学习/社交/兴趣爱好) ============ */
+    .cat-section {
+      position: relative;
+    }
+    .cat-section:nth-of-type(odd) {
+      background: rgba(252, 231, 237, 0.25);
+    }
+    .cat-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .cat-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .cat-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cat-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
+    @media (max-width: 960px) {
+      .cat-grid.cols-3, .cat-grid.cols-5 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .cat-grid.cols-2, .cat-grid.cols-3, .cat-grid.cols-5 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cat-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      opacity: 0.6;
+      transition: transform var(--transition);
+    }
+    .cat-card:hover::before {
+      transform: scale(1.4);
+    }
+    .cat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .cat-card h3 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 22px;
+      font-weight: 600;
+      font-style: italic;
+      margin-bottom: 8px;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+    .cat-card .cat-sub {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .cat-stats {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      padding-top: 16px;
+      border-top: 1px dashed var(--line);
+      position: relative;
+      z-index: 1;
+    }
+    .cat-stats-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .cat-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .cat-tag {
+      padding: 3px 10px;
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    /* ============ FRIENDS (社交) ============ */
+    .friends-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 960px) {
+      .friends-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .friends-grid { grid-template-columns: 1fr; }
+    }
+    .friend-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      transition: all var(--transition);
+      position: relative;
+    }
+    .friend-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .friend-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Caveat', cursive;
+      font-size: 28px;
+      font-weight: 600;
+      color: white;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+    .friend-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px dashed var(--primary);
+      opacity: 0.5;
+    }
+    .friend-name {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .friend-rel {
+      font-size: 12px;
+      color: var(--primary-deep);
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .friend-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    /* ============ HOBBIES ============ */
+    .hobby-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+      transition: all var(--transition);
+      text-align: center;
+      position: relative;
+    }
+    .hobby-card:hover {
+      transform: translateY(-4px) rotate(-1deg);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+    .hobby-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-soft) 0%, rgba(244, 215, 164, 0.3) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-deep);
+    }
+    .hobby-card h4 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .hobby-card p {
+      font-size: 12.5px;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .hobby-progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--bg-soft);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: 2px;
+    }
+
+    /* ============ FOOTER ============ */
+    .footer {
+      padding: 64px 0 28px;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, transparent 0%, rgba(252, 231, 237, 0.4) 100%);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo {
+      margin-bottom: 16px;
+    }
+    .footer-tagline {
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      color: var(--primary-deep);
+      margin-bottom: 14px;
+    }
+    .footer-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a {
+      font-size: 13px;
+      color: var(--text-2);
+    }
+    .footer-col a:hover {
+      color: var(--primary-deep);
+    }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 24px;
+      border-top: 1px dashed var(--line);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+    }
+    .footer-social {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-2);
+      transition: all var(--transition);
+    }
+    .footer-social:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+    @media (max-width: 480px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ============ ANIMATIONS ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
+          transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#top" class="logo">
+        <span class="logo-mark">F</span>
+        Frina
+      </a>
+      <nav class="nav">
+        <a href="#online">地球Online</a>
+        <a href="#life">生活</a>
+        <a href="#work">工作</a>
+        <a href="#study">学习</a>
+        <a href="#social">社交</a>
+        <a href="#hobbies">爱好</a>
+        <a href="#journal" class="nav-cta">日记</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ ONLION PROFILE ============ -->
+    <section class="hero" id="online">
+      <!-- Floral corners -->
+      <svg class="floral-corner tl" width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <path d="M32 8 C 24 14, 22 24, 28 32 C 22 38, 24 50, 32 56" stroke="currentColor" stroke-width="1.5" fill="none"/>
+        <circle cx="32" cy="20" r="4" fill="currentColor" opacity="0.4"/>
+        <circle cx="24" cy="32" r="3" fill="currentColor" opacity="0.4"/>
+        <circle cx="32" cy="44" r="4" fill="currentColor" opacity="0.4"/>
+        <path d="M32 8 Q 36 14, 32 20" stroke="currentColor" stroke-width="1" fill="none"/>
+        <path d="M28 32 Q 32 28, 36 32" stroke="currentColor" stroke-width="1" fill="none"/>
+      </svg>
+      <svg class="floral-corner tr" width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <path d="M32 8 C 40 14, 42 24, 36 32 C 42 38, 40 50, 32 56" stroke="currentColor" stroke-width="1.5" fill="none"/>
+        <circle cx="32" cy="20" r="4" fill="currentColor" opacity="0.4"/>
+        <circle cx="40" cy="32" r="3" fill="currentColor" opacity="0.4"/>
+        <circle cx="32" cy="44" r="4" fill="currentColor" opacity="0.4"/>
+      </svg>
+
+      <div class="container">
+        <!-- Banner -->
+        <div class="hero-banner fade-in">
+          <span class="eyebrow">Chapter 01</span>
+          <h1>Frina on Earth</h1>
+          <div class="hero-sub">a little corner of my own</div>
+          <p class="hero-tagline">记录一个国际英语老师的日常、阅读与生活。<br />把每件小事，写成一首小诗。</p>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="profile-card fade-in">
+          <div class="polaroid" style="transform: rotate(-3deg);">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-photo">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="5"/>
+                <path d="M20 21a8 8 0 0 0-16 0"/>
+                <circle cx="18" cy="6" r="1.5" fill="currentColor"/>
+              </svg>
+              <span class="photo-hint">Frina · 26</span>
+            </div>
+            <div class="polaroid-caption">hello, it's me ♡</div>
+          </div>
+
+          <div class="profile-id">
+            <div class="profile-id-head">
+              <h2 class="profile-name">Frina</h2>
+              <span class="profile-badge">Lv.27 · 在场</span>
+            </div>
+            <div class="profile-sub">a philosophy girl ✿ in Shenzhen</div>
+
+            <div class="id-grid">
+              <div class="id-item">
+                <span class="id-label">Name</span>
+                <span class="id-value">Frina</span>
+              </div>
+              <div class="id-item">
+                <span class="id-label">Birthday</span>
+                <span class="id-value">1999.02.20 ♓</span>
+              </div>
+              <div class="id-item">
+                <span class="id-label">Location</span>
+                <span class="id-value">中国 · 深圳</span>
+              </div>
+              <div class="id-item">
+                <span class="id-label">Education</span>
+                <span class="id-value">谢菲尔德大学 <span class="highlight">哲学硕士</span></span>
+              </div>
+              <div class="id-item">
+                <span class="id-label">Job</span>
+                <span class="id-value">国际英语老师</span>
+              </div>
+              <div class="id-item">
+                <span class="id-label">Status</span>
+                <span class="id-value">和 <span class="highlight">@徐硕宁</span> 在一起</span>
+              </div>
+            </div>
+
+            <div class="profile-quote">
+              "我相信慢思考的力量，也相信一篇写下来的文字<br />
+              比十条即时的推文更值得回味。"
+            </div>
+          </div>
+        </div>
+
+        <!-- Status Cards -->
+        <div class="status-grid">
+          <div class="status-card body fade-in">
+            <div class="status-card-head">
+              <div class="status-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <h3 class="status-title">身体状况</h3>
+            </div>
+            <p class="status-text">
+              最近睡眠改善了不少，开始规律地做一些轻运动。
+              每周两次瑜伽，偶尔晨跑 3 公里，配速不快但坚持下来了。
+              夏天爱喝冰的，肠胃偶尔闹小脾气，需要提醒自己少贪凉。
+            </p>
+            <span class="status-tag">
+              <span class="status-dot"></span>
+              整体良好 · 注意肠胃
+            </span>
+          </div>
+
+          <div class="status-card mind fade-in">
+            <div class="status-card-head">
+              <div class="status-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a7 7 0 0 1 7 7c0 3-2 5-3 7-1 1-1 2-1 3v1H9v-1c0-1 0-2-1-3-1-2-3-4-3-7a7 7 0 0 1 7-7z"/>
+                  <path d="M9 22h6"/>
+                </svg>
+              </div>
+              <h3 class="status-title">精神状况</h3>
+            </div>
+            <p class="status-text">
+              在学着放慢节奏。读哲学书的时候最安定，偶尔焦虑，
+              但总体是一个会给自己做小蛋糕的人。每月给自己放一天假，
+              不回消息，不列清单，去公园散步两小时。
+            </p>
+            <span class="status-tag">
+              <span class="status-dot"></span>
+              稳定向好 · 偶尔波动
+            </span>
+          </div>
+        </div>
+
+        <!-- Photo Strip -->
+        <div class="photo-strip fade-in">
+          <div class="photo-strip-head">
+            <h3>Photos <span class="script-note">· 浮出照片</span></h3>
+            <span class="photo-hint" style="font-family: 'Caveat', cursive; color: var(--primary-deep); font-size: 17px;">
+              click to add yours ♡
+            </span>
+          </div>
+          <div class="photo-grid">
+            <div class="polaroid">
+              <div class="polaroid-tape"></div>
+              <div class="polaroid-photo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+              </div>
+              <div class="polaroid-caption">咖啡与早晨</div>
+            </div>
+            <div class="polaroid">
+              <div class="polaroid-tape green"></div>
+              <div class="polaroid-photo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2v8M12 22a8 8 0 0 0 8-8c0-3-2-5-3-7"/><path d="M12 14a4 4 0 0 1-4-4"/></svg>
+              </div>
+              <div class="polaroid-caption">阳台植物</div>
+            </div>
+            <div class="polaroid">
+              <div class="polaroid-tape blue"></div>
+              <div class="polaroid-photo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7h18M5 7v13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7M9 7V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"/></svg>
+              </div>
+              <div class="polaroid-caption">周末市集</div>
+            </div>
+            <div class="polaroid">
+              <div class="polaroid-tape"></div>
+              <div class="polaroid-photo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              </div>
+              <div class="polaroid-caption">读书下午</div>
+            </div>
+            <div class="polaroid">
+              <div class="polaroid-tape pink"></div>
+              <div class="polaroid-photo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+              </div>
+              <div class="polaroid-caption">一场旅行</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DIARY / JOURNAL ============ -->
+    <section class="journal" id="journal">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-num">— daily updates —</span>
+          <h2>每日日记 · 计划 · 随笔</h2>
+          <p>把每天都写下来。日子久了，回头看就是一整本自己的书。</p>
+        </div>
+
+        <div class="journal-tabs fade-in">
+          <button class="journal-tab active" data-tab="diary">日记</button>
+          <button class="journal-tab" data-tab="plan">计划</button>
+          <button class="journal-tab" data-tab="essay">随笔</button>
+        </div>
+
+        <!-- Diary -->
+        <div class="journal-panel active" data-panel="diary">
+          <div class="journal-list">
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">09 · 29</span>
+                <span class="date-dow">周日 · 多云</span>
+              </div>
+              <h4>和硕宁去华侨城逛了一天</h4>
+              <p>下午的华侨城比想象中安静，遇到了两只睡在长椅上的橘猫。硕宁买了两杯柠檬茶，我们在草地上坐了很久。</p>
+              <div class="entry-meta"><span class="heart">♡</span> 18 喜欢 · 4 评论</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">09 · 27</span>
+                <span class="date-dow">周五 · 晴</span>
+              </div>
+              <h4>第一次在家做提拉米苏</h4>
+              <p>马斯卡彭打发了三次才成功，最后口感竟然还不错。手指饼干吸饱了咖啡液，整个厨房都是浓缩咖啡的味道。</p>
+              <div class="entry-meta"><span class="heart">♡</span> 32 喜欢 · 7 评论</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">09 · 25</span>
+                <span class="date-dow">周三 · 阵雨</span>
+              </div>
+              <h4>看了《塔尔》—— 一种克制的迷狂</h4>
+              <p>Cate Blanchett 把那种"在权力顶端的人特有的孤独"演得太精准了。看完坐了很久没说话，硕宁问我怎么了，我说不知道。</p>
+              <div class="entry-meta"><span class="heart">♡</span> 24 喜欢 · 5 评论</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">09 · 22</span>
+                <span class="date-dow">周六 · 晴</span>
+              </div>
+              <h4>早起买到了桂花糕</h4>
+              <p>楼下阿婆的桂花糕只有七点前才有，今天闹钟响了两遍但还是爬起来去了。蒸糕的白烟从蒸笼里冒出来，整个早晨都是甜的。</p>
+              <div class="entry-meta"><span class="heart">♡</span> 41 喜欢 · 9 评论</div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Plan -->
+        <div class="journal-panel" data-panel="plan">
+          <div class="journal-list">
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">十月</span>
+                <span class="date-dow">本月目标</span>
+              </div>
+              <h4>完成《查拉图斯特拉如是说》第二章</h4>
+              <p>每天睡前读 20 页，做简短笔记。十月结束时希望能在脑子里形成自己的解读，而不只是抄书。</p>
+              <div class="entry-meta">📌 进行中 · 30%</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">十月</span>
+                <span class="date-dow">英语角主题</span>
+              </div>
+              <h4>准备十月英语角的演讲主题</h4>
+              <p>准备讲"Why slow reading matters"。已经列了 7 个观点，还需要再压缩到 3 个核心。</p>
+              <div class="entry-meta">📌 待办 · 准备中</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">十月</span>
+                <span class="date-dow">周末计划</span>
+              </div>
+              <h4>周六和姐妹们去爬塘朗山</h4>
+              <p>约了 Emma、Lynn、Coco。七点集合，自带早餐和防晒。预计十一点下山，去吃一家新开的越南粉。</p>
+              <div class="entry-meta">📌 已约 · 6 人</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">长期</span>
+                <span class="date-dow">持续追踪</span>
+              </div>
+              <h4>每月读 2 本非虚构</h4>
+              <p>十月：《把自己作为方法》与《奶酪与蛆虫》。希望保持"哲学 + 社科"的阅读节奏，不被短视频带走。</p>
+              <div class="entry-meta">📌 长期 · 第 8 个月</div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Essay -->
+        <div class="journal-panel" data-panel="essay">
+          <div class="journal-list">
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">09 · 20</span>
+                <span class="date-dow">随笔 · 1.2k 字</span>
+              </div>
+              <h4>关于「我应该怎样生活」这个问题</h4>
+              <p>年轻时以为"我应该怎样生活"是一个需要先想清楚再开始的问题。后来发现，这是一个只能在做中学回答的问题。</p>
+              <div class="entry-meta"><span class="heart">♡</span> 56 喜欢 · 12 评论</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">09 · 10</span>
+                <span class="date-dow">随笔 · 800 字</span>
+              </div>
+              <h4>当我开始学哲学之后</h4>
+              <p>哲学没有让我变得通透，反而让我更清楚地看见自己的困惑。这本身就是一种进步。</p>
+              <div class="entry-meta"><span class="heart">♡</span> 73 喜欢 · 18 评论</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">08 · 30</span>
+                <span class="date-dow">随笔 · 1.5k 字</span>
+              </div>
+              <h4>在深圳的第一年</h4>
+              <p>从谢菲尔德回到深圳的这一年，经历了文化上的某种"逆迁徙"。我开始重新认识自己的城市，也重新认识自己。</p>
+              <div class="entry-meta"><span class="heart">♡</span> 89 喜欢 · 22 评论</div>
+            </article>
+            <article class="journal-entry">
+              <div class="journal-entry-date">
+                <span class="date-badge">08 · 18</span>
+                <span class="date-dow">随笔 · 600 字</span>
+              </div>
+              <h4>关于"独立"</h4>
+              <p>独立不是不依靠别人，而是清楚地知道自己的边界在哪里、可以承担什么、又愿意在哪些事情上示弱。</p>
+              <div class="entry-meta"><span class="heart">♡</span> 64 喜欢 · 15 评论</div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LIFE ============ -->
+    <section class="cat-section" id="life">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-num">— chapter 02 —</span>
+          <h2>生活</h2>
+          <p>把日子过成自己喜欢的样子，是一门慢慢练的功课。</p>
+        </div>
+        <div class="cat-grid cols-3">
+          <div class="cat-card fade-in">
+            <div class="cat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11V8a7 7 0 0 1 14 0v3M6 11v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8"/><path d="M9 7v4M15 7v4"/></svg>
+            </div>
+            <h3>餐饮</h3>
+            <p class="cat-sub">周末的早午餐、深夜的一锅汤、自己做的小蛋糕——食物是日子里最具体的浪漫。</p>
+            <div class="cat-tags">
+              <span class="cat-tag">早午餐</span>
+              <span class="cat-tag">在家做饭</span>
+              <span class="cat-tag">探店</span>
+            </div>
+            <div class="cat-stats">
+              <span class="cat-stats-item">📝 23 篇</span>
+              <span class="cat-stats-item">♡ 1.4k</span>
+            </div>
+          </div>
+
+          <div class="cat-card fade-in">
+            <div class="cat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <h3>宅家日常</h3>
+            <p class="cat-sub">周六十点的阳光、沙发上的毯子、和硕宁的电影夜——家是无限游戏的小宇宙。</p>
+            <div class="cat-tags">
+              <span class="cat-tag">客厅电影夜</span>
+              <span class="cat-tag">晨间仪式</span>
+              <span class="cat-tag">周末</span>
+            </div>
+            <div class="cat-stats">
+              <span class="cat-stats-item">📝 18 篇</span>
+              <span class="cat-stats-item">♡ 980</span>
+            </div>
+          </div>
+
+          <div class="cat-card fade-in">
+            <div class="cat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            </div>
+            <h3>收纳与清洁</h3>
+            <p class="cat-sub">让物品各得其所、把动线交给习惯——家越整齐，心里越清楚。</p>
+            <div class="cat-tags">
+              <span class="cat-tag">厨房</span>
+              <span class="cat-tag">玄关</span>
+              <span class="cat-tag">断舍离</span>
+            </div>
+            <div class="cat-stats">
+              <span class="cat-stats-item">📝 11 篇</span>
+              <span class="cat-stats-item">♡ 540</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="cat-section" id="work">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-num">— chapter 03 —</span>
+          <h2>工作</h2>
+          <p>国际英语老师 / 白天上课，晚上反思 / 一边吐槽，一边认真。</p>
+        </div>
+        <div class="cat-grid cols-2">
+          <div class="cat-card fade-in">
+            <div class="cat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h3>工作随想</h3>
+            <p class="cat-sub">关于教学法的反思、关于「学习者自主性」的实践、关于"为什么我还在当老师"的回答。</p>
+            <div class="cat-tags">
+              <span class="cat-tag">教学法</span>
+              <span class="cat-tag">学习者自主性</span>
+              <span class="cat-tag">课堂观察</span>
+            </div>
+            <div class="cat-stats">
+              <span class="cat-stats-item">📝 14 篇</span>
+              <span class="cat-stats-item">♡ 720</span>
+            </div>
+          </div>
+
+          <div class="cat-card fade-in">
+            <div class="cat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
+            </div>
+            <h3>上班吐槽</h3>
+            <p class="cat-sub">学生不交作业的一天、调课风云、教研会的意义——一份国际学校的"野生观察报告"。</p>
+            <div class="cat-tags">
+              <span class="cat-tag">学生趣事</span>
+              <span class="cat-tag">同事故事</span>
+              <span class="cat-tag">学校日常</span>
+            </div>
+            <div class="cat-stats">
+              <span class="cat-stats-item">📝 19 篇</span>
+              <span class="cat-stats-item">♡ 1.1k</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STUDY ============ -->
+    <section class="cat-section" id="study">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-num">— chapter 04 —</span>
+          <h2>学习</h2>
+          <p>做老师也是学生。读英语、读哲学、读世界——保持当一个新人的谦卑。</p>
+        </div>
+        <div class="cat-grid cols-3">
+          <div class="cat-card fade-in">
+            <div class="cat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            </div>
+            <h3>英语学习</h3>
+            <p class="cat-sub">TKT 备考笔记、自然拼读教学法、口语练习的复盘——作为英语老师的持续精进。</p>
+            <div class="cat-tags">
+              <span class="cat-tag">TKT</span>
+              <span class="cat-tag">口语</span>
+              <span class="cat-tag">教学法</span>
+            </div>
+            <div class="cat-stats">
+              <span class="cat-stats-item">📝 16 篇</span>
+              <span class="cat-stats-item">♡ 830</span>
+            </div>
+          </div>
+
+          <div class="cat-card fade-in">
+            <div class="cat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <h3>哲学学习</h3>
+            <p class="cat-sub">尼采、现象学、中国哲学——把读不懂的书慢慢读懂，是一种很慢、很值的练习。</p>
+            <div class="cat-tags">
+              <span class="cat-tag">尼采</span>
+              <span class="cat-tag">现象学</span>
+              <span class="cat-tag">中哲</span>
+            </div>
+            <div class="cat-stats">
+              <span class="cat-stats-item">📝 21 篇</span>
+              <span class="cat-stats-item">♡ 1.2k</span>
+            </div>
+          </div>
+
+          <div class="cat-card fade-in">
+            <div class="cat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 8.5 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 9 8.5"/></svg>
+            </div>
+            <h3>其他学习</h3>
+            <p class="cat-sub">心理学通识、法语入门、编程入门——业余时间慢慢点开的技能树。</p>
+            <div class="cat-tags">
+              <span class="cat-tag">心理学</span>
+              <span class="cat-tag">法语</span>
+              <span class="cat-tag">编程</span>
+            </div>
+            <div class="cat-stats">
+              <span class="cat-stats-item">📝 9 篇</span>
+              <span class="cat-stats-item">♡ 460</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOCIAL ============ -->
+    <section class="cat-section" id="social">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-num">— chapter 05 —</span>
+          <h2>Frina 和她的朋友们</h2>
+          <p>一个人走得快，一群人走得远。记录和我一起认真生活的人。</p>
+        </div>
+        <div class="friends-grid">
+          <div class="friend-card fade-in">
+            <div class="friend-avatar" style="background: linear-gradient(135deg, #c97b8e 0%, #b85d8a 100%);">E</div>
+            <div class="friend-name">Emma</div>
+            <div class="friend-rel">大学舍友 · 香港</div>
+            <p class="friend-desc">在读教育学博士。每次视频都是三小时起步，分享最近读到的好论文。</p>
+          </div>
+          <div class="friend-card fade-in">
+            <div class="friend-avatar" style="background: linear-gradient(135deg, #d8a7b3 0%, #c97b8e 100%);">L</div>
+            <div class="friend-name">Lynn</div>
+            <div class="friend-rel">深圳同事 · 美术老师</div>
+            <p class="friend-desc">教小朋友画画，气质安静。会带我去各种独立展览，是我的"艺术领路人"。</p>
+          </div>
+          <div class="friend-card fade-in">
+            <div class="friend-avatar" style="background: linear-gradient(135deg, #f4d7a4 0%, #e6b88a 100%);">C</div>
+            <div class="friend-name">Coco</div>
+            <div class="friend-rel">高中同学 · 媒体人</div>
+            <p class="friend-desc">做播客，最近在做独立女性话题。每月一次 brunch，从不迟到。</p>
+          </div>
+          <div class="friend-card fade-in">
+            <div class="friend-avatar" style="background: linear-gradient(135deg, #b9d8e6 0%, #8ab8c9 100%);">S</div>
+            <div class="friend-name">硕宁</div>
+            <div class="friend-rel">男友 · 工程师</div>
+            <p class="friend-desc">理工科脑子的另一半。每晚给我讲一个奇怪的冷知识，已经累积 300+ 个。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOBBIES ============ -->
+    <section class="cat-section" id="hobbies">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-num">— chapter 06 —</span>
+          <h2>兴趣爱好</h2>
+          <p>这些是我不在"工作"和"学习"里，也仍然会一直做下去的事。</p>
+        </div>
+        <div class="cat-grid cols-5">
+          <div class="hobby-card fade-in">
+            <div class="hobby-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h4>阅读与写作</h4>
+            <p>每月 2 本非虚构 · 这个博客本身</p>
+            <div class="hobby-progress">
+              <span>今年 18/24 本</span>
+            </div>
+          </div>
+
+          <div class="hobby-card fade-in">
+            <div class="hobby-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            </div>
+            <h4>音乐与绘画</h4>
+            <p>民谣 · 古典 · 业余水彩</p>
+            <div class="hobby-progress">
+              <span>每周 2 次练习</span>
+            </div>
+          </div>
+
+          <div class="hobby-card fade-in">
+            <div class="hobby-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg>
+            </div>
+            <h4>游戏专区</h4>
+            <p>塞尔达 · 星露谷 · 双人合作</p>
+            <div class="hobby-progress">
+              <span>通关 4 款</span>
+            </div>
+          </div>
+
+          <div class="hobby-card fade-in">
+            <div class="hobby-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h4>旅行</h4>
+            <p>慢节奏 · 城市散步 · 露营</p>
+            <div class="hobby-progress">
+              <span>今年 6 城</span>
+            </div>
+          </div>
+
+          <div class="hobby-card fade-in">
+            <div class="hobby-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M12 14a4 4 0 0 1-4-4M12 14a4 4 0 0 0 4-4M5 22h14"/><path d="M9 22v-4M15 22v-4"/></svg>
+            </div>
+            <h4>其他</h4>
+            <p>咖啡探店 · 植物养护 · 瑜伽</p>
+            <div class="hobby-progress">
+              <span>日常进行中</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#top" class="logo">
+            <span class="logo-mark">F</span>
+            Frina
+          </a>
+          <div class="footer-tagline">keep it slow, keep it real.</div>
+          <p class="footer-desc">记录一个国际英语老师的日常、阅读与生活。<br />慢一点，写下来。</p>
+        </div>
+        <div class="footer-col">
+          <h4>导航</h4>
+          <ul>
+            <li><a href="#online">地球Online</a></li>
+            <li><a href="#life">生活</a></li>
+            <li><a href="#work">工作</a></li>
+            <li><a href="#study">学习</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>分类</h4>
+          <ul>
+            <li><a href="#social">社交</a></li>
+            <li><a href="#hobbies">兴趣爱好</a></li>
+            <li><a href="#journal">日记 / 计划 / 随笔</a></li>
+            <li><a href="#">归档</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>联系</h4>
+          <ul>
+            <li><a href="#">小红书</a></li>
+            <li><a href="#">微博</a></li>
+            <li><a href="#">邮箱</a></li>
+            <li><a href="#">RSS</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Frina · 用心生活，缓慢更新 ✿</span>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="微博">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="9" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="小红书">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h4v16H3zM9 4h2v16H9zM13 4h2v16h-2zM17 4h4v16h-4z"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="RSS">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    fadeEls.forEach((el) => io.observe(el));
+
+    // Trigger above-the-fold fade-in immediately
+    document.querySelectorAll('.hero .fade-in').forEach((el) => {
+      setTimeout(() => el.classList.add('visible'), 80);
+    });
+
+    // Journal tabs
+    const tabs = document.querySelectorAll('.journal-tab');
+    const panels = document.querySelectorAll('.journal-panel');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        tabs.forEach((t) => t.classList.toggle('active', t === tab));
+        panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === target));
+      });
+    });
+  </script>
+</body>
+</html>

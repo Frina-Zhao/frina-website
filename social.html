@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>社交 · Frina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fbdde5; --card: #ffffff; --line: #ecbfca;
+      --text: #3a1d28; --text-2: #6b4955; --muted: #a88491;
+      --primary: #d96b8a; --primary-deep: #8e3a5d; --primary-soft: #fdd8e2;
+      --accent: #e85c7d; --yellow: #f4d7a4; --blue-tape: #b9d8e6; --green-tape: #c8dec6;
+      --max: 1180px; --radius: 16px;
+      --shadow-sm: 0 2px 8px rgba(142, 73, 99, 0.06);
+      --shadow-md: 0 8px 24px -10px rgba(142, 73, 99, 0.12);
+      --transition: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    body {
+      font-family: 'Outfit', 'Noto Sans SC', -apple-system, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><g><g transform='translate(40 40) rotate(15)' opacity='0.13'><g fill='%23c97b8e'><ellipse cx='0' cy='-7' rx='3' ry='5'/><ellipse cx='6.66' cy='-2.16' rx='3' ry='5' transform='rotate(72)'/><ellipse cx='4.11' cy='5.66' rx='3' ry='5' transform='rotate(144)'/><ellipse cx='-4.11' cy='5.66' rx='3' ry='5' transform='rotate(216)'/><ellipse cx='-6.66' cy='-2.16' rx='3' ry='5' transform='rotate(288)'/></g><circle r='2' fill='%23f4d7a4'/></g><g transform='translate(150 110) rotate(-30)' opacity='0.1'><g fill='%23c97b8e'><ellipse cx='0' cy='-7' rx='3' ry='5'/><ellipse cx='6.66' cy='-2.16' rx='3' ry='5' transform='rotate(72)'/><ellipse cx='4.11' cy='5.66' rx='3' ry='5' transform='rotate(144)'/><ellipse cx='-4.11' cy='5.66' rx='3' ry='5' transform='rotate(216)'/><ellipse cx='-6.66' cy='-2.16' rx='3' ry='5' transform='rotate(288)'/></g><circle r='2' fill='%23f4d7a4'/></g><g transform='translate(95 65) rotate(-25)' opacity='0.11'><path d='M0 0 Q-3 -5 0 -10 Q3 -5 0 0' fill='%238e4963'/></g><g transform='translate(65 145) rotate(35)' opacity='0.11'><path d='M0 0 Q-3 -5 0 -10 Q3 -5 0 0' fill='%238e4963'/></g><circle cx='165' cy='35' r='1.4' fill='%23b85d8a' opacity='0.25'/><circle cx='40' cy='130' r='1.4' fill='%23b85d8a' opacity='0.25'/></g></svg>"),
+        radial-gradient(ellipse at 15% 0%, rgba(201, 123, 142, 0.08) 0%, transparent 45%);
+      background-attachment: fixed, fixed;
+      color: var(--text); line-height: 1.65; font-size: 15px;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; transition: color var(--transition); }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 640px) { .container { padding: 0 20px; } }
+    section { padding: 72px 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary-deep); font-weight: 500; }
+    .eyebrow::before, .eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--primary); display: inline-block; }
+
+    .header { padding: 22px 0; position: sticky; top: 0; z-index: 100; background: rgba(253, 242, 245, 0.78); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 22px; font-weight: 600; font-style: italic; color: var(--text); }
+    .logo-mark { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); display: inline-flex; align-items: center; justify-content: center; color: white; font-family: 'Caveat', cursive; font-size: 19px; font-weight: 600; box-shadow: var(--shadow-sm); }
+    .nav { display: flex; align-items: center; gap: 24px; }
+    .nav a { font-size: 13.5px; color: var(--text-2); font-weight: 400; position: relative; padding: 6px 0; }
+    .nav a:hover { color: var(--primary-deep); }
+    .nav a.active { color: var(--primary-deep); font-weight: 500; }
+    .nav a.active::after { content: ''; position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
+    @media (max-width: 1080px) { .nav { gap: 16px; } }
+    @media (max-width: 880px) { .nav a:not(.nav-cta) { display: none; } }
+
+    .page-hero { padding: 72px 0 32px; text-align: center; }
+    .page-hero .script { font-family: 'Caveat', 'Ma Shan Zheng', cursive; font-size: clamp(28px, 4vw, 42px); color: var(--primary-deep); }
+    .page-hero h1 { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: clamp(48px, 8vw, 84px); font-weight: 600; font-style: italic; letter-spacing: -0.02em; line-height: 1; margin: 6px 0 14px; }
+    .page-hero p { font-size: 14px; color: var(--text-2); max-width: 480px; margin: 0 auto; }
+
+    /* Sub section header */
+    .sub-header { text-align: center; margin-bottom: 48px; }
+    .sub-header .num { font-family: 'Caveat', cursive; font-size: 26px; color: var(--primary); }
+    .sub-header h2 { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: clamp(28px, 4vw, 40px); font-weight: 600; font-style: italic; margin: 4px 0 10px; }
+    .sub-header p { font-size: 13.5px; color: var(--text-2); max-width: 460px; margin: 0 auto; }
+
+    /* Friends empty state */
+    .friends-empty {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 32px;
+      background: var(--card);
+      border: 1.5px dashed var(--line);
+      border-radius: var(--radius);
+      text-align: center;
+      position: relative;
+    }
+    .friends-empty::before {
+      content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      width: 60px; height: 22px;
+      background: rgba(244, 215, 164, 0.7);
+      transform: translateX(-50%) rotate(-2deg);
+    }
+    .friends-empty-icon {
+      width: 80px; height: 80px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary-deep);
+    }
+    .friends-empty h3 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 26px; font-weight: 600; font-style: italic;
+      margin-bottom: 12px;
+    }
+    .friends-empty p {
+      font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+      font-size: 20px;
+      color: var(--primary-deep);
+      line-height: 1.5;
+    }
+    .friends-empty .empty-tags {
+      margin-top: 24px;
+      display: inline-flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center;
+    }
+    .friends-empty .empty-tag {
+      padding: 5px 14px;
+      background: var(--bg-soft);
+      color: var(--muted);
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px dashed var(--line);
+    }
+    /* Clickable card link to friends.html */
+    .friends-card-link {
+      display: block;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      border-style: solid;
+      border-color: var(--line);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .friends-card-link:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .friends-card-link:hover .empty-tag {
+      color: var(--primary-deep);
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .friends-card-link::after {
+      content: '进入介绍 →';
+      display: inline-block;
+      margin-top: 22px;
+      font-family: 'Caveat', cursive;
+      font-size: 17px;
+      color: var(--primary);
+      font-weight: 500;
+      transition: transform var(--transition);
+    }
+    .friends-card-link:hover::after { transform: translateX(4px); }
+
+    /* Couple section */
+    .couple-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .couple-card::before {
+      content: ''; position: absolute; top: -10px; left: 60px; right: 60px; height: 10px;
+      background: linear-gradient(90deg, var(--yellow), var(--blue-tape), var(--green-tape));
+      border-radius: 4px 4px 0 0; opacity: 0.65;
+    }
+    .couple-banner {
+      padding: 48px 48px 32px;
+      background: linear-gradient(135deg, var(--primary-soft) 0%, rgba(244, 215, 164, 0.15) 100%);
+      text-align: center;
+      border-bottom: 1px dashed var(--line);
+      position: relative;
+    }
+    .couple-banner .heart {
+      font-size: 28px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .couple-banner h3 {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 36px; font-weight: 600; font-style: italic;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .couple-banner .since {
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      color: var(--primary-deep);
+    }
+    .couple-body {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 720px) { .couple-body { grid-template-columns: 1fr; } }
+
+    .couple-photos {
+      padding: 32px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      align-content: start;
+    }
+    .couple-photos .polaroid { background: white; padding: 8px 8px 36px; box-shadow: 0 3px 10px rgba(58, 39, 48, 0.08); position: relative; }
+    .couple-photos .polaroid:nth-child(1) { transform: rotate(-3deg); }
+    .couple-photos .polaroid:nth-child(2) { transform: rotate(2deg); margin-top: 16px; }
+    .couple-photos .polaroid:nth-child(3) { transform: rotate(-2deg); margin-top: -8px; }
+    .couple-photos .polaroid:nth-child(4) { transform: rotate(3deg); margin-top: 12px; }
+    .couple-photos .polaroid-tape { position: absolute; top: -6px; left: 50%; margin-left: -24px; width: 48px; height: 16px; background: rgba(244, 215, 164, 0.7); transform: rotate(-3deg); }
+    .couple-photos .polaroid:nth-child(2) .polaroid-tape { background: rgba(200, 222, 198, 0.7); }
+    .couple-photos .polaroid:nth-child(3) .polaroid-tape { background: rgba(185, 216, 230, 0.7); }
+    .couple-photos .polaroid:nth-child(4) .polaroid-tape { background: rgba(252, 231, 237, 0.9); }
+    .polaroid-photo {
+      aspect-ratio: 1/1;
+      background: linear-gradient(135deg, var(--primary-soft), var(--bg-deep));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary-deep);
+    }
+    .polaroid-caption {
+      position: absolute; bottom: 6px; left: 8px; right: 8px;
+      text-align: center;
+      font-family: 'Caveat', cursive; font-size: 14px; color: var(--text);
+    }
+
+    .couple-stories {
+      padding: 32px 36px;
+      border-left: 1px dashed var(--line);
+    }
+    @media (max-width: 720px) { .couple-stories { border-left: none; border-top: 1px dashed var(--line); } }
+    .couple-story {
+      padding: 18px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .couple-story:last-child { border-bottom: none; }
+    .couple-story-date { font-family: 'Caveat', cursive; font-size: 18px; color: var(--primary); margin-bottom: 6px; }
+    .couple-story-title { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 16px; font-weight: 600; font-style: italic; margin-bottom: 6px; }
+    .couple-story-text { font-size: 13px; color: var(--text-2); line-height: 1.75; }
+    .couple-story .him { color: var(--primary-deep); font-weight: 500; }
+    .couple-story .me { color: var(--accent); font-weight: 500; }
+
+    /* Footer (shared) */
+    .footer { padding: 56px 0 28px; border-top: 1px solid var(--line); background: rgba(253, 242, 245, 0.6); margin-top: 48px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-tagline { font-family: 'Caveat', cursive; font-size: 18px; color: var(--primary-deep); margin-bottom: 10px; }
+    .footer-desc { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+    .footer-col h4 { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; color: var(--text); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col a { font-size: 13px; color: var(--text-2); }
+    .footer-col a:hover { color: var(--primary-deep); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px dashed var(--line); flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-socials { display: flex; gap: 8px; }
+    .footer-social { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-2); transition: all var(--transition); }
+    .footer-social:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1); }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+    }
+
+
+
+    /* ============ LOCAL PAGE EDITOR ============ */
+    .page-editor {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+    .editor-fab {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px -8px rgba(217, 107, 138, 0.55);
+      transition: all var(--transition);
+    }
+    .editor-fab:hover { transform: scale(1.06) rotate(-5deg); }
+    .editor-fab.active {
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, var(--primary-deep), var(--accent));
+    }
+    .editor-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: all var(--transition);
+    }
+    body.edit-mode .editor-actions {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .editor-action-btn {
+      padding: 8px 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+      font-family: inherit;
+    }
+    .editor-action-btn:hover {
+      background: var(--primary-soft);
+      color: var(--primary-deep);
+    }
+    .editor-action-btn.danger:hover {
+      background: rgba(184, 93, 138, 0.12);
+      color: var(--accent);
+    }
+    .editor-toast {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      padding: 10px 18px;
+      background: var(--text);
+      color: white;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      z-index: 9998;
+    }
+    .editor-toast.show { opacity: 1; transform: translateY(0); }
+    body.edit-mode .editable-text {
+      outline: 1px dashed transparent;
+      outline-offset: 4px;
+      transition: outline-color 120ms, background-color 120ms;
+      cursor: text;
+    }
+    body.edit-mode .editable-text:hover { outline-color: var(--primary); }
+    body.edit-mode .editable-text.editing-now {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      background: rgba(252, 231, 237, 0.45);
+      border-radius: 4px;
+    }
+    .editor-banner {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      padding: 8px 20px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      z-index: 9997;
+    }
+    body.edit-mode .editor-banner { display: block; }
+    body.edit-mode .header { top: 36px; }
+
+    /* ===== Couple photos: upload affordance ===== */
+    .couple-photos {
+      position: relative;
+    }
+    .couple-photos .polaroid-placeholder {
+      cursor: default;
+    }
+    .couple-photos .polaroid-uploaded {
+      background: white;
+      padding: 8px 8px 36px;
+      box-shadow: 0 3px 10px rgba(58, 39, 48, 0.08);
+      position: relative;
+      cursor: zoom-in;
+    }
+    .couple-photos .polaroid-uploaded .polaroid-photo {
+      background-size: cover;
+      background-position: center;
+      background-color: var(--primary-soft);
+    }
+    /* Uploaded photos use <img> for best browser compatibility with large dataURLs */
+    .couple-photos .polaroid-uploaded img.polaroid-photo {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+    .polaroid-remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(20, 10, 16, 0.6);
+      color: white;
+      border: none;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.55;
+      transition: opacity 180ms;
+      backdrop-filter: blur(2px);
+      z-index: 2;
+    }
+    .polaroid-uploaded:hover .polaroid-remove-btn,
+    .polaroid-placeholder:hover .polaroid-remove-btn {
+      opacity: 1;
+    }
+    .polaroid-remove-btn:hover { background: var(--accent); }
+    .couple-photos .upload-add-slot {
+      background: rgba(255, 255, 255, 0.5);
+      border: 2px dashed var(--line);
+      padding: 8px 8px 36px;
+      box-shadow: none;
+      cursor: pointer;
+      transition: all 200ms;
+      position: relative;
+      color: var(--primary-deep);
+    }
+    .couple-photos .upload-add-slot:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .couple-photos .upload-add-slot .polaroid-photo {
+      background: transparent;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .couple-photos .upload-add-slot svg {
+      opacity: 0.5;
+    }
+    .couple-photos .upload-add-slot .add-label {
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+    }
+    .couple-photos .upload-input {
+      display: block;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    /* ===== Couple stories: CRUD list ===== */
+    .couple-stories-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--line);
+      flex-wrap: nowrap;
+    }
+    .couple-stories-head-title {
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      color: var(--primary-deep);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .couple-stories-add-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 200ms;
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .couple-stories-add-btn:hover { background: var(--primary-deep); }
+    .couple-story {
+      position: relative;
+    }
+    .couple-story-delete {
+      position: absolute;
+      top: 18px;
+      right: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid transparent;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 180ms;
+    }
+    .couple-story:hover .couple-story-delete { opacity: 1; }
+    .couple-story-delete:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .couple-story-date-input {
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      color: var(--primary);
+      background: transparent;
+      border: none;
+      border-bottom: 1px dashed transparent;
+      padding: 0 2px;
+      margin-bottom: 6px;
+      outline: none;
+      width: 110px;
+      transition: border-color 200ms;
+    }
+    .couple-story-date-input:focus { border-bottom-color: var(--primary); }
+    .couple-story-title-input {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: 16px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--text);
+      background: transparent;
+      border: none;
+      border-bottom: 1px dashed transparent;
+      padding: 0 2px;
+      margin-bottom: 8px;
+      outline: none;
+      width: 100%;
+      display: block;
+      transition: border-color 200ms;
+    }
+    .couple-story-title-input:focus { border-bottom-color: var(--line); }
+    .couple-story-content {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.75;
+      min-height: 32px;
+      padding: 4px 2px;
+      border-radius: 4px;
+      transition: background 200ms;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .couple-story-content:focus {
+      outline: none;
+      background: rgba(253, 216, 226, 0.18);
+    }
+    .couple-story-content:empty::before {
+      content: attr(data-placeholder);
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* Lightbox for couple photos */
+    .couple-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 10, 16, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 350;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 240ms ease;
+    }
+    .couple-lightbox.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .couple-lightbox img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 12px;
+      box-shadow: 0 24px 60px -12px rgba(0,0,0,0.5);
+      transform: scale(0.96);
+      transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .couple-lightbox.show img { transform: scale(1); }
+    .couple-lightbox-close {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: background 200ms;
+    }
+    .couple-lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+
+    /* ===== Couple-upload undo (顶部撤销条) ===== */
+    .couple-upload-toast {
+      position: fixed;
+      left: 50%;
+      top: 88px;
+      transform: translateX(-50%) translateY(-12px);
+      background: rgba(58, 29, 40, 0.95);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-family: 'Outfit', 'Noto Sans SC', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 12px 32px -8px rgba(58, 29, 40, 0.4);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transition: opacity 240ms ease, transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 340;
+      pointer-events: none;
+    }
+    .couple-upload-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .couple-upload-toast strong {
+      color: var(--yellow);
+      font-weight: 600;
+      margin: 0 2px;
+    }
+    .couple-upload-toast-undo {
+      background: rgba(255, 255, 255, 0.18);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 200ms;
+    }
+    .couple-upload-toast-undo:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    // 防御性：每次进入页面（包括 bfcache 恢复）都强制重置编辑模式，
+    // 避免从其他页面"带入" body.edit-mode 状态。
+    (function resetEditModeOnLoad() {
+      function forceReset() {
+        document.body.classList.remove('edit-mode');
+        document.querySelectorAll('[contenteditable]').forEach(function (el) {
+          el.setAttribute('contenteditable', 'false');
+        });
+        document.querySelectorAll('.editable-text').forEach(function (el) {
+          el.classList.remove('editable-text', 'editing-now');
+        });
+        document.querySelectorAll('.editing-now').forEach(function (el) {
+          el.classList.remove('editing-now');
+        });
+        var fab = document.getElementById('editorFab');
+        if (fab) fab.classList.remove('active');
+        var toast = document.getElementById('editorToast');
+        if (toast) toast.classList.remove('show');
+      }
+      forceReset();
+      window.addEventListener('pageshow', forceReset);
+    })();
+  </script>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-mark">F</span>Frina</a>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="online.html">地球Online</a>
+        <a href="life.html">生活</a>
+        <a href="work.html">工作</a>
+        <a href="study.html">学习</a>
+        <a href="social.html" class="active">社交</a>
+        <a href="hobbies.html">兴趣爱好</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="script fade-in">chapter 05</div>
+        <h1 class="fade-in">社交</h1>
+        <p class="fade-in">一个人走得快，一群人走得远。</p>
+      </div>
+    </section>
+
+    <!-- Frina 和她的朋友们 (empty placeholder) -->
+    <section style="padding-top: 32px;">
+      <div class="container">
+        <div class="sub-header fade-in">
+          <span class="num">— 05.01 —</span>
+          <h2>Frina 和她的朋友们</h2>
+          <p>这是留给我慢慢填的位置 ——</p>
+        </div>
+        <a href="friends.html" class="friends-empty friends-card-link fade-in" id="friendsPreview">
+          <div class="friends-empty-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 id="friendsPreviewTitle">这里还很安静</h3>
+          <p id="friendsPreviewSubtitle">等我一个一个，慢慢把她们写进来 ♡</p>
+          <div class="empty-tags" id="friendsPreviewTags" hidden></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 和硕宁在一起 -->
+    <section>
+      <div class="container">
+        <div class="sub-header fade-in">
+          <span class="num">— 05.02 —</span>
+          <h2>和硕宁在一起</h2>
+          <p>理工科脑子的另一半，每晚给我讲一个奇怪的冷知识。</p>
+        </div>
+
+        <div class="couple-card fade-in">
+          <div class="couple-banner">
+            <div class="heart">♡</div>
+            <h3>Frina & 硕宁</h3>
+            <div class="since">since 2022 · 在一起的第四年</div>
+          </div>
+
+          <div class="couple-body">
+            <!-- Photos (动态：默认占位 + 用户上传 + 添加槽) -->
+            <div class="couple-photos" id="couplePhotos">
+              <input type="file" accept="image/*" multiple class="upload-input" id="couplePhotoInput" />
+            </div>
+
+            <!-- Stories (动态日志列表) -->
+            <div class="couple-stories">
+              <div class="couple-stories-head">
+                <span class="couple-stories-head-title">日记本 · 日积月累 ♡</span>
+                <button type="button" class="couple-stories-add-btn" id="coupleStoryAdd">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  写一篇
+                </button>
+              </div>
+              <div id="coupleStoryList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark">F</span>Frina</a><div class="footer-tagline">keep it slow, keep it real.</div><p class="footer-desc">记录我的日常、阅读与生活。</p></div>
+        <div class="footer-col"><h4>首页</h4><ul><li><a href="index.html">今日之语</a></li><li><a href="index.html#photos">照片墙</a></li><li><a href="index.html#guestbook">留言区</a></li></ul></div>
+        <div class="footer-col"><h4>分区</h4><ul><li><a href="online.html">地球Online</a></li><li><a href="life.html">生活</a></li><li><a href="work.html">工作</a></li><li><a href="study.html">学习</a></li></ul></div>
+        <div class="footer-col"><h4>更多</h4><ul><li><a href="social.html">社交</a></li><li><a href="hobbies.html">兴趣爱好</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Frina · 用心生活，缓慢更新 ✿</span>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <div class="footer-socials">
+          <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="9" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/></svg></a>
+          <a href="#" class="footer-social"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h4v16H3zM9 4h2v16H9zM13 4h2v16h-2zM17 4h4v16h-4z"/></svg></a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach((el) => io.observe(el));
+    document.querySelectorAll('.page-hero .fade-in').forEach((el) => setTimeout(() => el.classList.add('visible'), 80));
+  </script>
+
+  <script>
+    // 同步显示 friends.html 里已有的朋友名称（按 createdAt 倒序，最多展示 3 个 + "and N more..."）
+    (function renderFriendsPreview() {
+      var box = document.getElementById('friendsPreview');
+      var titleEl = document.getElementById('friendsPreviewTitle');
+      var subEl = document.getElementById('friendsPreviewSubtitle');
+      var tagsEl = document.getElementById('friendsPreviewTags');
+      if (!box || !titleEl || !subEl || !tagsEl) return;
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
+      }
+      function getFriends() {
+        try {
+          var raw = localStorage.getItem('frina_friends');
+          if (!raw) return [];
+          var arr = JSON.parse(raw);
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) { return []; }
+      }
+
+      function render() {
+        var friends = getFriends().sort(function (a, b) {
+          return (b.createdAt || 0) - (a.createdAt || 0);
+        });
+        var n = friends.length;
+
+        if (n === 0) {
+          titleEl.textContent = '这里还很安静';
+          subEl.textContent = '等我一个一个，慢慢把她们写进来 ♡';
+          tagsEl.hidden = true;
+          tagsEl.innerHTML = '';
+          return;
+        }
+
+        titleEl.textContent = 'Frina 和她的朋友们';
+        if (n === 1) {
+          subEl.textContent = friends[0].title + ' 已经在这里了 —— 继续写下她吧';
+        } else if (n === 2) {
+          subEl.textContent = friends[0].title + ' 和 ' + friends[1].title + ' 已经在这里了';
+        } else {
+          subEl.textContent = '已经有 ' + n + ' 位朋友在这里了 ♡';
+        }
+
+        tagsEl.hidden = false;
+        var visible = friends.slice(0, 3);
+        var more = Math.max(0, n - 3);
+        var tagsHtml = visible.map(function (f) {
+          return '<span class="empty-tag">' + escapeHtml(f.title) + '</span>';
+        }).join('');
+        if (more > 0) {
+          tagsHtml += '<span class="empty-tag">and ' + more + ' more...</span>';
+        }
+        tagsEl.innerHTML = tagsHtml;
+      }
+
+      render();
+    })();
+  </script>
+
+  <!-- Local Page Editor -->
+  <div class="editor-banner">
+    ✎ 编辑模式 · 改动会自动保存到本地
+    <span style="margin-left: 12px; padding: 2px 10px; background: rgba(255,255,255,0.2); border-radius: 999px; font-size: 11px; cursor: pointer;" onclick="toggleEditMode()">退出</span>
+  </div>
+
+  <div class="page-editor">
+    <div class="editor-actions">
+      <button class="editor-action-btn" onclick="toggleEditMode()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        退出编辑
+      </button>
+      <button class="editor-action-btn danger" onclick="resetAllEdits()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        重置全部
+      </button>
+    </div>
+    <button class="editor-fab" id="editorFab" onclick="toggleEditMode()" title="本地编辑 · 改任意文字">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+  </div>
+
+  <div class="editor-toast" id="editorToast"></div>
+
+  <!-- Couple photo lightbox -->
+  <div class="couple-lightbox" id="coupleLightbox" role="dialog" aria-modal="true" aria-label="图片预览">
+    <button type="button" class="couple-lightbox-close" id="coupleLightboxClose" aria-label="关闭">×</button>
+    <img id="coupleLightboxImg" alt="" />
+  </div>
+
+  <script>
+    // ============ Drop stale saved edits in dynamic couple sections ============
+    // couple-photos / couple-stories 内容由 JS 动态渲染，saved edit 灌回会丢结构。
+    // 必须在 loadAllEdits() 之前清掉这些区域的 stale entry，否则会被灌回去。
+    (function purgeCoupleEdits() {
+      const FLAG = 'frina_couple_purged_v1';
+      if (localStorage.getItem(FLAG)) return;
+      let removed = 0;
+      Object.keys(localStorage).forEach(k => {
+        if (!k.startsWith(EDIT_PREFIX)) return;
+        const rest = k.slice(EDIT_PREFIX.length);
+        if (rest.indexOf(getPageId() + '::') !== 0) return;
+        const sel = rest.slice(getPageId().length + 2);
+        try {
+          const el = document.querySelector(sel);
+          if (!el) return;
+          if (el.closest('.couple-photos') || el.closest('.couple-stories') || el.closest('.couple-card')) {
+            localStorage.removeItem(k);
+            removed++;
+          }
+        } catch (e) {}
+      });
+      if (removed) console.log('[couple] cleared', removed, 'legacy edits');
+      localStorage.setItem(FLAG, '1');
+    })();
+
+    // ============ LOCAL PAGE EDITOR ============
+    const EDIT_PREFIX = 'frina_v2_edit_';
+
+    function getPageId() {
+      const meta = document.querySelector('meta[name="page-id"]');
+      if (meta) return meta.getAttribute('content');
+      return document.title || 'unknown';
+    }
+
+    function getElementSelector(el) {
+      const path = [];
+      let current = el;
+      while (current && current !== document.body && current !== document.documentElement) {
+        let selector = current.tagName.toLowerCase();
+        if (current.id) { selector += '#' + current.id; path.unshift(selector); break; }
+        // Include class names (filtered) for better uniqueness
+        if (current.className && typeof current.className === 'string') {
+          const classes = current.className.split(/\s+/).filter(c => c && !c.startsWith('editable-')).slice(0, 2);
+          if (classes.length) selector += '.' + classes.join('.');
+        }
+        const parent = current.parentElement;
+        if (parent) {
+          const siblings = Array.from(parent.children).filter(c => c.tagName === current.tagName);
+          if (siblings.length > 1) selector += `:nth-of-type(${siblings.indexOf(current) + 1})`;
+        }
+        path.unshift(selector);
+        current = parent;
+      }
+      return path.join(' > ');
+    }
+
+    function getElementKey(el) {
+      return EDIT_PREFIX + getPageId() + '::' + getElementSelector(el);
+    }
+
+    function isTextEditable(el) {
+      if (!el) return false;
+      if (el.closest('.page-editor, .editor-toast, .editor-banner, header, nav, footer')) return false;
+      if (el.closest('script, style, input, textarea, select, button')) return false;
+      const tag = el.tagName.toLowerCase();
+      if (!['h1','h2','h3','h4','h5','h6','p','blockquote','span','li','a','time','div'].includes(tag)) return false;
+      if (el.textContent.trim().length < 1) return false;
+      if (el.children.length > 3) return false;
+      return true;
+    }
+
+    function enableEditMode() {
+      document.body.classList.add('edit-mode');
+      const fab = document.getElementById('editorFab'); if (fab) fab.classList.add('active');
+      showToast('编辑模式已开启 · 点任意文字修改');
+      document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,blockquote,span,li,a,time,div').forEach(el => {
+        if (!isTextEditable(el)) return;
+        el.contentEditable = 'true';
+        el.classList.add('editable-text');
+        el.addEventListener('focus', onEditFocus);
+        el.addEventListener('blur', onEditBlur);
+      });
+    }
+
+    function disableEditMode() {
+      document.body.classList.remove('edit-mode');
+      const fab = document.getElementById('editorFab'); if (fab) fab.classList.remove('active');
+      document.querySelectorAll('.editable-text').forEach(el => {
+        el.contentEditable = 'false';
+        el.classList.remove('editable-text', 'editing-now');
+        el.removeEventListener('focus', onEditFocus);
+        el.removeEventListener('blur', onEditBlur);
+      });
+      showToast('已退出编辑');
+    }
+
+    function toggleEditMode() {
+      if (document.body.classList.contains('edit-mode')) disableEditMode();
+      else enableEditMode();
+    }
+    window.toggleEditMode = toggleEditMode;
+
+    function onEditFocus(e) { e.target.classList.add('editing-now'); }
+    function onEditBlur(e) {
+      const el = e.target;
+      el.classList.remove('editing-now');
+      localStorage.setItem(getElementKey(el), el.innerHTML);
+      showToast('已保存 ✓');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('editorToast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => toast.classList.remove('show'), 1600);
+    }
+
+    // ============ ONE-TIME CLEANUP: remove any devtest_* photo entries ============
+    (function purgeDevTestPhotos() {
+      const FLAG = 'frina_couple_devtest_purged_v1';
+      // ?resetdev=1 forces re-purge (for cleaning up after a buggy dev injection)
+      if (location.search.indexOf('resetdev=1') >= 0) {
+        localStorage.removeItem(FLAG);
+      }
+      if (localStorage.getItem(FLAG)) return;
+      let removed = 0;
+      Object.keys(localStorage).forEach(k => {
+        if (k.startsWith('frina_couple_photo_devtest_')) {
+          localStorage.removeItem(k);
+          removed++;
+        }
+      });
+      if (removed) console.log('[couple] cleared', removed, 'devtest photo entries');
+      localStorage.setItem(FLAG, '1');
+    })();
+
+    function loadAllEdits() {
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(EDIT_PREFIX)) {
+          const rest = key.slice(EDIT_PREFIX.length);
+          // Skip if it doesn't belong to this page (defensive check)
+          if (rest.indexOf(getPageId() + '::') !== 0) return;
+          const sel = rest.slice(getPageId().length + 2);
+          try { const el = document.querySelector(sel); if (el) el.innerHTML = localStorage.getItem(key); }
+          catch (e) {}
+        }
+      });
+    }
+
+    function resetAllEdits() {
+      if (!confirm('确定要清除所有本地修改吗？此操作不可撤销。')) return;
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith(EDIT_PREFIX)) localStorage.removeItem(key);
+      });
+      location.reload();
+    }
+    window.resetAllEdits = resetAllEdits;
+
+    loadAllEdits();
+  </script>
+
+  <script>
+    // ============ COUPLE PHOTOS (left side) ============
+    (function setupCouplePhotos() {
+      const PHOTO_PREFIX = 'frina_couple_photo_';
+      const MAX_PHOTOS = 12;
+      const photosRoot = document.getElementById('couplePhotos');
+      const fileInput = document.getElementById('couplePhotoInput');
+      const lightbox = document.getElementById('coupleLightbox');
+      const lightboxImg = document.getElementById('coupleLightboxImg');
+      const lightboxClose = document.getElementById('coupleLightboxClose');
+      if (!photosRoot || !fileInput) return;
+
+      // 默认占位 polaroid（无图片时显示）
+      const DEFAULT_PLACEHOLDERS = [
+        { svg: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>', caption: 'morning coffee ♡' },
+        { svg: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7h18M5 7v13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7"/><path d="M9 7V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"/></svg>', caption: 'cooking together' },
+        { svg: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>', caption: 'a sunset walk' },
+        { svg: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m3 11 18-7-3 18-7-7-8-4z"/></svg>', caption: 'a small trip' }
+      ];
+
+      function escapeAttr(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      // 策展集：来自 data.js 的 FB_PHOTOS.couple
+      function getCuratedPhotos() {
+        const list = (window.FB_PHOTOS && window.FB_PHOTOS.couple) || [];
+        return list.map((p, i) => ({
+          id: 'curated_couple_' + i,
+          src: p.src || p,
+          caption: p.caption || '',
+          createdAt: 0,
+          curated: true,
+        }));
+      }
+
+      // 本地集：当前 origin localStorage 里的上传
+      function getLocalPhotos() {
+        const out = [];
+        try {
+          Object.keys(localStorage).forEach(k => {
+            if (k.startsWith(PHOTO_PREFIX)) {
+              const id = k.slice(PHOTO_PREFIX.length);
+              const data = localStorage.getItem(k);
+              if (data) out.push({ id, data, createdAt: parseInt(id.split('_')[0], 36) || 0 });
+            }
+          });
+          out.sort((a, b) => b.createdAt - a.createdAt);
+        } catch (e) {}
+        return out;
+      }
+
+      function totalBytes() {
+        return getLocalPhotos().reduce((s, p) => s + p.data.length * 0.75, 0);
+      }
+
+      function renderPolaroid(photo, isCurated) {
+        const div = document.createElement('div');
+        div.className = 'polaroid polaroid-uploaded';
+        div.dataset.photoId = photo.id;
+        const rotations = [-3, 2, -2, 4, -1, 3, -4, 1];
+        const rot = rotations[Math.floor(Math.random() * rotations.length)];
+        div.style.transform = `rotate(${rot}deg)`;
+        const src = photo.src || photo.data;
+        // 策展照片不显示 ×（不能在浏览器里删）
+        const removeBtn = isCurated ? '' : `<button type="button" class="polaroid-remove-btn" aria-label="删除照片">×</button>`;
+        div.innerHTML = `
+          <div class="polaroid-tape"></div>
+          <img class="polaroid-photo" src="${escapeAttr(src)}" alt="${escapeAttr(photo.caption || '')}" loading="lazy" />
+          ${removeBtn}
+        `;
+        div.querySelector('.polaroid-photo').addEventListener('click', () => {
+          lightboxImg.src = src;
+          lightbox.classList.add('show');
+        });
+        if (!isCurated) {
+          div.querySelector('.polaroid-remove-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!confirm('删除这张本地照片？')) return;
+            localStorage.removeItem(PHOTO_PREFIX + photo.id);
+            div.remove();
+            showToast('已删除');
+          });
+        }
+        photosRoot.insertBefore(div, fileInput);
+      }
+
+      function renderPlaceholder(item) {
+        const div = document.createElement('div');
+        div.className = 'polaroid polaroid-placeholder';
+        const rotations = [-3, 2, -2, 3];
+        const rot = rotations[DEFAULT_PLACEHOLDERS.indexOf(item) % rotations.length];
+        div.style.transform = `rotate(${rot}deg)`;
+        div.innerHTML = `
+          <div class="polaroid-tape"></div>
+          <div class="polaroid-photo">${item.svg}</div>
+          <div class="polaroid-caption">${escapeAttr(item.caption)}</div>
+        `;
+        photosRoot.insertBefore(div, fileInput);
+      }
+
+      function renderAll() {
+        // Wipe dynamic content but keep the file input
+        Array.from(photosRoot.querySelectorAll('.polaroid')).forEach(el => el.remove());
+        const curated = getCuratedPhotos();
+        const local = getLocalPhotos();
+        // 策展 + 本地合并，本地排前（最新）
+        const all = [...local, ...curated];
+        if (all.length === 0) {
+          DEFAULT_PLACEHOLDERS.forEach(renderPlaceholder);
+        } else {
+          local.forEach(p => renderPolaroid(p, false));
+          curated.forEach(p => renderPolaroid(p, true));
+          // 不补 placeholder 了 —— 策展 + 本地就是完整图集
+        }
+      }
+
+      function handleFiles(files) {
+        const list = Array.from(files).filter(f => f.type.startsWith('image/'));
+        if (list.length === 0) {
+          showToast('请选择图片文件');
+          return;
+        }
+        const uploaded = getUploadedPhotos();
+        const remaining = MAX_PHOTOS - uploaded.length;
+        if (list.length > remaining) {
+          showToast(`最多再上传 ${remaining} 张 ♡`);
+          return;
+        }
+        const newIds = [];
+        let pending = list.length;
+        list.forEach(file => {
+          if (file.size > 5 * 1024 * 1024) {
+            if (!confirm(`${file.name} 超过 5MB，可能保存失败。仍要继续吗？`)) {
+              if (--pending === 0 && newIds.length) {
+                renderAll();
+                showUploadToast(newIds);
+              }
+              return;
+            }
+          }
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const dataUrl = e.target.result;
+            const id = Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+            try {
+              localStorage.setItem(PHOTO_PREFIX + id, dataUrl);
+              newIds.push(id);
+            } catch (err) {
+              alert('保存失败 · localStorage 可能已满。请先删除一些旧照片。');
+            }
+            if (--pending === 0) {
+              renderAll();
+              if (newIds.length) showUploadToast(newIds);
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // 上传完成后顶部出现撤销条，5 秒内可一键回滚本次上传
+      function showUploadToast(ids) {
+        if (!ids || !ids.length) return;
+        const old = document.querySelector('.couple-upload-toast');
+        if (old) old.remove();
+        const toast = document.createElement('div');
+        toast.className = 'couple-upload-toast';
+        toast.innerHTML = `
+          <span>已添加 <strong>${ids.length}</strong> 张照片 ♡</span>
+          <button type="button" class="couple-upload-toast-undo" aria-label="撤销最近上传">撤销</button>
+        `;
+        document.body.appendChild(toast);
+        let expired = false;
+        function dismiss() {
+          if (expired) return;
+          expired = true;
+          toast.classList.remove('show');
+          setTimeout(() => { if (toast.parentNode) toast.remove(); }, 280);
+        }
+        toast.querySelector('.couple-upload-toast-undo').addEventListener('click', () => {
+          ids.forEach(id => localStorage.removeItem(PHOTO_PREFIX + id));
+          renderAll();
+          showToast('已撤销最近的上传');
+          dismiss();
+        });
+        setTimeout(dismiss, 5000);
+        requestAnimationFrame(() => toast.classList.add('show'));
+      }
+
+      // File input change
+      fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+        fileInput.value = '';
+      });
+
+      // Click on the upload input zone (but not on existing polaroids) triggers upload
+      photosRoot.addEventListener('click', (e) => {
+        if (e.target === fileInput) return;
+        if (e.target.closest('.polaroid')) return;
+        fileInput.click();
+      });
+
+      // Lightbox
+      lightbox.addEventListener('click', () => lightbox.classList.remove('show'));
+      lightboxClose.addEventListener('click', () => lightbox.classList.remove('show'));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') lightbox.classList.remove('show');
+      });
+
+      renderAll();
+    })();
+
+    // ============ COUPLE STORIES (right side, CRUD) ============
+    (function setupCoupleStories() {
+      const STORAGE_KEY = 'frina_couple_logs';
+      const listRoot = document.getElementById('coupleStoryList');
+      const addBtn = document.getElementById('coupleStoryAdd');
+      if (!listRoot || !addBtn) return;
+
+      // 4 篇默认 seed（仅当 data.js 和 localStorage 都没有内容时显示）
+      const SEED_LOGS = [
+        {
+          id: 'seed_couple_01',
+          date: '2026-09-28',
+          title: '他记得我喜欢桂花',
+          content: '昨天回家楼下闻到了桂花香。进门他递过来一个纸袋，\n我：\n"你又偷偷下楼了？"\n硕宁：\n"桂花季节只有两周。我不想让你错过。"\n……理工男的浪漫。',
+          createdAt: 1790832000000
+        },
+        {
+          id: 'seed_couple_02',
+          date: '2026-09-19',
+          title: '一起打的 Boss',
+          content: '周末晚上一起打《黑神话》，卡在一个 Boss 上反复死了十几次。\n硕宁：\n"这个 Boss 我研究了一下，第三阶段要左闪。"\n我：\n"你又偷偷查攻略！"\n硕宁：\n"……但是我们一起死了十几次啊。"',
+          createdAt: 1790745600000
+        },
+        {
+          id: 'seed_couple_03',
+          date: '2026-09-11',
+          title: '凌晨三点的对话',
+          content: '不知道为什么那天都睡不着，两人躺床上有一搭没一搭聊天。\n硕宁：\n"你最近最开心的是哪一天？"\n我：\n"应该是……今天。"\n硕宁：\n"我也是。"',
+          createdAt: 1790659200000
+        },
+        {
+          id: 'seed_couple_04',
+          date: '2026-09-02',
+          title: '他做的早餐',
+          content: '周末他比我早醒，下楼买了新鲜的桂花糕 + 豆浆。\n我醒来桌上已经摆好。\n硕宁：\n"你看起来就差这一口桂花糕。"\n……是的，他比我更懂我。',
+          createdAt: 1790572800000
+        }
+      ];
+
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function formatDateForInput(d) {
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
+      }
+
+      // 策展集：data.js 里 frina_couple_logs
+      function getCuratedLogs() {
+        const list = (window.FB_DATA && window.FB_DATA['frina_couple_logs']) || [];
+        return list.map(l => Object.assign({}, l, { curated: true }));
+      }
+      // 本地集：localStorage
+      function getLocalLogs() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return [];
+          const arr = JSON.parse(raw);
+          return Array.isArray(arr) ? arr.map(l => Object.assign({}, l, { curated: false })) : [];
+        } catch (e) { return []; }
+      }
+      function saveLocalLogs(list) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+        catch (e) { alert('保存失败 · localStorage 可能已满。'); }
+      }
+
+      // 合并：本地排前，curated 排后（按 createdAt 排）
+      function getAllLogs() {
+        const curated = getCuratedLogs();
+        const local = getLocalLogs();
+        return [...local, ...curated].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      }
+
+      function newId() {
+        return 'couple_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+      }
+
+      function renderStory(log) {
+        const div = document.createElement('div');
+        div.className = 'couple-story' + (log.curated ? ' couple-story-curated' : '');
+        div.dataset.logId = log.id;
+        // curated 显示只读标签；非 curated 可以编辑/删除
+        const readonlyBadge = log.curated ? '<span class="couple-story-curated-badge" title="策展内容（发布后所有人可见）">✦</span>' : '';
+        const delBtn = log.curated ? '' : '<button type="button" class="couple-story-delete" title="删除这篇" aria-label="删除">×</button>';
+        div.innerHTML = `
+          <input type="date" class="couple-story-date-input" value="${escapeHtml(log.date || '')}" />
+          <input type="text" class="couple-story-title-input" placeholder="给这篇起个标题" value="${escapeHtml(log.title || '')}" maxlength="80" />
+          <div class="couple-story-content" contenteditable="true" data-placeholder="写点什么吧……"></div>
+          ${readonlyBadge}
+          ${delBtn}
+        `;
+        const dateInput = div.querySelector('.couple-story-date-input');
+        const titleInput = div.querySelector('.couple-story-title-input');
+        const contentEl = div.querySelector('.couple-story-content');
+
+        contentEl.textContent = log.content || '';
+
+        function persist() {
+          if (log.curated) return; // curated 不可在浏览器里改
+          const local = getLocalLogs();
+          const idx = local.findIndex(l => l.id === log.id);
+          if (idx >= 0) {
+            local[idx].date = dateInput.value;
+            local[idx].title = titleInput.value.trim();
+            local[idx].content = contentEl.innerText.trim();
+            saveLocalLogs(local);
+          }
+        }
+        dateInput.addEventListener('change', persist);
+        titleInput.addEventListener('input', persist);
+        contentEl.addEventListener('input', persist);
+        contentEl.addEventListener('blur', persist);
+
+        if (!log.curated) {
+          const deleteBtn = div.querySelector('.couple-story-delete');
+          if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => {
+              if (!confirm('删除这一篇日志？')) return;
+              const local = getLocalLogs();
+              const filtered = local.filter(l => l.id !== log.id);
+              saveLocalLogs(filtered);
+              div.remove();
+            });
+          }
+        }
+
+        return div;
+      }
+
+      function renderAll() {
+        const all = getAllLogs();
+        // 首次访问（localStorage 完全没有这个 key 且 data.js 也没有）才种 4 篇 seed。
+        // 用户已经把日志全部删空时（key 存在但数组为空），不要再 seed，否则删了又复活。
+        const hasStorageKey = (() => { try { return localStorage.getItem(STORAGE_KEY) !== null; } catch (e) { return false; } })();
+        if (all.length === 0 && !hasStorageKey) {
+          saveLocalLogs(SEED_LOGS);
+          SEED_LOGS.forEach(l => l.curated = false);
+          SEED_LOGS.forEach(l => listRoot.appendChild(renderStory(l)));
+          return;
+        }
+        listRoot.innerHTML = '';
+        all.forEach(l => listRoot.appendChild(renderStory(l)));
+      }
+
+      addBtn.addEventListener('click', () => {
+        const today = formatDateForInput(new Date(Date.now() + 8 * 60 * 60 * 1000));
+        const newLog = {
+          id: newId(),
+          date: today,
+          title: '',
+          content: '',
+          createdAt: Date.now(),
+          curated: false,
+        };
+        const local = getLocalLogs();
+        local.push(newLog);
+        saveLocalLogs(local);
+        const el = renderStory(newLog);
+        listRoot.insertBefore(el, listRoot.firstChild);
+        el.querySelector('.couple-story-title-input').focus();
+      });
+
+      renderAll();
+    })();
+  </script></body>
+</html>
